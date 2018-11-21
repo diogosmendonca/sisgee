@@ -38,7 +38,7 @@
             <c:forEach items="${ ConvenioServices.listarConveniosVencer()}" var="b" >
                 <tr>
 
-                    <td><fmt:formatDate value="${not empty b.dataAssinatura ? b.dataAssinatura : null }" type = "date" dateStyle = "short"/> - <fmt:formatDate value="${b.getDataFinal()}" type = "date" dateStyle = "short"/></td>
+                    <td><fmt:formatDate value="${not empty b.dataRegistro ? b.dataRegistro : null }" type = "date" dateStyle = "short"/> - <fmt:formatDate value="${b.getDataFinal()}" type = "date" dateStyle = "short"/></td>
                     <td>${not empty b.numeroConvenio ? b.numeroConvenio : null }</td>
                     <td>${not empty b.empresa ? b.empresa.razaoSocial: b.pessoa.nome } </td>
                     <td>${not empty b.empresa ? b.empresa.cnpjEmpresa : b.pessoa.cpf }</td>

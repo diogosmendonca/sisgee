@@ -22,12 +22,14 @@ import br.cefetrj.sisgee.model.entity.Empresa;
 import br.cefetrj.sisgee.model.entity.Pessoa;
 import br.cefetrj.sisgee.view.utils.ServletUtils;
 import java.text.SimpleDateFormat;
+import java.time.Year;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 /**
  * Servlet responsável por incluir cadastro de empresa
+ *
  * @author Matheus
  */
 @WebServlet("/IncluirCadastroEmpresaServlet")
@@ -36,11 +38,14 @@ public class IncluirCadastroEmpresaServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 
-     * @param request um objeto HttpServletRequest que contém a solicitação feita pelo cliente do servlet.
-     * @param response um objeto HttpServletResponse que contém a resposta que o servlet envia para o cliente
+     *
+     * @param request um objeto HttpServletRequest que contém a solicitação
+     * feita pelo cliente do servlet.
+     * @param response um objeto HttpServletResponse que contém a resposta que o
+     * servlet envia para o cliente
      * @throws ServletException se o pedido do service não puder ser tratado
-     * @throws IOException se um erro de entrada ou saída for detectado quando o servlet manipula o pedido 
+     * @throws IOException se um erro de entrada ou saída for detectado quando o
+     * servlet manipula o pedido
      */
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response)
@@ -50,27 +55,28 @@ public class IncluirCadastroEmpresaServlet extends HttpServlet {
         ResourceBundle messages = ResourceBundle.getBundle("Messages", locale);
         String tipoPessoa = request.getParameter("tipoPessoa");
         boolean pessoaJuridica = true;
+        if (tipoPessoa.equals("nao")) {
+            pessoaJuridica = false;
+        }
+        //Dados Pessoa Jurídica
         String cnpjEmpresa = request.getParameter("cnpjEmpresa");
         String nomeEmpresa = request.getParameter("nomeEmpresa");
         String agenteIntegracao = request.getParameter("agenteIntegracao");
-        
-        Date dataAssinaturaConvenio = (Date)request.getAttribute("dataAssinaturaConvenioPessoa");
-        Date dataAssinaturaConvenioEmpresa = (Date)request.getAttribute("dataAssinaturaConvenioEmpresa");
-        
+        String numeroEmpresa = request.getParameter("numeroEmpresa");
+        String anoEmpresa = request.getParameter("anoEmpresa");
+        String dataAssinaturaConvenioEmpresa = request.getParameter("dataRegistroConvenioEmpresa");
         String emailEmpresa = request.getParameter("emailEmpresa");
         String telefoneEmpresa = request.getParameter("telefoneEmpresa");
         String contatoEmpresa = request.getParameter("contatoEmpresa");
-        
-       
+
+        //Dados Pessoa física
         String cpfPessoa = request.getParameter("cpfPessoa");
         String nomePessoa = request.getParameter("nomePessoa");
         String emailPessoa = request.getParameter("emailPessoa");
         String telefonePessoa = request.getParameter("telefonePessoa");
-        
-        if (tipoPessoa.equals("nao")) {
-            
-            pessoaJuridica = false;
-        }
+        String numeroPessoa = request.getParameter("numeroPessoa");
+        String anoPessoa = request.getParameter("anoPessoa");
+        String dataAssinaturaConvenioPessoa = request.getParameter("dataRegistroConvenioPessoa");
 
         Boolean ehAgente = Boolean.parseBoolean(agenteIntegracao);
 
@@ -78,7 +84,6 @@ public class IncluirCadastroEmpresaServlet extends HttpServlet {
         empresa.setContatoEmpresa(contatoEmpresa);
         empresa.setEmailEmpresa(emailEmpresa);
         empresa.setTelefoneEmpresa(telefoneEmpresa);
-        
 
         Pessoa pessoa = new Pessoa(nomePessoa, cpfPessoa.replaceAll("[.|/|-]", ""));
         pessoa.setEmail(emailPessoa);
@@ -89,7 +94,6 @@ public class IncluirCadastroEmpresaServlet extends HttpServlet {
             Logger lg = Logger.getLogger(IncluirCadastroEmpresaServlet.class);
             try {
                 EmpresaServices.incluirEmpresa(empresa);
-
             } catch (Exception e) {
                 msg = messages.getString("br.cefetrj.sisgee.incluir_cadastro_empresa_servlet.msg_ocorreu_erro");
                 request.setAttribute("msg", msg);
@@ -97,10 +101,9 @@ public class IncluirCadastroEmpresaServlet extends HttpServlet {
                 request.getRequestDispatcher("/form_empresa.jsp").forward(request, response);
                 lg.info(msg);
                 request.getRequestDispatcher("/index.jsp").forward(request, response);
-
             }
             try {
-                Convenio convenio = new Convenio(new SimpleDateFormat("yyyy").format(dataAssinaturaConvenioEmpresa),gerarNumeroConvenio(), dataAssinaturaConvenioEmpresa, empresa);
+                Convenio convenio = new Convenio(anoEmpresa, numeroEmpresa, new SimpleDateFormat("dd/MM/yyyy").parse(dataAssinaturaConvenioEmpresa), empresa);
                 convenio.setNumeroConvenio();
                 ConvenioServices.incluirConvenio(convenio);
                 msg = messages.getString("br.cefetrj.sisgee.incluir_cadastro_empresa_servlet.msg_convenio_cadastrado");
@@ -108,7 +111,6 @@ public class IncluirCadastroEmpresaServlet extends HttpServlet {
                 request.setAttribute("numeroConvenioGerado", convenio.getNumeroConvenio());
                 request.getRequestDispatcher("/form_empresa_sucesso.jsp").forward(request, response);
                 lg.info(msg);
-
             } catch (Exception e) {
                 msg = messages.getString("br.cefetrj.sisgee.incluir_cadastro_empresa_servlet.msg_ocorreu_erro");
                 request.setAttribute("msg", msg);
@@ -116,15 +118,12 @@ public class IncluirCadastroEmpresaServlet extends HttpServlet {
                 request.getRequestDispatcher("/form_empresa.jsp").forward(request, response);
                 lg.info(msg);
                 request.getRequestDispatcher("/index.jsp").forward(request, response);
-
             }
         } else {
             String msg = "";
             Logger lg = Logger.getLogger(IncluirCadastroEmpresaServlet.class);
-
             try {
                 PessoaServices.incluirPessoa(pessoa);
-
             } catch (Exception e) {
                 msg = messages.getString("br.cefetrj.sisgee.incluir_cadastro_empresa_servlet.msg_ocorreu_erro");
                 request.setAttribute("msg", msg);
@@ -132,13 +131,11 @@ public class IncluirCadastroEmpresaServlet extends HttpServlet {
                 request.getRequestDispatcher("/form_empresa.jsp").forward(request, response);
                 lg.info(msg);
                 request.getRequestDispatcher("/index.jsp").forward(request, response);
-
             }
             try {
-                
-                Convenio convenio = new Convenio(new SimpleDateFormat("yyyy").format(dataAssinaturaConvenio),gerarNumeroConvenio(), dataAssinaturaConvenio, pessoa);
+
+                Convenio convenio = new Convenio(anoPessoa, numeroPessoa, new SimpleDateFormat("dd/MM/yyyy").parse(dataAssinaturaConvenioPessoa), pessoa);
                 convenio.setNumeroConvenio();
-                
                 ConvenioServices.incluirConvenio(convenio);
                 msg = messages.getString("br.cefetrj.sisgee.incluir_cadastro_empresa_servlet.msg_convenio_cadastrado");
                 request.setAttribute("msg", msg);
@@ -157,16 +154,4 @@ public class IncluirCadastroEmpresaServlet extends HttpServlet {
         }
 
     }
-    
-    /**
-     * Metodo que gera um numero de convenio
-     * @return uma string
-     */
-    public static String gerarNumeroConvenio(){
-        
-        List<Convenio> x = ConvenioServices.listarConvenios();
-        String a = String.valueOf(x.size()+1);
-        return a;
-    }
-
 }

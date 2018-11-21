@@ -1,19 +1,6 @@
 package br.cefetrj.sisgee.view.termoaditivo;
 
 import br.cefetrj.sisgee.control.AlunoServices;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
-import java.util.ResourceBundle;
-
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import br.cefetrj.sisgee.control.ProfessorOrientadorServices;
 import br.cefetrj.sisgee.control.TermoAditivoServices;
 import br.cefetrj.sisgee.control.TermoEstagioServices;
@@ -24,31 +11,36 @@ import br.cefetrj.sisgee.model.entity.TermoEstagio;
 import br.cefetrj.sisgee.view.utils.ServletUtils;
 import br.cefetrj.sisgee.view.utils.UF;
 import br.cefetrj.sisgee.view.utils.ValidaUtils;
+import java.io.IOException;
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import jdk.nashorn.internal.runtime.ParserException;
 
-/**
- * Servlet para trazer os dados do banco para a tela de cadastro de Termo
- * Aditivo.
- *
- * @author Vinicius Paradellas
- * @since 1.1
- *
+/*
+ * @author Matheus Silva
  */
-@WebServlet("/FormTermoAditivoServlet")
-public class FormTermoAditivoServlet extends HttpServlet {
+@WebServlet("/FormAlterarTermoAditivo")
+public class FormAlterarTermoAditivoServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         Locale locale = ServletUtils.getLocale(request);
         ResourceBundle messages = ResourceBundle.getBundle("Messages", locale);
-        Aluno aluno = AlunoServices.buscarAlunoByMatricula(request.getParameter("alMatricula"));
-        final DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+        Aluno aluno = AlunoServices.buscarAlunoByMatricula(request.getParameter("matricula"));
+        String idAditivo = request.getParameter("idTermoAditivo");
         final Calendar cal = Calendar.getInstance();
 
         /**
@@ -84,6 +76,7 @@ public class FormTermoAditivoServlet extends HttpServlet {
          * campos de Professor
          */
         String idProfessorOrientador = request.getParameter("idProfessorOrientador");
+        System.out.println(idProfessorOrientador);
         String idTermoEstagio = request.getParameter("idTermoEstagio");
 
         /**
@@ -281,21 +274,19 @@ public class FormTermoAditivoServlet extends HttpServlet {
                                 } else {
                                     idProfessorMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.professor_invalido");
                                     isValid = false;
-
                                 }
                             } else {
                                 idProfessorMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.lista_professores_vazia");
                                 isValid = false;
-                                //TODO Fazer log
                                 System.out.println(idProfessorMsg);
                             }
                         } else {
                             idProfessorMsg = messages.getString(idProfessorMsg);
                             request.setAttribute("idProfessorMsg", idProfessorMsg);
                             isValid = false;
-                            //TODO Fazer log
                             System.out.println(idProfessorMsg);
                         }
+
                     }
                 } else {
                     idProfessorMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.professor_invalido");
@@ -431,6 +422,7 @@ public class FormTermoAditivoServlet extends HttpServlet {
                 String cepEnderecoMsg = "";
                 campo = "CEP";
                 tamanho = 15;
+
                 if (cepEnderecoTermoAditivo != null && !cepEnderecoTermoAditivo.equals("")) {
                     if (cepEnderecoMsg.trim().isEmpty()) {
                         cepEnderecoMsg = ValidaUtils.validaTamanho(campo, tamanho, cepEnderecoTermoAditivo);
@@ -546,10 +538,12 @@ public class FormTermoAditivoServlet extends HttpServlet {
         }
 
         try {
+            System.out.print("Chegou na tentativa de att :)");
             if (isValid) {
 
                 if (showVigencia != null && showVigencia.equals("sim")) {
                     TermoAditivo termoAditivo1 = new TermoAditivo();
+                    termoAditivo1.setIdTermoAditivo(Integer.parseInt(idAditivo));
                     termoAditivo1.setDataFimTermoAditivo(dataFim);
                     termoAditivo1.setTipoAditivo("Vigência");
                     termoAditivo1.setDataCadastramentoTermoAditivo((cal.getTime()));
@@ -561,12 +555,13 @@ public class FormTermoAditivoServlet extends HttpServlet {
                         }
                     }
                     termoAditivo1.setTermoEstagio(aluno.getTermoEstagios().get(counter));
-                    TermoAditivoServices.incluirTermoAditivo(termoAditivo1);
+                    TermoAditivoServices.atualizarTermoAditivo(termoAditivo1);
                 }
 
                 if (showCargaHoraria != null && showCargaHoraria.equals("sim")) {
                     System.out.println("Entrou no CargaHorária");
                     TermoAditivo termoAditivo2 = new TermoAditivo();
+                    termoAditivo2.setIdTermoAditivo(Integer.parseInt(idAditivo));
                     termoAditivo2.setCargaHorariaTermoAditivo(cargaHoraria);
                     termoAditivo2.setTipoAditivo("Carga Horária");
                     termoAditivo2.setDataCadastramentoTermoAditivo((cal.getTime()));
@@ -578,11 +573,12 @@ public class FormTermoAditivoServlet extends HttpServlet {
                     }
                     termoAditivo2.setTermoEstagio(aluno.getTermoEstagios().get(counter));
 
-                    TermoAditivoServices.incluirTermoAditivo(termoAditivo2);
+                    TermoAditivoServices.atualizarTermoAditivo(termoAditivo2);
                 }
-
+                System.out.println("Chegou no prof");
                 if (showProfessor != null && showProfessor.equals("sim")) {
                     TermoAditivo termoAditivo3 = new TermoAditivo();
+                    termoAditivo3.setIdTermoAditivo(Integer.parseInt(idAditivo));
                     termoAditivo3.setProfessorOrientador(professorOrientador);
                     termoAditivo3.setTipoAditivo("Professor Orientador");
 
@@ -594,11 +590,13 @@ public class FormTermoAditivoServlet extends HttpServlet {
                         }
                     }
                     termoAditivo3.setTermoEstagio(aluno.getTermoEstagios().get(counter));
-                    TermoAditivoServices.incluirTermoAditivo(termoAditivo3);
+                    TermoAditivoServices.atualizarTermoAditivo(termoAditivo3);
                 }
 
                 if (showValorBolsa != null && showValorBolsa.equals("sim")) {
                     TermoAditivo termoAditivo4 = new TermoAditivo();
+
+                    termoAditivo4.setIdTermoAditivo(Integer.parseInt(idAditivo));
                     termoAditivo4.setValorBolsaTermoAditivo(valor);
                     termoAditivo4.setTipoAditivo("Valor da Bolsa");
 
@@ -610,11 +608,12 @@ public class FormTermoAditivoServlet extends HttpServlet {
                         }
                     }
                     termoAditivo4.setTermoEstagio(aluno.getTermoEstagios().get(counter));
-                    TermoAditivoServices.incluirTermoAditivo(termoAditivo4);
+                    TermoAditivoServices.atualizarTermoAditivo(termoAditivo4);
                 }
 
                 if (showLocal != null && showLocal.equals("sim")) {
                     TermoAditivo termoAditivo5 = new TermoAditivo();
+                    termoAditivo5.setIdTermoAditivo(Integer.parseInt(idAditivo));
                     termoAditivo5.setEnderecoTermoAditivo(enderecoTermoAditivo);
                     termoAditivo5.setNumeroEnderecoTermoAditivo(numeroEnderecoTermoAditivo);
                     termoAditivo5.setComplementoEnderecoTermoAditivo(complementoEnderecoTermoAditivo);
@@ -623,7 +622,6 @@ public class FormTermoAditivoServlet extends HttpServlet {
                     termoAditivo5.setEstadoEnderecoTermoAditivo(estadoEnderecoTermoAditivo);
                     termoAditivo5.setCepEnderecoTermoAditivo(cepEnderecoTermoAditivo);
                     termoAditivo5.setTipoAditivo("Local Estágio");
-
                     termoAditivo5.setDataCadastramentoTermoAditivo((cal.getTime()));
                     int counter = 0;
                     for (TermoEstagio term : aluno.getTermoEstagios()) {
@@ -632,12 +630,14 @@ public class FormTermoAditivoServlet extends HttpServlet {
                         }
                     }
                     termoAditivo5.setTermoEstagio(aluno.getTermoEstagios().get(counter));
-                    TermoAditivoServices.incluirTermoAditivo(termoAditivo5);
+                    TermoAditivoServices.atualizarTermoAditivo(termoAditivo5);
 
                 }
                 if (showSupervisor != null && showSupervisor.equals("sim")) {
                     System.out.println("Entrou no Supervisor");
                     TermoAditivo termoAditivo6 = new TermoAditivo();
+
+                    termoAditivo6.setIdTermoAditivo(Integer.parseInt(idAditivo));
                     termoAditivo6.setEobrigatorio(eobrigatorio);
                     termoAditivo6.setNomeSupervisor(nomeSupervisor);
                     termoAditivo6.setCargoSupervisor(cargoSupervisor);
@@ -651,10 +651,10 @@ public class FormTermoAditivoServlet extends HttpServlet {
                         }
                     }
                     termoAditivo6.setTermoEstagio(aluno.getTermoEstagios().get(counter));
-                    TermoAditivoServices.incluirTermoAditivo(termoAditivo6);
+                    TermoAditivoServices.atualizarTermoAditivo(termoAditivo6);
                 }
 
-                String registroAditivoConcluido = messages.getString("br.cefetrj.sisgee.incluir_termo_aditivo_servlet.msg_registroAditivoConcluido");
+                String registroAditivoConcluido = messages.getString("br.cefetrj.sisgee.alterar_termo_aditivo_servlet.msg_AlteracaoAditivoConcluido");
                 request.setAttribute("msg", registroAditivoConcluido);
 
                 request.getRequestDispatcher("/index.jsp").forward(request, response);
@@ -728,26 +728,26 @@ public class FormTermoAditivoServlet extends HttpServlet {
                  * Dados de Professor
                  */
                 request.setAttribute("pfnomeprofessor", termoEstagio.getProfessorOrientador());
-
                 request.setAttribute("termoEstagio", termoEstagio);
-
                 request.setAttribute("showVigencia", showVigencia);
                 request.setAttribute("showCargaHoraria", showCargaHoraria);
                 request.setAttribute("showProfessor", showProfessor);
                 request.setAttribute("showValorBolsa", showValorBolsa);
                 request.setAttribute("showLocal", showLocal);
                 request.setAttribute("showSupervisor", showSupervisor);
-
+                request.setAttribute("professores", professores);
+                request.setAttribute("idTermoAditivo", idAditivo);
+                request.setAttribute("idTermoEstagio", termoEstagio.getIdTermoEstagio());
                 msg += "Alguns campos precisam de atenção";
                 String aditivo = "sim";
                 //request = carregarListas(request);
                 request.setAttribute("msg", msg);
                 request.setAttribute("aditivo", aditivo);
-                request.setAttribute("professores", professores);
-
-                request.getRequestDispatcher("/form_termo_adciona_aditivo.jsp").forward(request, response);
+                request.getRequestDispatcher("/form_termo_edita_aditivo.jsp").forward(request, response);
             }
         } catch (Exception e) {
+            System.out.print("Deu ruim.");
+            request.getRequestDispatcher("erro.jsp").forward(request, response);
         }
     }
 }

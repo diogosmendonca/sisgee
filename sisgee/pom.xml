@@ -5,7 +5,7 @@
 	<artifactId>sisgee</artifactId>
 	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>sisgee Maven Webapp</name>
+	<name>sisgee Roxo - final Maven Webapp</name>
 	<url>http://maven.apache.org</url>
 	<dependencies>
 		<dependency>

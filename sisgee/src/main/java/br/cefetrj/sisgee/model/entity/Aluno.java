@@ -1,7 +1,7 @@
 package br.cefetrj.sisgee.model.entity;
 
 import java.util.List;
-
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -28,16 +28,16 @@ public class Aluno {
 	@Column(length = 100, nullable = false, unique = true)
 	private String matricula;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
 	private Pessoa pessoa;
 
 	@Column(length = 50)
 	private String tipoAluno;            
         
-	@OneToOne(fetch = FetchType.EAGER)
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
 	private Curso curso;
 
-	@OneToMany(mappedBy = "aluno")
+	@OneToMany(mappedBy = "aluno", cascade = CascadeType.MERGE)
 	private List<TermoEstagio> termoEstagios;
 
 	public Aluno() {}

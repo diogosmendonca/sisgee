@@ -83,7 +83,7 @@ public class BuscaAlunoServlet extends HttpServlet {
 
                             if(termos != null && !termos.isEmpty()){
                                 if(((termoAditivo == null || termoAditivo.isEmpty()) && (aluno.getTermoEstagios().get(aluno.getTermoEstagios().size()-1).getDataRescisaoTermoEstagio() == null &&   aluno.getTermoEstagios().get(aluno.getTermoEstagios().size()-1).getDataFimTermoEstagio().compareTo(cal.getTime())>0)) || ((termoAditivo == null || termoAditivo.isEmpty()) && 
-                                   ( aluno.getTermoEstagios().get(aluno.getTermoEstagios().size()-1).getDataRescisaoTermoEstagio().compareTo(cal.getTime()) > 0) 
+                                   ( aluno.getTermoEstagios().get(aluno.getTermoEstagios().size()-1).getDataRescisaoTermoEstagio() != null && aluno.getTermoEstagios().get(aluno.getTermoEstagios().size()-1).getDataRescisaoTermoEstagio().compareTo(cal.getTime()) > 0) 
                                         ) ){
                                     alunoMsg4 = "br.cefetrj.sisgee.form_termo_estagio_servlet.msg_aluno_has_termo_aberto";
                                     alunoMsg5 = "br.cefetrj.sisgee.resources.form.msg_aluno_has_termo_aberto2";

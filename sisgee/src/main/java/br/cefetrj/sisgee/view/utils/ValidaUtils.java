@@ -343,4 +343,13 @@ public class ValidaUtils {
         }
         return msg;
     }
+    
+    public static String validaPositivo(String nomeCampo, String param){
+        String msg = "";
+        int valor = Integer.parseInt(param);
+        if(valor<=0){
+            msg = "br.cefetrj.sisgee.valida_utils.msg_valida_positivo";
+        }
+        return msg;
+    }
 }

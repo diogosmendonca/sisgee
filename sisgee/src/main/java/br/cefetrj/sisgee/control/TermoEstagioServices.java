@@ -108,18 +108,49 @@ public class TermoEstagioServices {
 		}
 
 	}
-	
-	public static void alterarTermoEstagio(TermoEstagio termoEstagio) {
-		
-		GenericDAO<TermoEstagio> termoEstagioDao = PersistenceManager.createGenericDAO(TermoEstagio.class);		
-		
-		try {
-			PersistenceManager.getTransaction().begin();
-			termoEstagioDao.alterar(termoEstagio);
+        
+        /**
+	 * Método para excluir um termo de estagio no banco
+	 * @param termoEstagio Termo estagio a excluido
+	 */
+        public static void excluirTermoEstagio(TermoEstagio termoEstagio) throws Exception{
+                
+                GenericDAO<TermoEstagio> termoEstagioDao = PersistenceManager.createGenericDAO(TermoEstagio.class);
+                if (termoEstagio.getTermosAditivos() != null && termoEstagio.getTermosAditivos().size() >= 1) {
+                System.out.println("Existe Termo Aditivo");
+                throw new Exception();
+            }
+                
+		PersistenceManager.getTransaction().begin();
+		try{
+			termoEstagioDao.excluir(termoEstagio);
 			PersistenceManager.getTransaction().commit();
-		} catch (Exception e) {			
-			e.printStackTrace();
+		}catch(Exception e){
+			//TODO remover saída do console
+			System.out.println(e);
 			PersistenceManager.getTransaction().rollback();
+		}
+        }
+	
+        
+        
+	public static void alterarTermoEstagio(TermoEstagio termoEstagio) throws Exception{
+		
+		GenericDAO<TermoEstagio> termoEstagioDao = PersistenceManager.createGenericDAO(TermoEstagio.class);
+                if (termoEstagio.getTermosAditivos() != null && termoEstagio.getTermosAditivos().size() >= 1) {
+                System.out.println("Existe Termo Aditivo");
+                throw new Exception();
+            }else{
+                    System.out.println("Não existe termo aditivo");//TODO excluir saida do console
+                }
+             
+		try {
+                    PersistenceManager.getTransaction().begin();
+                    termoEstagioDao.alterar(termoEstagio);
+                    PersistenceManager.getTransaction().commit();
+		} catch (Exception e) {			
+                    e.printStackTrace();
+                    PersistenceManager.getTransaction().rollback();
 		}
 	}
 }

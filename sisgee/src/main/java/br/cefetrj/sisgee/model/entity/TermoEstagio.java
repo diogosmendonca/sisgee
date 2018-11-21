@@ -60,13 +60,13 @@ public class TermoEstagio {
 	@Column(length = 150, nullable = false)
 	private String bairroEnderecoTermoEstagio;
 
-	@Column(length = 15, nullable = false)
+	@Column(length = 15)
 	private String cepEnderecoTermoEstagio;
 
 	@Column(length = 150, nullable = false)
 	private String cidadeEnderecoTermoEstagio;
 
-	@Column(length = 2, nullable = false)
+	@Column(length = 2)
 	private String estadoEnderecoTermoEstagio;
 
 	@Column(nullable = false)

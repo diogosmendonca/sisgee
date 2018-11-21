@@ -19,6 +19,8 @@
   "dependencies": {
     "bootstrap": "4.0.0-beta.2",
     "bootstrap-datepicker": "^1.7.1",
+    "bootstrap-select": "^1.13.2",
+    "jquery-editable-select": "^2.2.5",
     "jquery-mask-plugin": "^1.14.13",
     "popper.js": "^1.12.3"
   }

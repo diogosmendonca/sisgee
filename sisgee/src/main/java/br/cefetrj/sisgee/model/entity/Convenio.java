@@ -15,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
 
 /**
  * Classe referente ao convênio
@@ -29,7 +30,7 @@ public class Convenio implements Serializable {
     @GeneratedValue
     private Integer idConvenio;
 
-    @Column(length = 10, nullable = false)
+    @Column(length = 11, nullable = false)
     private String numeroConvenio;
     
     @Column(length = 6, nullable = false)
@@ -38,8 +39,10 @@ public class Convenio implements Serializable {
     @Column(length = 4, nullable = false)
     private String ano;
 
+    //alteração de dataAssinatura para dataRegistro
     @Column(nullable = false)
-    private Date dataAssinatura;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date dataRegistro;
 
     @ManyToOne(fetch = FetchType.EAGER)
     private Empresa empresa;
@@ -48,7 +51,7 @@ public class Convenio implements Serializable {
     @JoinColumn()
     private Pessoa pessoa;
 
-    @OneToMany(mappedBy = "convenio")
+    @OneToMany(mappedBy = "convenio", fetch = FetchType.EAGER)
     private List<TermoEstagio> termoEstagios;
 
     public Convenio() {
@@ -57,21 +60,26 @@ public class Convenio implements Serializable {
     //construtor so com numero
     public Convenio(String numeroConvenio) {
         this.numeroConvenio = numeroConvenio;
-    }     
+    }  
     
-    public Convenio(String ano, String numero, Date dataAssinatura, Empresa empresa) {
+    //construtor so com numero
+    public Convenio(int idConvenio) {
+        this.idConvenio = idConvenio;
+    }  
+    
+    public Convenio(String ano, String numero, Date dataRegistro, Empresa empresa) {
         this.ano=ano;
         this.numero=numero;
-        this.dataAssinatura = dataAssinatura;
+        this.dataRegistro = dataRegistro;
         this.empresa = empresa;
         this.pessoa=null;
 
     }
 
-    public Convenio(String ano, String numero, Date dataAssinatura, Pessoa pessoa) {
+    public Convenio(String ano, String numero, Date dataRegistro, Pessoa pessoa) {
         this.ano=ano;
         this.numero=numero;
-        this.dataAssinatura = dataAssinatura;
+        this.dataRegistro = dataRegistro;
         this.pessoa = pessoa;
         this.empresa= null;
 
@@ -92,21 +100,21 @@ public class Convenio implements Serializable {
     }
 
     
-    public Date getDataAssinatura() {
-        return dataAssinatura;
+    public Date getDataRegistro() {
+        return dataRegistro;
     }
 
     public Date getDataFinal(){
         Calendar cal = Calendar.getInstance();
-        cal.setTime(this.dataAssinatura);
+        cal.setTime(this.dataRegistro);
         cal.add(Calendar.YEAR, 5);
         return cal.getTime();
         
     }    
     
-    public void setDataAssinatura(Date dataAssinatura) {
-        this.dataAssinatura = dataAssinatura;
-        this.ano = new SimpleDateFormat("yyyy").format(dataAssinatura);
+    public void setDataRegistro(Date dataRegistro) {
+        this.dataRegistro = dataRegistro;
+        this.ano = new SimpleDateFormat("yyyy").format(dataRegistro);
     }
 
     public Pessoa getPessoa() {
@@ -157,6 +165,10 @@ public class Convenio implements Serializable {
     public void setTermoEstagio(List<TermoEstagio> termoEstagios) {
         this.termoEstagios = termoEstagios;
     }
+
+    public void setAno(String ano) {
+        this.ano = ano;
+    }
     
     /**
      * Método que retorna o nome seja da pessoa fisica ou juridica
@@ -180,9 +192,7 @@ public class Convenio implements Serializable {
         }
         else{
             return empresa.getCnpjEmpresa();
-        }    
-        
-         
+        }
     }
     @Override
     public int hashCode() {
