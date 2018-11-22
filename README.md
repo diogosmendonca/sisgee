@@ -23,4 +23,4 @@ mvn install
 
 Pra efeito de testes, deem drop em QUALQUER database do sisgee previamente criada pois fizemos alterações em estruturas de tabelas e caso estas alterações não estejam presentes, a aplicação apresentará falhas.
 
-###########################################################################################################
+############################################################################################
