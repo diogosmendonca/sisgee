@@ -188,11 +188,18 @@ public class ConvenioServices {
      * @param empresa
      * @param pessoa
      */
-    public static void excluirConvenio(Convenio convenio, Empresa empresa, Pessoa pessoa) throws Exception {
+     public static void excluirConvenio(Convenio convenio, Empresa empresa, Pessoa pessoa) throws Exception {
 
         GenericDAO<Convenio> convenioDao = PersistenceManager.createGenericDAO(Convenio.class);
         GenericDAO<Empresa> empresaDao = PersistenceManager.createGenericDAO(Empresa.class);
         GenericDAO<Pessoa> pessoaDao = PersistenceManager.createGenericDAO(Pessoa.class);
+         System.out.println(convenio.getTermoEstagio());
+          System.out.println(convenio.getTermoEstagios());
+        if (convenio.getTermoEstagios() != null && convenio.getTermoEstagio().size() >= 1) {
+            System.out.println("Existe Termo de Estagio");
+            throw new Exception();
+        }
+
         boolean ehAluno = false;
         for (Aluno aluno : AlunoServices.listarAlunos()) {
             if (aluno.getPessoa().equals(pessoa)) {

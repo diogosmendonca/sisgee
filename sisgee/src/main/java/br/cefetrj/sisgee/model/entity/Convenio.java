@@ -51,7 +51,7 @@ public class Convenio implements Serializable {
     @JoinColumn()
     private Pessoa pessoa;
 
-    @OneToMany(mappedBy = "convenio", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "convenio")
     private List<TermoEstagio> termoEstagios;
 
     public Convenio() {

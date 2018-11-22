@@ -70,11 +70,11 @@
                                 <td>${ not empty b.empresa ? b.empresa.cnpjEmpresa : b.pessoa.cpf }</td>
                                 <td><a class="btn btn-sm btn-primary btn-block" href="RenovarConvenioServlet?convenio=${b.numeroConvenio}" ><fmt:message key="br.cefetrj.sisgee.form_empresa.msg_renovar" /></td>
                                 <c:choose>
-                                    <c:when test="${b.getTermoEstagios().size() < 1}">
-                                        <td><button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#${ not empty b.empresa ? b.empresa.cnpjEmpresa : b.pessoa.cpf }"><fmt:message key="br.cefetrj.sisgee.31" /></button></td>
+                                    <c:when test="${not empty b.getTermoEstagios()}">
+                                        <td><a class="btn btn-sm btn-primary" type="button" href="ExcluirConvenioServlet?ncon=${not empty b.numeroConvenio ? b.numeroConvenio : null }&nome=${ not empty b.empresa ? b.empresa.razaoSocial: b.pessoa.nome }&codigo=${ not empty b.empresa ? b.empresa.cnpjEmpresa : b.pessoa.cpf }"><fmt:message key="br.cefetrj.sisgee.31" /></a></td>
                                         </c:when>
                                         <c:otherwise>
-                                        <td><a class="btn btn-sm btn-primary" type="button" href="Alterar_ExcluirConvenioNaoPermitido"><fmt:message key="br.cefetrj.sisgee.31" /></a></td>
+                                        <td><button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#${ not empty b.empresa ? b.empresa.cnpjEmpresa : b.pessoa.cpf }"><fmt:message key="br.cefetrj.sisgee.31" /></button></td>
                                         </c:otherwise>
                                     </c:choose>
                                     <c:choose>
@@ -131,104 +131,6 @@
 
 
 
-
-
-
-
-
-
-
-        <!--
-
-
-
-        <div class="modal fade myModal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-
-            <div class="modal-dialog modal-lg" role="document">
-
-                <div class="modal-content">
-
-                    <div class="modal-header">
-
-                        <h5 class="modal-title" id="myModalLabel"> Tabela de Convênios</h5>
-
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-
-                            <span aria-hidden="true">&times;</span>
-
-                        </button>
-
-                    </div>
-
-                    <div class="modal-body"> 
-
-                        <table id="myTable" class="table table-info table-bordered container table-hover table-striped " >
-
-                            <thead>
-
-                                <tr>
-
-
-
-
-
-                                    <th scope="col">Número do Convênio</th>
-
-                                    <th scope="col">Razão Social/Nome</th>
-
-                                    <th scope="col">CNPJ/CPF</th>
-
-                                    <th scope="col">Renovar</th>
-
-
-
-                                </tr>
-
-                            </thead>
-
-
-
-
-
-                            <tr>
-
-
-
-                                <td>${filtro.numeroConvenio}</td>
-
-                                <td>${filtro.empresa.razaoSocial}${filtro.pessoa.nome}</td>
-
-                                <td>${filtro.empresa.cnpjEmpresa} ${filtro.pessoa.cpf}</td>
-
-                                <td ><center><button type="submit" class="ml-2 btn btn-primary" >Clique para Renovar</button></center></td>
-
-
-
-
-
-                            </tr>
-
-                        </table>
-
-
-
-                    </div>
-
-                    <div class="modal-footer">
-
-                        <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-
-        
-        -->
         <script>
             function informacao() {
                 alert("Este Convênio não pode ser alterado pois possui ao menos um termo de estágio associado.");

@@ -41,17 +41,18 @@ public class SugestaoNumeroAnoConvenioServlet extends HttpServlet {
 
     private String gerarNumeroConvenio() {
         List<Convenio> x = ConvenioServices.listarConvenios();
-        int sugestao = x.size() + 1;
-        boolean numValido = true;
-        do {
-            numValido = true;
-            Convenio conv = ConvenioServices.buscarConvenioByNumeroConvenio(Integer.toString(sugestao));
-            if (conv != null) {
-                numValido = false;
-                sugestao++;
-            }
-        } while (!numValido);
-        String numero = String.valueOf(sugestao);
-        return numero;
+        int maiorNumero = 0;
+        for (Convenio convenio : x) {
+            int numeroAtual = Integer.parseInt(convenio.getNumero());
+            if(numeroAtual > maiorNumero){
+                maiorNumero = numeroAtual;
+            } 
+        }
+        maiorNumero++;
+        System.out.println("ultimoNumero = " + maiorNumero);//TODO apagar saída do console
+        String a = String.valueOf(maiorNumero);
+        System.out.println("a = " + a);//TODO apagar saída do console
+        return a;
+        
     }
 }
