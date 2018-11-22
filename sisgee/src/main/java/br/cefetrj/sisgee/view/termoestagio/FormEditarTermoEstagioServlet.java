@@ -174,7 +174,7 @@ public class FormEditarTermoEstagioServlet extends HttpServlet {
         termoEstagio.setCidadeEnderecoTermoEstagio(cidadeEnderecoTermoEstagio);
         termoEstagio.setEstadoEnderecoTermoEstagio(estadoEnderecoTermoEstagio);
         termoEstagio.setEEstagioObrigatorio(eEstagioObrigatorio);
-        termoEstagio.setAluno(alunoAux);
+        //termoEstagio.setAluno(alunoAux);
         termoEstagio.setConvenio(convenioAux);
         termoEstagio.setNomeAgenciada(nomeAgenciada);
         termoEstagio.setProfessorOrientador(profAux);

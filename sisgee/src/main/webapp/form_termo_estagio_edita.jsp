@@ -62,7 +62,7 @@
                 <input type="hidden" id="unidadeCursoAluno" value="${aluno.getCurso().getCampus()}" />
                 
                 
-                 <fieldset class="form-group dadosAluno">
+                <fieldset class="form-group dadosAluno" disabled>
                     <%@include file="import_busca_aluno.jspf"%>
                 </fieldset>
                 
@@ -90,7 +90,7 @@
                                 <label for="nomeConvenio"><fmt:message key = "br.cefetrj.sisgee.resources.form.nomeConvenio"/></label>
                                 <div class="input-group">
                                     <input type="hidden" class="form-control nomeConvenio nomeConvenio"  id="nomeConvenio1" name="nomeConvenio1" value="${ cvNome }">                      
-                                    <input type="text" class="form-control ${ not empty nomeConvenioMsg ? 'is-invalid': 'is-valid' } nomeConvenio" placeholder="<fmt:message key="br.cefetrj.sisgee.resources.form.placeholder_nomeConvenio"/>" id="nomeConvenio" name="nomeConvenio" maxlength="100"  value="${ cvNome }" readonly >                            
+                                    <input type="text" class="form-control ${ not empty nomeConvenioMsg ? 'is-invalid': 'is-valid' } nomeConvenio" placeholder="<fmt:message key="br.cefetrj.sisgee.resources.form.placeholder_nomeConvenio"/>" id="nomeConvenio" name="nomeConvenio" maxlength="100"  value="${cvNome}">                            
                                     <span class="input-group-btn">
                                         <button class="btn btn-primary" type="button" id="btnBuscarNomeConvenio"><fmt:message key = "br.cefetrj.sisgee.resources.form.buscar"/></button>
                                     </span>   
