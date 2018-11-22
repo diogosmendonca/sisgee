@@ -18,3 +18,9 @@ mvn install
 4.Implante o sistema no tomcat movendo o arquivo sisgee.war para a pasta <instalacao do tomcat>/webapps
 
 5.Inicie o tomcat e acesse a url no browser http://localhost:8000/sisgee/
+
+############################   Importante - Atualização especial do Grupo Roxo ############################
+
+Pra efeito de testes, deem drop em QUALQUER database do sisgee previamente criada pois fizemos alterações em estruturas de tabelas e caso estas alterações não estejam presentes, a aplicação apresentará falhas.
+
+###########################################################################################################
