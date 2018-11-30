@@ -37,12 +37,9 @@ public class ExcluirTermoEstagioServlet extends HttpServlet {
         ResourceBundle messages = ResourceBundle.getBundle("Messages", locale);
 
         String ide = req.getParameter("ide");
-        String matricula = req.getParameter("matricula");
-        Aluno aluno = null;
         TermoEstagio termoEstagio = null;
 
-        if (matricula != null && ide != null) {
-            aluno = AlunoServices.buscarAlunoByMatricula(matricula);
+        if (ide != null) {
             termoEstagio = TermoEstagioServices.buscarTermoEstagio(Integer.parseInt(ide));
 
         }
