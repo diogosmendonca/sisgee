@@ -36,17 +36,10 @@ public class ExcluirTermoAditivoServlet extends HttpServlet {
             throws ServletException, IOException {
         Locale locale = ServletUtils.getLocale(req);
 	ResourceBundle messages = ResourceBundle.getBundle("Messages", locale);
-        
-        String ide = req.getParameter("ide");
         String ida = req.getParameter("ida");
-        String matricula = req.getParameter("matricula");
-        Aluno aluno = null;
-        TermoEstagio termoEstagio = null;
         TermoAditivo termoAditivo = null;
         
-        if(matricula!=null && ide!=null && ida!=null){
-            aluno=AlunoServices.buscarAlunoByMatricula(matricula);
-            termoEstagio=TermoEstagioServices.buscarTermoEstagio(Integer.parseInt(ide));
+        if(ida!=null){
             termoAditivo=TermoAditivoServices.buscarTermoAditivo(Integer.parseInt(ida));
         }
         
