@@ -182,7 +182,7 @@
                     </div>
                     <div class="form-group col-md-6">
                         <label for="dataFimTermoEstagio"><fmt:message key = "br.cefetrj.sisgee.resources.form.dataTermino"/></label>
-                        <input type="text" class="form-control col-sm-4 ${ not empty dataFimMsg ? 'is-invalid': not empty periodoMsg ? 'is-invalid' : 'is-valid' }" id="dataFimTermoEstagio"   name="dataFimTermoEstagio" value="${showVigencia eq 'sim' ? '' : vidataFimTermoEstagio }" ${ showVigencia eq 'sim' ? '' :'disabled'} >
+                        <input type="text" class="form-control col-sm-4 ${ not empty dataFimMsg ? 'is-invalid': not empty periodoMsg ? 'is-invalid' : 'is-valid' }" id="dataFimTermoEstagio"   name="dataFimTermoEstagio" value="${vidataFimTermoEstagio}" ${ showVigencia eq 'sim' ? '' :'disabled'} >
                         <c:if test="${ not empty dataFimMsg }">
                             <div class="invalid-feedback">${ dataFimMsg }</div>
                         </c:if>
@@ -197,7 +197,7 @@
                 <div class="form-row">
                     <div class="form-group col-md-4">
                         <label for="cargaHorariaTermoEstagio"><fmt:message key = "br.cefetrj.sisgee.resources.form.horasDia"/></label>
-                        <input type="text" required="required" maxlength="1" pattern="[1-6]+$" class="form-control col-sm-2 ${ not empty cargaHorariaMsg ? 'is-invalid': 'is-valid' }" id="cargaHorariaTermoEstagio" name="cargaHorariaTermoEstagio" value="${ showCargaHoraria eq 'sim' ? '' :cacargaHorariaTermoEstagio }" ${ showCargaHoraria eq 'sim' ? '' :'disabled'}>
+                        <input type="text" required="required" maxlength="1" pattern="[1-6]+$" class="form-control col-sm-2 ${ not empty cargaHorariaMsg ? 'is-invalid': 'is-valid' }" id="cargaHorariaTermoEstagio" name="cargaHorariaTermoEstagio" value="${cacargaHorariaTermoEstagio}" ${ showCargaHoraria eq 'sim' ? '' :'disabled'}>
                         <c:if test="${ not empty cargaHorariaMsg }">
                             <div class="invalid-feedback">${ cargaHorariaMsg }</div>
                         </c:if>
@@ -336,10 +336,21 @@
                 <div class="form-group col-md-8">
                     <label for="idProfessorOrientador"></label>
                     <select name="nomeProfessorOrientador" id="nomeProfessorOrientador" class="form-control ${ not empty idProfessorMsg ? 'is-invalid': not empty idProfessorMsg ? 'is-invalid' : 'is-valid' }" >
-                        <option value="" selected>${ showProfessor eq 'sim' ? '' : pfnomeprofessor }</option>
-                        <c:forEach items="${professores}" var="professor">
-                            <option value="${professor.idProfessorOrientador}">${professor.nomeProfessorOrientador}</option>
-                        </c:forEach>					
+                        <c:choose>
+                            <c:when test="${showProfessor != 'sim'}">
+                                <option value="" selected>${pfnomeprofessor}</option>
+                            </c:when>
+                            <c:otherwise>
+                                <c:forEach items="${professores}" var="professor">
+                                    <c:if test="${professor.idProfessorOrientador eq professorSelecionado}">
+                                    <option value="${professor.idProfessorOrientador}" selected>${professor.nomeProfessorOrientador}</option>
+                                    </c:if>
+                                    <c:if test="${professor.idProfessorOrientador != professorSelecionado}">
+                                    <option value="${professor.idProfessorOrientador}">${professor.nomeProfessorOrientador}</option>
+                                    </c:if>
+                                </c:forEach>
+                            </c:otherwise>
+                        </c:choose>		
                     </select>
                     <c:if test="${not empty idProfessorMsg}">
                         <div class="invalid-feedback">${ idProfessorMsg }</div>
@@ -356,7 +367,8 @@
             <input type="hidden" name="showValorBolsa" value="${ showValorBolsa }" />
             <input type="hidden" name="showLocal" value="${ showLocal }" />
             <input type="hidden" name="showSupervisor" value="${ showSupervisor }" />
-            <input type="hidden" name="idProfessorOrientador" id="idProfessorOrientador"/>
+            <input type="hidden" name="professorSelecionado" value ="${professorSelecionado}"/>
+            <input type="hidden" name="idProfessorOrientador" id="idProfessorOrientador" value="${professorSelecionado}"/>
             <button type="submit" class="btn btn-primary"><fmt:message key = "br.cefetrj.sisgee.resources.form.salvar"/></button>
             <c:choose>
                 <c:when test="${ not empty termoEstagio }">
@@ -394,17 +406,17 @@
             var tamanho = $("#cnpjEcpf1").val().length;
 
             $('#cargaHorariaTermoEstagio').mask('9');
-            //$('#valorBolsa').mask('000.000,00', {reverse: true});
+            $('#valorBolsa').mask('000.000,00', {reverse: true});
             $('#dataInicioTermoEstagio').mask('99/99/9999');
             $('#dataFimTermoEstagio').mask('99/99/9999');
             $("#cnpjEcpf1").mask("99.999.999/9999-99");
             $('#cepEnderecoTermoEstagio').mask('99.999-999');
             $('#dataIni').mask('99/99/9999');
-            $('#nomeProfessorOrientador').editableSelect().on('select.editable-select', 
-            function (e, li) {
-                $('#idProfessorOrientador').val(li.val());
-                
-            });
+            $('#nomeProfessorOrientador').editableSelect().on('select.editable-select',
+                    function (e, li) {
+                        $('#idProfessorOrientador').val(li.val());
+
+                    });
 
         });
 

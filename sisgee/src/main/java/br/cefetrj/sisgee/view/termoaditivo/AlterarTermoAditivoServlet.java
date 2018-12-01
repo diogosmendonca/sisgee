@@ -121,7 +121,7 @@ public class AlterarTermoAditivoServlet extends HttpServlet {
                  */
                 req.setAttribute("vidataInicioTermoEstagio", termoEstagio.getDataInicioTermoEstagio2());
                 req.setAttribute("vidataFimTermoEstagio", termoEstagio.getDataFimTermoEstagioVisu(termoAditivo));
-
+                System.out.println("Data Fim>" + termoEstagio.getDataFimTermoEstagioVisu(termoAditivo));
                 /**
                  * Dados de Carga Horária
                  */
@@ -130,8 +130,11 @@ public class AlterarTermoAditivoServlet extends HttpServlet {
                 /**
                  * Dados de Valor Bolsa
                  */
-                req.setAttribute("vavalorBolsa", termoEstagio.getValorBolsaVisu(termoAditivo));
-                System.out.println("aqui" + termoEstagio.getValorBolsaVisu(termoAditivo));
+                String valorFormatado = String.format("%.2f", termoEstagio.getValorBolsaVisu(termoAditivo));
+                valorFormatado = valorFormatado.replace(".",",");
+                req.setAttribute("vavalorBolsa", valorFormatado);
+                System.out.print("aqui" + termoEstagio.getValorBolsaVisu(termoAditivo));
+                System.out.println("   + Valor Formatado:" + valorFormatado);
                 /**
                  * Dados de Local
                  */
@@ -156,6 +159,8 @@ public class AlterarTermoAditivoServlet extends HttpServlet {
 
                 List<ProfessorOrientador> professores = ProfessorOrientadorServices.listarProfessorOrientador();
                 req.setAttribute("professores", professores);
+                req.setAttribute("professorSelecionado", termoEstagio.getProfessorOrientadorVisu(termoAditivo).getIdProfessorOrientador());
+                System.out.println("ID PROF>" + termoEstagio.getProfessorOrientadorVisu(termoAditivo).getIdProfessorOrientador());
                 req.setAttribute("idTermoEstagio", termoEstagio.getIdTermoEstagio());
                 req.setAttribute("idTermoAditivo", termoAditivo.getIdTermoAditivo());
                 req.setAttribute("uf", uf);

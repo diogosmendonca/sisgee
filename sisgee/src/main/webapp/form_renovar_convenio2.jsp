@@ -21,7 +21,7 @@
             </c:if>
 
             <p class="tituloForm">
-            <h5 class="offset-5"><fmt:message key="br.cefetrj.sisgee.form_empresa.msg_titulo_renovar" /></h5>		
+            <h5 class="offset-5"><fmt:message key="br.cefetrj.sisgee.form_empresa.msg_titulo_renovar_form" /></h5>		
 
             <form id="meuForm" action="ValidaRenovarConvenio" method="POST">
                 <fieldset class="form-group">

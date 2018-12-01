@@ -18,7 +18,7 @@
                 </div>
             </c:if>
             <p class="tituloForm ">
-            <h5 class="offset-5"><fmt:message key="br.cefetrj.sisgee.form_empresa.msg_titulo_renovar" /></h5>		
+            <h5 class="offset-4"><fmt:message key="br.cefetrj.sisgee.form_empresa.msg_titulo_renovar" /></h5>		
             <fieldset class="form-group col-auto offset-1">
                 <form action="ValidaBuscarConvenioServlet" method="GET" >
                     <div class="form-row mb-3 mt-3 " >
