@@ -269,10 +269,21 @@
                     <div class="form-group col-md-2">
                         <label for="estadoEnderecoTermoEstagio"><fmt:message key = "br.cefetrj.sisgee.resources.form.estado"/></label>
                         <select name = "estadoEnderecoTermoEstagio" id="estadoEnderecoTermoEstagio" class="form-control ${ not empty estadoEnderecoMsg ? 'is-invalid': not empty estadoEnderecoMsg ? 'is-invalid' : 'is-valid' }">
-                            <option value="" selected>${showLocal eq 'sim' ? '' :enuf}</option>
-                            <c:forEach items="${ uf }" var="uf">
-                                <option value="${ uf }">${ uf }</option>
-                            </c:forEach>							
+                            <c:choose>
+                                <c:when test="${showLocal != 'sim'}">
+                                    <option value="" selected>${enuf}</option>
+                                </c:when>
+                                <c:otherwise>
+                                    <c:forEach items="${uf}" var="uf">
+                                        <c:if test="${uf eq enuf}">
+                                            <option value="${uf}" selected>${uf}</option>
+                                        </c:if>
+                                        <c:if test="${uf != enuf}">
+                                            <option value="${uf}">${uf}</option>
+                                        </c:if>
+                                    </c:forEach>
+                                </c:otherwise>
+                            </c:choose>
                         </select>
                         <c:if test="${ not empty estadoEnderecoMsg }">
                             <div class="invalid-feedback">${ estadoEnderecoMsg }</div>
@@ -343,10 +354,10 @@
                             <c:otherwise>
                                 <c:forEach items="${professores}" var="professor">
                                     <c:if test="${professor.idProfessorOrientador eq professorSelecionado}">
-                                    <option value="${professor.idProfessorOrientador}" selected>${professor.nomeProfessorOrientador}</option>
+                                        <option value="${professor.idProfessorOrientador}" selected>${professor.nomeProfessorOrientador}</option>
                                     </c:if>
                                     <c:if test="${professor.idProfessorOrientador != professorSelecionado}">
-                                    <option value="${professor.idProfessorOrientador}">${professor.nomeProfessorOrientador}</option>
+                                        <option value="${professor.idProfessorOrientador}">${professor.nomeProfessorOrientador}</option>
                                     </c:if>
                                 </c:forEach>
                             </c:otherwise>
