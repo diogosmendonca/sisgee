@@ -78,7 +78,7 @@
                                 <td>${b.getConvenio().pegaNome()}</td>
                                 <td><a class="btn btn-sm btn-primary btn-block" href="VisualizarTermoEAditivo?ide=${b.idTermoEstagio}&matricula=${param.matricula}" ><fmt:message key="br.cefetrj.sisgee.37" /></a></td>
                                 <td><button type="button" ${ empty b.getTermosAditivos() ? '' : 'disabled="disabled"' } class="btn btn-sm btn-primary" data-toggle="modal" data-target="#${b.idTermoEstagio}"><fmt:message key="br.cefetrj.sisgee.31" /></button></td>
-                                <td><button ${ b.getTermosAditivos().size() > 0 ? 'disabled="disabled"' : '' } class="btn btn-sm btn-primary btn-block" onclick="window.location.href = 'EditarTermoEAditivo?ide=${b.idTermoEstagio}&matricula=${param.matricula}'" ><fmt:message key="br.cefetrj.sisgee.36" /></button></td>
+                                <td><button ${ b.getTermosAditivos().size() > 0 ? 'disabled="disabled"' : '' } class="btn btn-sm btn-primary btn-block" onclick="window.location.href = 'AlterarTermoEstagioServlet?ide=${b.idTermoEstagio}&matricula=${param.matricula}'" ><fmt:message key="br.cefetrj.sisgee.36" /></button></td>
                                 <!-- Modal -->
                             <div class="modal fade" id="${b.idTermoEstagio}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
