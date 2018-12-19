@@ -1,6 +1,6 @@
 <script type="text/javascript">
             
-	    $('#dataInicioTermoEstagio, #dataFimTermoEstagio, #dataRescisao, #dataAssinaturaConvenioEmpresa, #dataAssinaturaConvenioPessoa').datepicker({
+	    $('#dataInicioTermoEstagio, #dataFimTermoEstagio, #dataRescisao, #dataRegistroConvenioEmpresa, #dataRegistroConvenioPessoa').datepicker({
 	    	<c:if test="${ lang eq 'pt_BR' }">
 	    	language: 'pt-BR'
 	        </c:if>
@@ -88,7 +88,7 @@
 	    });	    
 	    
 	    $('#btnBuscarMatricula').click(function(){
-	    	
+	    	var precisaVerificarTermoEmAberto = document.getElementById("precisaVerificarTermoEmAberto");
 	    	if($.trim($('#matricula').val()) == ""){
                     $(".dadosAluno input:not([id=matricula])").val("");
                     $("#myModalLabel").html("<fmt:message key="br.cefetrj.sisgee.import_busca_aluno_script.campo_vazio"/>");
@@ -110,7 +110,7 @@
 	            dataType: "json",
 	            success: function(json){
 	                result = json;
-                        if(result.alunoMsg4 != ""){
+                        if(precisaVerificarTermoEmAberto == null && result.alunoMsg4 != ""){
                             $(".dadosAluno input:not([id=matricula])").val("");
                             $("#myModalLabel").html(result.alunoMsg5);
                             $(".modal-body").html(result.alunoMsg4);

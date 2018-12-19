@@ -19,14 +19,11 @@ import br.cefetrj.sisgee.model.entity.Convenio;
 import br.cefetrj.sisgee.model.entity.Empresa;
 import br.cefetrj.sisgee.model.entity.Pessoa;
 import br.cefetrj.sisgee.view.utils.ServletUtils;
-import br.cefetrj.sisgee.view.utils.ValidaUtils;
-import java.math.BigDecimal;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
-import javax.servlet.http.HttpSession;
 import javax.swing.text.MaskFormatter;
 
 /**

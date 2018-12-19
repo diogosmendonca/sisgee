@@ -214,7 +214,27 @@ public class TermoAditivo {
         public String getTipoAditivo() {
             return tipoAditivo;
         }
-
+        
+        public String getTipoAditivoMSG() {
+            switch(tipoAditivo){
+                case "Vigência":
+                    return "br.cefetrj.sisgee.resources.form.AditivoDeVigência";
+                case "Carga Horária":
+                    return "br.cefetrj.sisgee.resources.form.AditivoDeCargaHoraria";
+                case "Professor Orientador":
+                    return "br.cefetrj.sisgee.resources.form.AditivoDeProfOrientador";
+                case "Valor da Bolsa":
+                    return "br.cefetrj.sisgee.resources.form.AditivoDeValorBolsa";
+                case "Local Estágio":
+                    return "br.cefetrj.sisgee.resources.form.AditivoDeEndereço";
+                case "Supervisor":  
+                    return "br.cefetrj.sisgee.resources.form.AditivoDeSupervisor";
+                default:
+                    return null;
+            }
+        }
+        
+        
         public void setTipoAditivo(String tipoAditivo) {
             this.tipoAditivo = tipoAditivo;
         }

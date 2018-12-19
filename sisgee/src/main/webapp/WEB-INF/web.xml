@@ -45,7 +45,6 @@
         <servlet-name>ValidaBuscarConvenioServlet</servlet-name>
         <url-pattern>/ValidaBuscarConvenioServlet</url-pattern>
     </servlet-mapping>
-    
     <jsp-config>
         <jsp-property-group>
             <url-pattern>*.jsp</url-pattern>
