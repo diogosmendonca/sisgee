@@ -170,7 +170,7 @@ public class FormTermoRescisaoServlet extends HttpServlet {
         if (isValid) {
             try {
                 termoEstagio.setDataRescisaoTermoEstagio(dataRescisao);
-                TermoEstagioServices.alterarTermoEstagio(termoEstagio);
+                TermoEstagioServices.encerrarTermoEstagio(termoEstagio);
                 msg = "Data de Rescisão registrada com sucesso";
                 request.setAttribute("msg", msg);
                 request.getRequestDispatcher("/index.jsp").forward(request, response);
@@ -178,6 +178,7 @@ public class FormTermoRescisaoServlet extends HttpServlet {
                 String rescisao = "sim";
                 request.setAttribute("msg", msg);
                 request.setAttribute("Rescisao", rescisao);
+                e.printStackTrace();
                 request.getRequestDispatcher("/form_termo_aditivo.jsp").forward(request, response);
             }
         } else {
