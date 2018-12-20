@@ -51,4 +51,22 @@
             <el-ignored>false</el-ignored>
         </jsp-property-group>
     </jsp-config>
+    
+    <security-constraint>
+        <web-resource-collection>
+                <web-resource-name>Wildcard means whole app requires authentication</web-resource-name>
+                <url-pattern>/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+                <role-name>diemp</role-name>
+        </auth-constraint>
+
+        <user-data-constraint>
+                <!-- transport-guarantee can be CONFIDENTIAL, INTEGRAL, or NONE -->
+                <transport-guarantee>NONE</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
+    <login-config>
+            <auth-method>BASIC</auth-method>
+    </login-config>
 </web-app>
