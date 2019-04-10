@@ -131,8 +131,10 @@ public class AlterarTermoEstagioServlet extends HttpServlet {
 
             List<ProfessorOrientador> professores = ProfessorOrientadorServices.listarProfessorOrientador();
             request.setAttribute("professores", professores);
-            request.setAttribute("professorSelecionado", termoEstagio.getProfessorOrientador().getIdProfessorOrientador());
-            System.out.println("ID PROF>" + termoEstagio.getProfessorOrientador().getIdProfessorOrientador());
+            if(termoEstagio.getProfessorOrientador() != null){
+                request.setAttribute("professorSelecionado", termoEstagio.getProfessorOrientador().getIdProfessorOrientador());
+                System.out.println("ID PROF>" + termoEstagio.getProfessorOrientador().getIdProfessorOrientador());
+            }
             request.setAttribute("idTermoEstagio", termoEstagio.getIdTermoEstagio());
             request.setAttribute("uf", uf);
             request.getRequestDispatcher("/form_termo_edita_estagio.jsp").forward(request, response);

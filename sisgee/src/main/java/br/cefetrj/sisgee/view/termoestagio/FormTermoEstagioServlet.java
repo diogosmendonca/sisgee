@@ -596,36 +596,46 @@ public class FormTermoEstagioServlet extends HttpServlet {
                                 request.setAttribute("idProfessor", idProfessor);
                                 hasProfessor = true;
                             } else {
+                                /*
                                 idProfessorMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.professor_invalido");
                                 isValid = false;
                                 //TODO Fazer log
                                 System.out.println(idProfessorMsg);
+                                */
                             }
                         } else {
+                            /*
                             idProfessorMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.lista_professores_vazia");
                             isValid = false;
                             //TODO Fazer log
                             System.out.println(idProfessorMsg);
+                            */
                         }
                     } else {
+                        /*
                         idProfessorMsg = messages.getString(idProfessorMsg);
                         request.setAttribute("idProfessorMsg", idProfessorMsg);
                         isValid = false;
                         //TODO Fazer log
                         System.out.println(idProfessorMsg);
+                        */
                     }
                 }
             } else {
+                /*
                 idProfessorMsg = messages.getString(idProfessorMsg);
                 request.setAttribute("idProfessorMsg", idProfessorMsg);
                 isValid = false;
                 //TODO Fazer log
                 System.out.println(idProfessorMsg);
+                */
             }
         } else {
+            /*
             idProfessorMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.professor_invalido");
             request.setAttribute("idProfessorMsg", idProfessorMsg);
             isValid = false;
+            */
         }
         request.setAttribute("hasProfessor", hasProfessor);
 

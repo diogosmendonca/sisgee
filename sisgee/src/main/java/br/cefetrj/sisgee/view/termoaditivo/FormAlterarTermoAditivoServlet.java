@@ -272,26 +272,35 @@ public class FormAlterarTermoAditivoServlet extends HttpServlet {
                                     request.setAttribute("idProfessor", idProfessor);
                                     hasProfessor = true;
                                 } else {
+                                    /*
                                     idProfessorMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.professor_invalido");
                                     isValid = false;
+                                    */
                                 }
                             } else {
+                                /*
                                 idProfessorMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.lista_professores_vazia");
                                 isValid = false;
                                 System.out.println(idProfessorMsg);
+                                */
                             }
                         } else {
+                            /*
                             idProfessorMsg = messages.getString(idProfessorMsg);
                             request.setAttribute("idProfessorMsg", idProfessorMsg);
                             isValid = false;
                             System.out.println(idProfessorMsg);
+                            */
+                            System.out.println("Professor orientador vazio");
                         }
 
                     }
                 } else {
+                    /*
                     idProfessorMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.professor_invalido");
                     request.setAttribute("idProfessorMsg", idProfessorMsg);
                     isValid = false;
+                    */
                 }
                 request.setAttribute("hasProfessor", hasProfessor);
             }
