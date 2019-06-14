@@ -171,13 +171,13 @@
             <c:if test="${ not empty periodoMsg }">
                 <div class="alert alert-danger" role="alert">${ periodoMsg }</div>
             </c:if>
-            <fieldset class="form-group" ${ showVigencia eq 'sim' ? '' :'disabled'}>
+            <fieldset class="form-group">
                 <legend class="col-form-legend col-lg"><fmt:message key = "br.cefetrj.sisgee.resources.form.vigenciaEstagio"/></legend>
                 <div class="form-row">
                     <div class="form-group col-md-6">
 
                         <label for="dataInicioTermoEstagio"><fmt:message key = "br.cefetrj.sisgee.resources.form.dataInicio"/></label>
-                        <input type="text" class="form-control col-sm-4 ${ not empty dataInicioMsg ? 'is-invalid': not empty periodoMsg ? 'is-invalid' : 'is-valid' }" id="dataInicioTermoEstagio"  name="dataInicioTermoEstagio" value="${ vidataInicioTermoEstagio }" disabled onchange="sugereData();">
+                        <input type="text" class="form-control col-sm-4 ${ not empty dataInicioMsg ? 'is-invalid': not empty periodoMsg ? 'is-invalid' : 'is-valid' }" id="dataInicioTermoEstagio"  name="dataInicioTermoEstagio" value="${ vidataInicioTermoEstagio }">
                         <p class="valid-feedback" id="dataIni" name="dataIni"></p>
                         <c:if test="${ not empty dataInicioMsg }">
                             <div class="invalid-feedback">${ dataInicioMsg }</div>
@@ -185,7 +185,7 @@
                     </div>
                     <div class="form-group col-md-6">
                         <label for="dataFimTermoEstagio"><fmt:message key = "br.cefetrj.sisgee.resources.form.dataTermino"/></label>
-                        <input type="text" class="form-control col-sm-4 ${ not empty dataFimMsg ? 'is-invalid': not empty periodoMsg ? 'is-invalid' : 'is-valid' }" id="dataFimTermoEstagio"   name="dataFimTermoEstagio" value="${showVigencia eq 'sim' ? '' : vidataFimTermoEstagio }" ${ showVigencia eq 'sim' ? '' :'disabled'} >
+                        <input type="text" class="form-control col-sm-4 ${ not empty dataFimMsg ? 'is-invalid': not empty periodoMsg ? 'is-invalid' : 'is-valid' }" id="dataFimTermoEstagio"   name="dataFimTermoEstagio" value="${showVigencia eq 'sim' ? '' : vidataFimTermoEstagio }">
                         <c:if test="${ not empty dataFimMsg }">
                             <div class="invalid-feedback">${ dataFimMsg }</div>
                         </c:if>

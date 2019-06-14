@@ -631,11 +631,10 @@ public class FormTermoEstagioServlet extends HttpServlet {
                 */
             }
         } else {
-            /*
-            idProfessorMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.professor_invalido");
-            request.setAttribute("idProfessorMsg", idProfessorMsg);
-            isValid = false;
-            */
+            String idProfessor = idProfessorOrientador; 
+            request.setAttribute("idProfessor", idProfessor);
+            hasProfessor = false;
+
         }
         request.setAttribute("hasProfessor", hasProfessor);
 
@@ -807,3 +806,4 @@ public class FormTermoEstagioServlet extends HttpServlet {
         return request;
     }
 }
+

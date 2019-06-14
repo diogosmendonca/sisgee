@@ -126,6 +126,31 @@ public class TermoEstagio {
         this.nomeAgenciada = nomeAgenciada;
     }
 
+    public TermoEstagio(Date dataInicioTermoEstagio, Date dataFimTermoEstagio, Integer cargaHorariaTermoEstagio,
+            Float valorBolsa, String enderecoTermoEstagio, String numeroEnderecoTermoEstagio,
+            String complementoEnderecoTermoEstagio, String bairroEnderecoTermoEstagio, String cepEnderecoTermoEstagio,
+            String cidadeEnderecoTermoEstagio, String estadoEnderecoTermoEstagio, Boolean eEstagioObrigatorio,
+            Aluno aluno, Convenio convenio, String nomeSupervisor, String cargoSupervisor, String nomeAgenciada) {
+        this.estado = "ativo";
+        this.dataInicioTermoEstagio = dataInicioTermoEstagio;
+        this.dataFimTermoEstagio = dataFimTermoEstagio;
+        this.cargaHorariaTermoEstagio = cargaHorariaTermoEstagio;
+        this.valorBolsa = valorBolsa;
+        this.enderecoTermoEstagio = enderecoTermoEstagio;
+        this.numeroEnderecoTermoEstagio = numeroEnderecoTermoEstagio;
+        this.complementoEnderecoTermoEstagio = complementoEnderecoTermoEstagio;
+        this.bairroEnderecoTermoEstagio = bairroEnderecoTermoEstagio;
+        this.cepEnderecoTermoEstagio = cepEnderecoTermoEstagio;
+        this.cidadeEnderecoTermoEstagio = cidadeEnderecoTermoEstagio;
+        this.estadoEnderecoTermoEstagio = estadoEnderecoTermoEstagio;
+        this.eEstagioObrigatorio = eEstagioObrigatorio;
+        this.aluno = aluno;
+        this.convenio = convenio;
+        this.nomeSupervisor = nomeSupervisor;
+        this.cargoSupervisor = cargoSupervisor;
+        this.nomeAgenciada = nomeAgenciada;
+    }
+
     public String getEstado() throws Exception {
         //final DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
         Calendar cal = Calendar.getInstance();
@@ -854,3 +879,4 @@ public class TermoEstagio {
         return "TermoEstagio{" + "idTermoEstagio=" + idTermoEstagio + ", valorBolsa=" + valorBolsa + ", aluno=" + aluno + '}';
     }
 }
+

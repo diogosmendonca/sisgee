@@ -54,6 +54,7 @@ public class FormTermoAditivoServlet extends HttpServlet {
         /**
          * campos de Vigência
          */
+        String dataCadastramentoTermoAditivo = request.getParameter("dataInicioTermoEstagio");
         String dataFimTermoAditivo = request.getParameter("dataFimTermoEstagio");
 
         /**
@@ -110,7 +111,7 @@ public class FormTermoAditivoServlet extends HttpServlet {
         String msg = "";
         String campo = "";
         Integer tamanho = 0;
-
+        Date dataCadastramento = null;
         Date dataFim = null;
         Float valor = null;
         Integer cargaHoraria = null;
@@ -182,6 +183,39 @@ public class FormTermoAditivoServlet extends HttpServlet {
                     isValid = false;
                 }
                 request.setAttribute("hasDataFim", hasDataFim);
+                Boolean hasDataCadastramento = false;
+                String dataCadastramentoMsg = "";
+                dataCadastramentoMsg = ValidaUtils.validaObrigatorio(campo, dataCadastramentoTermoAditivo);
+                System.out.println("" + dataCadastramentoMsg);
+                if (dataCadastramentoMsg.trim().isEmpty()) {
+                    dataCadastramentoMsg = ValidaUtils.validaDate(campo, dataCadastramentoTermoAditivo);
+                    if (dataCadastramentoMsg.trim().isEmpty()) {
+                        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+                        try {
+                            dataCadastramento = format.parse(dataCadastramentoTermoAditivo);
+                            request.setAttribute("dataCadastramento", dataCadastramento);
+                            hasDataCadastramento = true;
+                        } catch (Exception e) {
+                            isValid = false;
+                        }
+                    } else {
+                        dataCadastramentoMsg = messages.getString("br.cefetrj.sisgee.valida_utils.msg_valida_obrigatorio");
+                        request.setAttribute("dataCadastramentoMsg", dataCadastramentoMsg);
+                        isValid = false;
+                    }
+                    String periodoMsg = "";
+                    periodoMsg = ValidaUtils.validaDatas(termoEstagio.getDataInicioTermoEstagio(), dataCadastramento);
+                    if (!periodoMsg.trim().isEmpty()) {
+                        periodoMsg = messages.getString(periodoMsg);
+                        request.setAttribute("periodoMsg", periodoMsg);
+                        isValid = false;
+                    }
+                } else {
+                    dataCadastramentoMsg = messages.getString("br.cefetrj.sisgee.valida_utils.msg_valida_obrigatorio");
+                    request.setAttribute("dataCadastramentoMsg", dataCadastramentoMsg);
+                    isValid = false;
+                }
+                request.setAttribute("hasDataCadastramento", hasDataCadastramento);
 
             }
 
@@ -189,6 +223,72 @@ public class FormTermoAditivoServlet extends HttpServlet {
              * Validação de valor da Bolsa
              */
             if (showValorBolsa != null && !showValorBolsa.trim().isEmpty()) {
+            	Boolean hasDataFim = false;
+                String dataFimMsg = "";
+                dataFimMsg = ValidaUtils.validaObrigatorio(campo, dataFimTermoAditivo);
+                System.out.println("" + dataFimMsg);
+                if (dataFimMsg.trim().isEmpty()) {
+                    dataFimMsg = ValidaUtils.validaDate(campo, dataFimTermoAditivo);
+                    if (dataFimMsg.trim().isEmpty()) {
+                        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+                        try {
+                            dataFim = format.parse(dataFimTermoAditivo);
+                            request.setAttribute("dataFim", dataFim);
+                            hasDataFim = true;
+                        } catch (Exception e) {
+                            isValid = false;
+                        }
+                    } else {
+                        dataFimMsg = messages.getString("br.cefetrj.sisgee.valida_utils.msg_valida_obrigatorio");
+                        request.setAttribute("dataFimMsg", dataFimMsg);
+                        isValid = false;
+                    }
+                    String periodoMsg = "";
+                    periodoMsg = ValidaUtils.validaDatas(termoEstagio.getDataInicioTermoEstagio(), dataFim);
+                    if (!periodoMsg.trim().isEmpty()) {
+                        periodoMsg = messages.getString(periodoMsg);
+                        request.setAttribute("periodoMsg", periodoMsg);
+                        isValid = false;
+                    }
+                } else {
+                    dataFimMsg = messages.getString("br.cefetrj.sisgee.valida_utils.msg_valida_obrigatorio");
+                    request.setAttribute("dataFimMsg", dataFimMsg);
+                    isValid = false;
+                }
+                request.setAttribute("hasDataFim", hasDataFim);
+                Boolean hasDataCadastramento = false;
+                String dataCadastramentoMsg = "";
+                dataCadastramentoMsg = ValidaUtils.validaObrigatorio(campo, dataCadastramentoTermoAditivo);
+                System.out.println("" + dataCadastramentoMsg);
+                if (dataCadastramentoMsg.trim().isEmpty()) {
+                    dataCadastramentoMsg = ValidaUtils.validaDate(campo, dataCadastramentoTermoAditivo);
+                    if (dataCadastramentoMsg.trim().isEmpty()) {
+                        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+                        try {
+                            dataCadastramento = format.parse(dataCadastramentoTermoAditivo);
+                            request.setAttribute("dataCadastramento", dataCadastramento);
+                            hasDataCadastramento = true;
+                        } catch (Exception e) {
+                            isValid = false;
+                        }
+                    } else {
+                        dataCadastramentoMsg = messages.getString("br.cefetrj.sisgee.valida_utils.msg_valida_obrigatorio");
+                        request.setAttribute("dataCadastramentoMsg", dataCadastramentoMsg);
+                        isValid = false;
+                    }
+                    String periodoMsg = "";
+                    periodoMsg = ValidaUtils.validaDatas(termoEstagio.getDataInicioTermoEstagio(), dataCadastramento);
+                    if (!periodoMsg.trim().isEmpty()) {
+                        periodoMsg = messages.getString(periodoMsg);
+                        request.setAttribute("periodoMsg", periodoMsg);
+                        isValid = false;
+                    }
+                } else {
+                    dataCadastramentoMsg = messages.getString("br.cefetrj.sisgee.valida_utils.msg_valida_obrigatorio");
+                    request.setAttribute("dataCadastramentoMsg", dataCadastramentoMsg);
+                    isValid = false;
+                }
+                request.setAttribute("hasDataCadastramento", hasDataCadastramento);
                 String valorBolsaMsg = "";
                 campo = "Valor";
                 valorBolsaMsg = ValidaUtils.validaObrigatorio(campo, valorBolsaTermoAditivo);
@@ -224,6 +324,72 @@ public class FormTermoAditivoServlet extends HttpServlet {
              * Validação de Carga Horária
              */
             if (showCargaHoraria != null && !showCargaHoraria.trim().isEmpty()) {
+            	Boolean hasDataFim = false;
+                String dataFimMsg = "";
+                dataFimMsg = ValidaUtils.validaObrigatorio(campo, dataFimTermoAditivo);
+                System.out.println("" + dataFimMsg);
+                if (dataFimMsg.trim().isEmpty()) {
+                    dataFimMsg = ValidaUtils.validaDate(campo, dataFimTermoAditivo);
+                    if (dataFimMsg.trim().isEmpty()) {
+                        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+                        try {
+                            dataFim = format.parse(dataFimTermoAditivo);
+                            request.setAttribute("dataFim", dataFim);
+                            hasDataFim = true;
+                        } catch (Exception e) {
+                            isValid = false;
+                        }
+                    } else {
+                        dataFimMsg = messages.getString("br.cefetrj.sisgee.valida_utils.msg_valida_obrigatorio");
+                        request.setAttribute("dataFimMsg", dataFimMsg);
+                        isValid = false;
+                    }
+                    String periodoMsg = "";
+                    periodoMsg = ValidaUtils.validaDatas(termoEstagio.getDataInicioTermoEstagio(), dataFim);
+                    if (!periodoMsg.trim().isEmpty()) {
+                        periodoMsg = messages.getString(periodoMsg);
+                        request.setAttribute("periodoMsg", periodoMsg);
+                        isValid = false;
+                    }
+                } else {
+                    dataFimMsg = messages.getString("br.cefetrj.sisgee.valida_utils.msg_valida_obrigatorio");
+                    request.setAttribute("dataFimMsg", dataFimMsg);
+                    isValid = false;
+                }
+                request.setAttribute("hasDataFim", hasDataFim);
+                Boolean hasDataCadastramento = false;
+                String dataCadastramentoMsg = "";
+                dataCadastramentoMsg = ValidaUtils.validaObrigatorio(campo, dataCadastramentoTermoAditivo);
+                System.out.println("" + dataCadastramentoMsg);
+                if (dataCadastramentoMsg.trim().isEmpty()) {
+                    dataCadastramentoMsg = ValidaUtils.validaDate(campo, dataCadastramentoTermoAditivo);
+                    if (dataCadastramentoMsg.trim().isEmpty()) {
+                        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+                        try {
+                            dataCadastramento = format.parse(dataCadastramentoTermoAditivo);
+                            request.setAttribute("dataCadastramento", dataCadastramento);
+                            hasDataCadastramento = true;
+                        } catch (Exception e) {
+                            isValid = false;
+                        }
+                    } else {
+                        dataCadastramentoMsg = messages.getString("br.cefetrj.sisgee.valida_utils.msg_valida_obrigatorio");
+                        request.setAttribute("dataCadastramentoMsg", dataCadastramentoMsg);
+                        isValid = false;
+                    }
+                    String periodoMsg = "";
+                    periodoMsg = ValidaUtils.validaDatas(termoEstagio.getDataInicioTermoEstagio(), dataCadastramento);
+                    if (!periodoMsg.trim().isEmpty()) {
+                        periodoMsg = messages.getString(periodoMsg);
+                        request.setAttribute("periodoMsg", periodoMsg);
+                        isValid = false;
+                    }
+                } else {
+                    dataCadastramentoMsg = messages.getString("br.cefetrj.sisgee.valida_utils.msg_valida_obrigatorio");
+                    request.setAttribute("dataCadastramentoMsg", dataCadastramentoMsg);
+                    isValid = false;
+                }
+                request.setAttribute("hasDataCadastramento", hasDataCadastramento);
                 String cargaHorariaMsg = "";
                 campo = "Horas por dia";
                 tamanho = 6;
@@ -263,6 +429,72 @@ public class FormTermoAditivoServlet extends HttpServlet {
              * Validação de Professor
              */
             if (showProfessor != null && !showProfessor.trim().isEmpty()) {
+            	Boolean hasDataFim = false;
+                String dataFimMsg = "";
+                dataFimMsg = ValidaUtils.validaObrigatorio(campo, dataFimTermoAditivo);
+                System.out.println("" + dataFimMsg);
+                if (dataFimMsg.trim().isEmpty()) {
+                    dataFimMsg = ValidaUtils.validaDate(campo, dataFimTermoAditivo);
+                    if (dataFimMsg.trim().isEmpty()) {
+                        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+                        try {
+                            dataFim = format.parse(dataFimTermoAditivo);
+                            request.setAttribute("dataFim", dataFim);
+                            hasDataFim = true;
+                        } catch (Exception e) {
+                            isValid = false;
+                        }
+                    } else {
+                        dataFimMsg = messages.getString("br.cefetrj.sisgee.valida_utils.msg_valida_obrigatorio");
+                        request.setAttribute("dataFimMsg", dataFimMsg);
+                        isValid = false;
+                    }
+                    String periodoMsg = "";
+                    periodoMsg = ValidaUtils.validaDatas(termoEstagio.getDataInicioTermoEstagio(), dataFim);
+                    if (!periodoMsg.trim().isEmpty()) {
+                        periodoMsg = messages.getString(periodoMsg);
+                        request.setAttribute("periodoMsg", periodoMsg);
+                        isValid = false;
+                    }
+                } else {
+                    dataFimMsg = messages.getString("br.cefetrj.sisgee.valida_utils.msg_valida_obrigatorio");
+                    request.setAttribute("dataFimMsg", dataFimMsg);
+                    isValid = false;
+                }
+                request.setAttribute("hasDataFim", hasDataFim);
+                Boolean hasDataCadastramento = false;
+                String dataCadastramentoMsg = "";
+                dataCadastramentoMsg = ValidaUtils.validaObrigatorio(campo, dataCadastramentoTermoAditivo);
+                System.out.println("" + dataCadastramentoMsg);
+                if (dataCadastramentoMsg.trim().isEmpty()) {
+                    dataCadastramentoMsg = ValidaUtils.validaDate(campo, dataCadastramentoTermoAditivo);
+                    if (dataCadastramentoMsg.trim().isEmpty()) {
+                        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+                        try {
+                            dataCadastramento = format.parse(dataCadastramentoTermoAditivo);
+                            request.setAttribute("dataCadastramento", dataCadastramento);
+                            hasDataCadastramento = true;
+                        } catch (Exception e) {
+                            isValid = false;
+                        }
+                    } else {
+                        dataCadastramentoMsg = messages.getString("br.cefetrj.sisgee.valida_utils.msg_valida_obrigatorio");
+                        request.setAttribute("dataCadastramentoMsg", dataCadastramentoMsg);
+                        isValid = false;
+                    }
+                    String periodoMsg = "";
+                    periodoMsg = ValidaUtils.validaDatas(termoEstagio.getDataInicioTermoEstagio(), dataCadastramento);
+                    if (!periodoMsg.trim().isEmpty()) {
+                        periodoMsg = messages.getString(periodoMsg);
+                        request.setAttribute("periodoMsg", periodoMsg);
+                        isValid = false;
+                    }
+                } else {
+                    dataCadastramentoMsg = messages.getString("br.cefetrj.sisgee.valida_utils.msg_valida_obrigatorio");
+                    request.setAttribute("dataCadastramentoMsg", dataCadastramentoMsg);
+                    isValid = false;
+                }
+                request.setAttribute("hasDataCadastramento", hasDataCadastramento);
                 String idProfessorMsg = "";
                 campo = "Professor Orientador";
                 Boolean hasProfessor = false;
@@ -322,6 +554,72 @@ public class FormTermoAditivoServlet extends HttpServlet {
                  * Classe ValidaUtils. Campo obrigatório e tamanho máximo de 255
                  * caracteres.
                  */
+            	Boolean hasDataFim = false;
+                String dataFimMsg = "";
+                dataFimMsg = ValidaUtils.validaObrigatorio(campo, dataFimTermoAditivo);
+                System.out.println("" + dataFimMsg);
+                if (dataFimMsg.trim().isEmpty()) {
+                    dataFimMsg = ValidaUtils.validaDate(campo, dataFimTermoAditivo);
+                    if (dataFimMsg.trim().isEmpty()) {
+                        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+                        try {
+                            dataFim = format.parse(dataFimTermoAditivo);
+                            request.setAttribute("dataFim", dataFim);
+                            hasDataFim = true;
+                        } catch (Exception e) {
+                            isValid = false;
+                        }
+                    } else {
+                        dataFimMsg = messages.getString("br.cefetrj.sisgee.valida_utils.msg_valida_obrigatorio");
+                        request.setAttribute("dataFimMsg", dataFimMsg);
+                        isValid = false;
+                    }
+                    String periodoMsg = "";
+                    periodoMsg = ValidaUtils.validaDatas(termoEstagio.getDataInicioTermoEstagio(), dataFim);
+                    if (!periodoMsg.trim().isEmpty()) {
+                        periodoMsg = messages.getString(periodoMsg);
+                        request.setAttribute("periodoMsg", periodoMsg);
+                        isValid = false;
+                    }
+                } else {
+                    dataFimMsg = messages.getString("br.cefetrj.sisgee.valida_utils.msg_valida_obrigatorio");
+                    request.setAttribute("dataFimMsg", dataFimMsg);
+                    isValid = false;
+                }
+                request.setAttribute("hasDataFim", hasDataFim);
+                Boolean hasDataCadastramento = false;
+                String dataCadastramentoMsg = "";
+                dataCadastramentoMsg = ValidaUtils.validaObrigatorio(campo, dataCadastramentoTermoAditivo);
+                System.out.println("" + dataCadastramentoMsg);
+                if (dataCadastramentoMsg.trim().isEmpty()) {
+                    dataCadastramentoMsg = ValidaUtils.validaDate(campo, dataCadastramentoTermoAditivo);
+                    if (dataCadastramentoMsg.trim().isEmpty()) {
+                        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+                        try {
+                            dataCadastramento = format.parse(dataCadastramentoTermoAditivo);
+                            request.setAttribute("dataCadastramento", dataCadastramento);
+                            hasDataCadastramento = true;
+                        } catch (Exception e) {
+                            isValid = false;
+                        }
+                    } else {
+                        dataCadastramentoMsg = messages.getString("br.cefetrj.sisgee.valida_utils.msg_valida_obrigatorio");
+                        request.setAttribute("dataCadastramentoMsg", dataCadastramentoMsg);
+                        isValid = false;
+                    }
+                    String periodoMsg = "";
+                    periodoMsg = ValidaUtils.validaDatas(termoEstagio.getDataInicioTermoEstagio(), dataCadastramento);
+                    if (!periodoMsg.trim().isEmpty()) {
+                        periodoMsg = messages.getString(periodoMsg);
+                        request.setAttribute("periodoMsg", periodoMsg);
+                        isValid = false;
+                    }
+                } else {
+                    dataCadastramentoMsg = messages.getString("br.cefetrj.sisgee.valida_utils.msg_valida_obrigatorio");
+                    request.setAttribute("dataCadastramentoMsg", dataCadastramentoMsg);
+                    isValid = false;
+                }
+                request.setAttribute("hasDataCadastramento", hasDataCadastramento);
                 String enderecoMsg = "";
                 campo = "Endereço";
                 tamanho = 255;
@@ -559,7 +857,7 @@ public class FormTermoAditivoServlet extends HttpServlet {
                     TermoAditivo termoAditivo1 = new TermoAditivo();
                     termoAditivo1.setDataFimTermoAditivo(dataFim);
                     termoAditivo1.setTipoAditivo("Vigência");
-                    termoAditivo1.setDataCadastramentoTermoAditivo((cal.getTime()));
+                    termoAditivo1.setDataCadastramentoTermoAditivo(dataCadastramento);
 
                     int counter = 0;
                     for (TermoEstagio term : aluno.getTermoEstagios()) {
@@ -576,7 +874,8 @@ public class FormTermoAditivoServlet extends HttpServlet {
                     TermoAditivo termoAditivo2 = new TermoAditivo();
                     termoAditivo2.setCargaHorariaTermoAditivo(cargaHoraria);
                     termoAditivo2.setTipoAditivo("Carga Horária");
-                    termoAditivo2.setDataCadastramentoTermoAditivo((cal.getTime()));
+                    termoAditivo2.setDataCadastramentoTermoAditivo(dataCadastramento);
+                    termoAditivo2.setDataFimTermoAditivo(dataFim);
                     int counter = 0;
                     for (TermoEstagio term : aluno.getTermoEstagios()) {
                         if (term.getEstado().equals("Encerrado")) {
@@ -592,8 +891,8 @@ public class FormTermoAditivoServlet extends HttpServlet {
                     TermoAditivo termoAditivo3 = new TermoAditivo();
                     termoAditivo3.setProfessorOrientador(professorOrientador);
                     termoAditivo3.setTipoAditivo("Professor Orientador");
-
-                    termoAditivo3.setDataCadastramentoTermoAditivo((cal.getTime()));
+                    termoAditivo3.setDataCadastramentoTermoAditivo(dataCadastramento);
+                    termoAditivo3.setDataFimTermoAditivo(dataFim);
                     int counter = 0;
                     for (TermoEstagio term : aluno.getTermoEstagios()) {
                         if (term.getEstado().equals("Encerrado")) {
@@ -608,8 +907,8 @@ public class FormTermoAditivoServlet extends HttpServlet {
                     TermoAditivo termoAditivo4 = new TermoAditivo();
                     termoAditivo4.setValorBolsaTermoAditivo(valor);
                     termoAditivo4.setTipoAditivo("Valor da Bolsa");
-
-                    termoAditivo4.setDataCadastramentoTermoAditivo((cal.getTime()));
+                    termoAditivo4.setDataCadastramentoTermoAditivo(dataCadastramento);
+                    termoAditivo4.setDataFimTermoAditivo(dataFim);
                     int counter = 0;
                     for (TermoEstagio term : aluno.getTermoEstagios()) {
                         if (term.getEstado().equals("Encerrado")) {
@@ -630,8 +929,8 @@ public class FormTermoAditivoServlet extends HttpServlet {
                     termoAditivo5.setEstadoEnderecoTermoAditivo(estadoEnderecoTermoAditivo);
                     termoAditivo5.setCepEnderecoTermoAditivo(cepEnderecoTermoAditivo);
                     termoAditivo5.setTipoAditivo("Local Estágio");
-
-                    termoAditivo5.setDataCadastramentoTermoAditivo((cal.getTime()));
+                    termoAditivo5.setDataCadastramentoTermoAditivo(dataCadastramento);
+                    termoAditivo5.setDataFimTermoAditivo(dataFim);
                     int counter = 0;
                     for (TermoEstagio term : aluno.getTermoEstagios()) {
                         if (term.getEstado().equals("Encerrado")) {
@@ -649,8 +948,8 @@ public class FormTermoAditivoServlet extends HttpServlet {
                     termoAditivo6.setNomeSupervisor(nomeSupervisor);
                     termoAditivo6.setCargoSupervisor(cargoSupervisor);
                     termoAditivo6.setTipoAditivo("Supervisor");
-
-                    termoAditivo6.setDataCadastramentoTermoAditivo((cal.getTime()));
+                    termoAditivo6.setDataCadastramentoTermoAditivo(dataCadastramento);
+                    termoAditivo6.setDataFimTermoAditivo(dataFim);
                     int counter = 0;
                     for (TermoEstagio term : aluno.getTermoEstagios()) {
                         if (term.getEstado().equals("Encerrado")) {
