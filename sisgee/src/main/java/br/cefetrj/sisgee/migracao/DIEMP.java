@@ -65,7 +65,7 @@ public class DIEMP {
                             break;
                         }
                     }
-                    if ((arrayLinha[5].charAt(i) == '-' ||arrayLinha[5].charAt(i) == 'â€“' )&& a==0 && i+6<arrayLinha[5].length()) {
+                    if ((arrayLinha[5].charAt(i) == '-' ||arrayLinha[5].charAt(i) == '–' )&& a==0 && i+6<arrayLinha[5].length()) {
                         if (Character.isDigit(arrayLinha[5].charAt(i+2))==true && Character.isDigit(arrayLinha[5].charAt(i+6))==true){
                             if(arrayLinha[5].substring(0, i).equalsIgnoreCase("Telca")){
                                 break;

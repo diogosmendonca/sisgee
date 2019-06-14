@@ -2,8 +2,10 @@ package br.cefetrj.sisgee.model.entity;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -18,7 +20,7 @@ public class ProfessorOrientador {
 	@Column(length = 80, nullable = false)
 	private String nomeProfessorOrientador;
 
-	@OneToMany(mappedBy = "professorOrientador")
+	@OneToMany(mappedBy = "professorOrientador", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private List<TermoEstagio> termoEstagios;
 
 	public ProfessorOrientador() {}

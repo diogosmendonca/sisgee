@@ -211,7 +211,7 @@ public class PrincipalTermo {
                                 }
                             }
                             if(arrayLinha[3].length()>12){ 
-                                if((arrayLinha[3].charAt(i)=='A' || arrayLinha[3].charAt(i)=='N' || arrayLinha[3].charAt(i)=='Q' || arrayLinha[3].charAt(i)=='ร' || arrayLinha[3].charAt(i)=='a' || arrayLinha[3].charAt(i)=='ร€' || arrayLinha[3].charAt(i)=='ร ' || arrayLinha[3].charAt(i)==' ' || arrayLinha[3].charAt(i)=='ร' || arrayLinha[3].charAt(i)=='รก' || arrayLinha[3].charAt(i)=='S') ){
+                                if((arrayLinha[3].charAt(i)=='A' || arrayLinha[3].charAt(i)=='N' || arrayLinha[3].charAt(i)=='Q' || arrayLinha[3].charAt(i)=='ย' || arrayLinha[3].charAt(i)=='a' || arrayLinha[3].charAt(i)=='ภ' || arrayLinha[3].charAt(i)=='เ' || arrayLinha[3].charAt(i)==' ' || arrayLinha[3].charAt(i)=='ม' || arrayLinha[3].charAt(i)=='แ' || arrayLinha[3].charAt(i)=='S') ){
                                     if(arrayLinha[3].length()>15){
                                         if(cont==183){
                                             SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
