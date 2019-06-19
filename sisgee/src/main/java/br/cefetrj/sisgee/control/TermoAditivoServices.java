@@ -1,5 +1,6 @@
 package br.cefetrj.sisgee.control;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -78,6 +79,7 @@ public class TermoAditivoServices {
             List<TermoAditivo> aditivos = termo.getTermosAditivos();
             System.out.println(termo.getIdTermoEstagio());
             System.out.println(termo.getTermosAditivos());//TODO retirar saida do console
+            Collections.sort(aditivos);
             if (aditivos != null && aditivos.size() != 0 && termoAditivo.equals(aditivos.get(aditivos.size() - 1))) {
                 ultimo = true;
                 break;

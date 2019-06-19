@@ -28,7 +28,7 @@ import javax.persistence.OneToMany;
  * @version 2.0
  */
 @Entity
-public class TermoEstagio {
+public class TermoEstagio{
 
     @Id
     @GeneratedValue
@@ -879,4 +879,3 @@ public class TermoEstagio {
         return "TermoEstagio{" + "idTermoEstagio=" + idTermoEstagio + ", valorBolsa=" + valorBolsa + ", aluno=" + aluno + '}';
     }
 }
-

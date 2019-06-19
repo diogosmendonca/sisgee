@@ -17,7 +17,7 @@ import javax.persistence.ManyToOne;
  *
  */
 @Entity
-public class TermoAditivo {
+public class TermoAditivo implements Comparable{
 
 	@Id
 	@GeneratedValue
@@ -303,5 +303,11 @@ public class TermoAditivo {
 			return false;
 		return true;
 	}
-
+	@Override
+	public int compareTo(Object o) {
+		if ((o != null) && (o instanceof TermoAditivo)) {
+			return this.getDataCadastramentoTermoAditivo().compareTo(((TermoAditivo)o).getDataCadastramentoTermoAditivo());
+		}
+		return 0;
+	}
 }

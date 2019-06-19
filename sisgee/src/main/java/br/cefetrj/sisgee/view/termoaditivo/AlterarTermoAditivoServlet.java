@@ -17,6 +17,7 @@ import br.cefetrj.sisgee.view.utils.ServletUtils;
 import br.cefetrj.sisgee.view.utils.UF;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -51,7 +52,7 @@ public class AlterarTermoAditivoServlet extends HttpServlet {
             if (ida != null) {
                 termoAditivo = TermoAditivoServices.buscarTermoAditivo(Integer.parseInt(ida));
             }
-
+            Collections.sort(termoEstagio.getTermosAditivos());
             if (termoAditivo != null && termoEstagio.getTermosAditivos().get(termoEstagio.getTermosAditivos().size() - 1).getIdTermoAditivo().equals(termoAditivo.getIdTermoAditivo()) && termoEstagio.getAluno().getMatricula().equals(matricula)) {
 
                 String vigencia = "";
@@ -174,6 +175,7 @@ public class AlterarTermoAditivoServlet extends HttpServlet {
             }
 
         } catch (NullPointerException e) {
+        	e.printStackTrace();
             Locale locale = ServletUtils.getLocale(req);
             ResourceBundle messages = ResourceBundle.getBundle("Messages", locale);
             String msg = messages.getString("br.cefetrj.sisgee.form_alterar_termo_aditivo.msg_erro_irregular");

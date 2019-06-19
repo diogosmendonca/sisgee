@@ -1,6 +1,7 @@
 package br.cefetrj.sisgee.view.termoaditivo;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -64,14 +65,16 @@ public class BuscaTermoAditivoServlet extends HttpServlet {
 		
 		//TODO consertar a lógica de mensagem vazia
 		if(msg != "") {
-			aluno = AlunoServices.buscarAluno(new Aluno(id));				
-			termoEstagios = aluno.getTermoEstagios();			
+			aluno = AlunoServices.buscarAluno(new Aluno(id));			
+			termoEstagios = aluno.getTermoEstagios();
 		}
 		
                 if (termoEstagios != null) {
                   //request.setAttribute("termosAditivos",TermoAditivoServices.listarTermoAditivo());
                   if(aluno.getTermoEstagios().size() > 0){
-                      request.setAttribute("termosAditivos", aluno.getTermoEstagios().get(aluno.getTermoEstagios().size()-1).getTermosAditivos());
+                	 List<TermoAditivo>termoAditivos = aluno.getTermoEstagios().get(aluno.getTermoEstagios().size()-1).getTermosAditivos();
+                	 Collections.sort(termoAditivos);
+                      request.setAttribute("termosAditivos", termoAditivos);
                   }
                 }
 		
