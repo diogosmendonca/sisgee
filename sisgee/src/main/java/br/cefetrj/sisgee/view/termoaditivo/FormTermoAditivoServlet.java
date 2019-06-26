@@ -814,27 +814,95 @@ public class FormTermoAditivoServlet extends HttpServlet {
                     //TODO Fazer log
                     System.out.println(estadoEnderecoMsg);
                 }
+            }
 
                 /**
                  * Validação do nome do supervisor do TermoEstagio usando
                  * métodos da Classe ValidaUtils. Campo opicional e tamanho
                  * máximo de 100 caracteres.
                  */
-                String nomeSupervisorMsg = "";
-                campo = "NomeSupervisor";
-                tamanho = 80;
-                nomeSupervisorMsg = ValidaUtils.validaTamanho(campo, tamanho, nomeSupervisor);
-                if (nomeSupervisorMsg.trim().isEmpty()) {
-                    request.setAttribute("nomeSupervisor", nomeSupervisor);
-                } else {
-                    nomeSupervisorMsg = messages.getString(nomeSupervisorMsg);
-                    nomeSupervisorMsg = ServletUtils.mensagemFormatada(nomeSupervisorMsg, locale, tamanho);
-                    request.setAttribute("nomeSupervisorMsg", nomeSupervisorMsg);
-                    isValid = false;
-                    //TODO Fazer log
-                    System.out.println(nomeSupervisorMsg);
-                }
-            }
+            	if(showSupervisor != null ||!showSupervisor.trim().isEmpty()) {
+            		Boolean hasDataFim = false;
+                    String dataFimMsg = "";
+                    dataFimMsg = ValidaUtils.validaObrigatorio(campo, dataFimTermoAditivo);
+                    System.out.println("" + dataFimMsg);
+                    if (dataFimMsg.trim().isEmpty()) {
+                        dataFimMsg = ValidaUtils.validaDate(campo, dataFimTermoAditivo);
+                        if (dataFimMsg.trim().isEmpty()) {
+                            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+                            try {
+                                dataFim = format.parse(dataFimTermoAditivo);
+                                request.setAttribute("dataFim", dataFim);
+                                hasDataFim = true;
+                            } catch (Exception e) {
+                                isValid = false;
+                            }
+                        } else {
+                            dataFimMsg = messages.getString("br.cefetrj.sisgee.valida_utils.msg_valida_obrigatorio");
+                            request.setAttribute("dataFimMsg", dataFimMsg);
+                            isValid = false;
+                        }
+                        String periodoMsg = "";
+                        periodoMsg = ValidaUtils.validaDatas(termoEstagio.getDataInicioTermoEstagio(), dataFim);
+                        if (!periodoMsg.trim().isEmpty()) {
+                            periodoMsg = messages.getString(periodoMsg);
+                            request.setAttribute("periodoMsg", periodoMsg);
+                            isValid = false;
+                        }
+                    } else {
+                        dataFimMsg = messages.getString("br.cefetrj.sisgee.valida_utils.msg_valida_obrigatorio");
+                        request.setAttribute("dataFimMsg", dataFimMsg);
+                        isValid = false;
+                    }
+                    request.setAttribute("hasDataFim", hasDataFim);
+                    Boolean hasDataCadastramento = false;
+                    String dataCadastramentoMsg = "";
+                    dataCadastramentoMsg = ValidaUtils.validaObrigatorio(campo, dataCadastramentoTermoAditivo);
+                    System.out.println("" + dataCadastramentoMsg);
+                    if (dataCadastramentoMsg.trim().isEmpty()) {
+                        dataCadastramentoMsg = ValidaUtils.validaDate(campo, dataCadastramentoTermoAditivo);
+                        if (dataCadastramentoMsg.trim().isEmpty()) {
+                            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+                            try {
+                                dataCadastramento = format.parse(dataCadastramentoTermoAditivo);
+                                request.setAttribute("dataCadastramento", dataCadastramento);
+                                hasDataCadastramento = true;
+                            } catch (Exception e) {
+                                isValid = false;
+                            }
+                        } else {
+                            dataCadastramentoMsg = messages.getString("br.cefetrj.sisgee.valida_utils.msg_valida_obrigatorio");
+                            request.setAttribute("dataCadastramentoMsg", dataCadastramentoMsg);
+                            isValid = false;
+                        }
+                        String periodoMsg = "";
+                        periodoMsg = ValidaUtils.validaDatas(termoEstagio.getDataInicioTermoEstagio(), dataCadastramento);
+                        if (!periodoMsg.trim().isEmpty()) {
+                            periodoMsg = messages.getString(periodoMsg);
+                            request.setAttribute("periodoMsg", periodoMsg);
+                            isValid = false;
+                        }
+                    } else {
+                        dataCadastramentoMsg = messages.getString("br.cefetrj.sisgee.valida_utils.msg_valida_obrigatorio");
+                        request.setAttribute("dataCadastramentoMsg", dataCadastramentoMsg);
+                        isValid = false;
+                    }
+                    request.setAttribute("hasDataCadastramento", hasDataCadastramento);
+	                String nomeSupervisorMsg = "";
+	                campo = "NomeSupervisor";
+	                tamanho = 80;
+	                nomeSupervisorMsg = ValidaUtils.validaTamanho(campo, tamanho, nomeSupervisor);
+	                if (nomeSupervisorMsg.trim().isEmpty()) {
+	                    request.setAttribute("nomeSupervisor", nomeSupervisor);
+	                } else {
+	                    nomeSupervisorMsg = messages.getString(nomeSupervisorMsg);
+	                    nomeSupervisorMsg = ServletUtils.mensagemFormatada(nomeSupervisorMsg, locale, tamanho);
+	                    request.setAttribute("nomeSupervisorMsg", nomeSupervisorMsg);
+	                    isValid = false;
+	                    //TODO Fazer log
+	                    System.out.println(nomeSupervisorMsg);
+	                }
+            	}
 
         } else {
 
@@ -950,6 +1018,10 @@ public class FormTermoAditivoServlet extends HttpServlet {
                     termoAditivo6.setTipoAditivo("Supervisor");
                     termoAditivo6.setDataCadastramentoTermoAditivo(dataCadastramento);
                     termoAditivo6.setDataFimTermoAditivo(dataFim);
+                    System.out.println(nomeSupervisor);
+                    System.out.println(cargoSupervisor);
+                    System.out.println(dataCadastramento);
+                    System.out.println(dataFim);
                     int counter = 0;
                     for (TermoEstagio term : aluno.getTermoEstagios()) {
                         if (term.getEstado().equals("Encerrado")) {
