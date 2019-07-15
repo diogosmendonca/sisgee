@@ -50,9 +50,13 @@ public class ValidaUtils {
      * @return msg de erro
      */
     public static String validaTelefone(String nomeCampo, String param) {
+    	System.out.println("Nome do campo " +nomeCampo + "campo " + param + "tamanho do parâmetro " + param.length());
         String msg = "";
-        if (param.length() < 10) {
-            msg = "br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido";
+        if (param.length() < 13) {
+            return msg;
+        }
+        else{
+        	msg = "br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido";
         }
         return msg;
     }
@@ -143,7 +147,7 @@ public class ValidaUtils {
      */
     public static String validaNumeroDDD(String nomeCampo, String param) {
         String msg = "";
-        if (!param.matches("(10)|([1-9][1-9])[2-9]\\d{3,4}\\d{4}")) {
+        if (!param.matches("(11)|[1-9][1-9][2-9]\\d{3,4}\\d{4}")) {
             msg = "br.cefetrj.sisgee.valida_utils.msg_valida_ddd";
         }
         return msg;

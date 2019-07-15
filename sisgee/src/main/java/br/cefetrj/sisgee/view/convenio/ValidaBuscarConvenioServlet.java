@@ -42,6 +42,7 @@ public class ValidaBuscarConvenioServlet extends HttpServlet {
 
         String numero = request.getParameter("numeroConvenio");
         String nome = request.getParameter("razaoSocial");
+        System.out.println("Razão Social é :" +nome);
 
         boolean isValid = true;
         Integer tamanho = 0;
@@ -87,13 +88,8 @@ public class ValidaBuscarConvenioServlet extends HttpServlet {
             if (nomeMsg.trim().isEmpty()) {
                 nomeMsg = ValidaUtils.validaTamanho("Razão Social", 100, nome);
                 if (nomeMsg.trim().isEmpty()) {
-                    nomeMsg = ValidaUtils.validaInteger("Razão Social", nome);
-                    if (nomeMsg.trim().isEmpty()) {
-                        nomeMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
-                        request.setAttribute("nomeMsg", nomeMsg);
-                        isValid = false;
-                    } else {
-                        request.setAttribute("razaoSocial", nome);
+                    request.setAttribute("razaoSocial", nome);
+                    System.out.println("Razão Social :"+nome);
                     }
                 } else {
                     nomeMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
@@ -101,11 +97,6 @@ public class ValidaBuscarConvenioServlet extends HttpServlet {
                     request.setAttribute("nomeMsg", nomeMsg);
                     isValid = false;
                 }
-            } else {
-                nomeMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
-                request.setAttribute("nomeMsg", nomeMsg);
-                isValid = false;
-            }
         }
 
         /**

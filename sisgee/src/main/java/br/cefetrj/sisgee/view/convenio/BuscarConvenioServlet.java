@@ -54,7 +54,7 @@ public class BuscarConvenioServlet extends HttpServlet {
 
         numero = request.getParameter("numeroConvenio");
         nome = request.getParameter("razaoSocial");
-
+        System.out.println("Razão social servlet 2:" +nome);
         String idEmpresa = "";
         request.setAttribute("selecao", null);
 
@@ -118,6 +118,7 @@ public class BuscarConvenioServlet extends HttpServlet {
                             request.getRequestDispatcher("/index.jsp").forward(request, response);
                         }
                         convenios.add(convenio);
+                        System.out.println(convenios);
                     }
                 }
                 if (empresas != null) {
@@ -132,6 +133,7 @@ public class BuscarConvenioServlet extends HttpServlet {
                             request.getRequestDispatcher("/index.jsp").forward(request, response);
                         }
                         convenios.add(convenio);
+                        System.out.println(convenios);
                     }
                 }
             } else {

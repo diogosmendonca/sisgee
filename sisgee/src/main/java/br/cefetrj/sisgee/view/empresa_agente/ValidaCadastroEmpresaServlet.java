@@ -223,15 +223,24 @@ public class ValidaCadastroEmpresaServlet extends HttpServlet {
             telefoneEmpresaMsg = ValidaUtils.validaObrigatorio("telefoneEmpresa", telefoneEmpresa);
             if (telefoneEmpresaMsg.trim().isEmpty()) {
                 telefoneEmpresaMsg = ValidaUtils.validaTamanho("telefoneEmpresa", 11, telefoneEmpresa);
-
+                System.out.println("passou tamanho");
+                System.out.println(telefoneEmpresa);
                 if (telefoneEmpresaMsg.trim().isEmpty()) {
                     telefoneEmpresa = telefoneEmpresa.replaceAll("[.|/|-]", "");
+                    System.out.println(telefoneEmpresa);
                     telefoneEmpresaMsg = ValidaUtils.validaInteger("telefoneEmpresa", telefoneEmpresa);
+                    System.out.println("passou apenas números");
+                    System.out.println("telefoneEmpresaMsg: " + telefoneEmpresaMsg);
                     if (telefoneEmpresaMsg.trim().isEmpty()) {
                         telefoneEmpresaMsg = ValidaUtils.validaTelefone("telefoneEmpresa", telefoneEmpresa);
+                        System.out.println(telefoneEmpresa);
+                        System.out.println("formato telefone válido");
+                        System.out.println("telefoneEmpresaMsg: " +telefoneEmpresaMsg);
                         if (telefoneEmpresaMsg.trim().isEmpty()) {
-                            //Alterações, nova condição
+                        	//Alterações, nova condição
                             telefoneEmpresaMsg = ValidaUtils.validaNumeroDDD("telefoneEmpresa", telefoneEmpresa);
+                            System.out.println("telefoneEmpresaMsg: " +telefoneEmpresaMsg);
+                            System.out.println("formato ddd válido");
                             if (telefoneEmpresaMsg.trim().isEmpty()) {
                                 request.setAttribute("telefoneEmpresa", telefoneEmpresa);
                             } else {

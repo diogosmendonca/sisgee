@@ -94,7 +94,7 @@
 
                         <div class="form-group col-md-6">
                             <label for="telefoneEmpresa"><fmt:message key = "br.cefetrj.sisgee.form_empresa.msg_telefone"/></label>
-                            <input type="text" class="form-control ${ not empty telefoneEmpresaMsg ? 'is-invalid': 'is-valid' }" id="telefoneEmpresa" name="telefoneEmpresa" maxlength="11"  value="${param.telefoneEmpresa}">
+                            <input type="text" class="form-control ${ not empty telefoneEmpresaMsg ? 'is-invalid': 'is-valid' }" id="telefoneEmpresa" name="telefoneEmpresa" maxlength="12"  value="${param.telefoneEmpresa}">
                             <c:if test="${ not empty telefoneEmpresaMsg }">
                                 <div class="invalid-feedback">${ telefoneEmpresaMsg }</div>
                             </c:if>
