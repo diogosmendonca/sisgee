@@ -57,13 +57,14 @@ public class BuscaAlunoServlet extends HttpServlet {
                 String tipoAluno = "";
                 String alunoMsg1 = "", alunoMsg2 = "", alunoMsg3 = "", alunoMsg4 = "", alunoMsg5 = "";
                 int tamanhoMin = 10;
-                int tamanhoMax = 13;
+                int tamanhoMax = 15;
                 termoAditivo = request.getParameter("termoAditivo");
                                 
                 Locale locale = ServletUtils.getLocale(request);
                 ResourceBundle messages = ResourceBundle.getBundle("Messages", locale);
                 final Calendar cal = Calendar.getInstance();
-                
+                System.out.println(matricula);
+                System.out.println(matricula.length());
                 alunoMsg1 = ValidaUtils.validaTamanhoMatricula(tamanhoMin, tamanhoMax, matricula);
                 
                 if(alunoMsg1.isEmpty() || alunoMsg1 == null ){

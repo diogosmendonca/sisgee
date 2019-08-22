@@ -6,7 +6,7 @@
             <input type="hidden" id="idAluno" name="idAluno" value="-1">
             <input type="hidden" id="tipoAluno" name="tipoAluno" value="${ param.tipoAluno }">
             ${param.idAluno>-1?'<input type="hidden" id="idAluno" name="idAluno" value="${ param.idAluno }">':''}
-            <input type="text" required="required" minlength="10" pattern="[1-9]{7}[a-z\s]{3,6}+$"  maxlength="13"  class="form-control ${ not empty idAlunoMsg ? 'is-invalid': 'is-valid' }" placeholder="<fmt:message key = "br.cefetrj.sisgee.import_busca_aluno.placeholder_matricula"/>" id="matricula" name="matricula" value="${ param.matricula }">
+            <input type="text" required="required" minlength="10" maxlength="15"  class="form-control ${ not empty idAlunoMsg ? 'is-invalid': 'is-valid' }" placeholder="<fmt:message key = "br.cefetrj.sisgee.import_busca_aluno.placeholder_matricula"/>" id="matricula" name="matricula" value="${ param.matricula }">
             <span class="input-group-btn"> 
                 <button class="btn btn-primary" type="button" id="btnBuscarMatricula"><fmt:message key = "br.cefetrj.sisgee.resources.form.buscar"/></button>
             </span>

@@ -43,7 +43,6 @@ public class BuscaTermoAditivoServlet extends HttpServlet {
 		
 		String msg = null;
 		String idAluno = request.getParameter("idAluno");
-                String mat = request.getParameter("matricula");
                 
 		Integer id = null;
                 System.out.println("Aqui >>> "+idAluno);
