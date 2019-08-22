@@ -63,8 +63,6 @@ public class BuscaAlunoServlet extends HttpServlet {
                 Locale locale = ServletUtils.getLocale(request);
                 ResourceBundle messages = ResourceBundle.getBundle("Messages", locale);
                 final Calendar cal = Calendar.getInstance();
-                System.out.println(matricula);
-                System.out.println(matricula.length());
                 alunoMsg1 = ValidaUtils.validaTamanhoMatricula(tamanhoMin, tamanhoMax, matricula);
                 
                 if(alunoMsg1.isEmpty() || alunoMsg1 == null ){
