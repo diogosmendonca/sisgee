@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
+ * Servlet para tratar edição de dados incorretos de um convênio.
  * @author Matheus Silva
  */
 @WebServlet(name = "EditarConvenioServlet", urlPatterns = {"/EditarConvenioServlet"})

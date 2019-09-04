@@ -102,40 +102,41 @@ public class ValidaCadastroEmpresaServlet extends HttpServlet {
                     if (cnpjEmpresaMsg.trim().isEmpty()) {
                         Empresa e = EmpresaServices.buscarEmpresaByCnpj(cnpjEmpresa);
                         if (e == null) {
-                            if (cnpjEmpresaMsg.trim().isEmpty()) {
-                                AgenteIntegracao a = AgenteIntegracaoServices.buscarAgenteIntegracaoByCnpj(cnpjEmpresa);
-                                if (a == null) {
-                                    request.setAttribute("cnpjEmpresa", cnpjEmpresa);
-                                } else {
-                                    cnpjEmpresaMsg = messages.getString("br.cefetrj.sisgee.valida_cadastro_empresa_servlet.msg_empresa_duplicada");
-                                    request.setAttribute("cnpjEmpresaMsg", cnpjEmpresaMsg);
-                                    isValid = false;
-                                }
+                        	AgenteIntegracao a = AgenteIntegracaoServices.buscarAgenteIntegracaoByCnpj(cnpjEmpresa);
+                            if (a == null) {
+                            request.setAttribute("cnpjEmpresa", cnpjEmpresa);
                             } else {
-                                request.setAttribute("cnpjEmpresa", cnpjEmpresa);
+                            	cnpjEmpresaMsg = messages.getString("br.cefetrj.sisgee.valida_cadastro_empresa_servlet.msg_empresa_duplicada");
+                                request.setAttribute("cnpjEmpresaMsg", cnpjEmpresaMsg);
+                                isValid = false;
+                                System.out.println("isValid falso cnpj agente integração já existe");
                             }
                         } else {
-                            cnpjEmpresaMsg = messages.getString("br.cefetrj.sisgee.valida_cadastro_empresa_servlet.msg_empresa_duplicada");
-                            request.setAttribute("cnpjEmpresaMsg", cnpjEmpresaMsg);
-                            isValid = false;
+	                        cnpjEmpresaMsg = messages.getString("br.cefetrj.sisgee.valida_cadastro_empresa_servlet.msg_empresa_duplicada");
+	                        cnpjEmpresaMsg = ServletUtils.mensagemFormatada(cnpjEmpresaMsg, locale, tamanho);
+	                        request.setAttribute("cnpjEmpresaMsg", cnpjEmpresaMsg);
+	                        isValid = false;
+	                        System.out.println("isValid falso cnpj já existe no bd");
                         }
                     } else {
-                        cnpjEmpresaMsg = messages.getString(cnpjEmpresaMsg);
-                        cnpjEmpresaMsg = ServletUtils.mensagemFormatada(cnpjEmpresaMsg, locale, tamanho);
-                        request.setAttribute("cnpjEmpresaMsg", cnpjEmpresaMsg);
-                        isValid = false;
-                    }
+	                    cnpjEmpresaMsg = messages.getString("br.cefetrj.sisgee.valida_utils.msg_valida_tamanho_exato");
+	                    request.setAttribute("cnpjEmpresaMsg", cnpjEmpresaMsg);
+	                    isValid = false;
+	                    System.out.println("isValid falso tamanho cnpj errado");
+	                }
                 } else {
-                    cnpjEmpresaMsg = messages.getString(cnpjEmpresaMsg);
-                    request.setAttribute("cnpjEmpresaMsg", cnpjEmpresaMsg);
-                    isValid = false;
-                }
+	                cnpjEmpresaMsg = messages.getString("br.cefetrj.sisgee.valida_utils.msg_valida_numerico");
+	                request.setAttribute("cnpjEmpresaMsg", cnpjEmpresaMsg);
+	                isValid = false;
+	                System.out.println("isValid falso não é apenas números cnpj");
+	            }
             } else {
-                cnpjEmpresaMsg = messages.getString(cnpjEmpresaMsg);
+                cnpjEmpresaMsg = messages.getString("br.cefetrj.sisgee.valida_utils.msg_valida_obrigatorio");
                 request.setAttribute("cnpjEmpresaMsg", cnpjEmpresaMsg);
                 isValid = false;
+                System.out.println("isValid falso cpnj nulo");
             }
-
+               
             /**
              * Validação do campo Agente Integração, usando métodos da Classe
              * ValidaUtils. Deve ser campo booleano
@@ -148,14 +149,16 @@ public class ValidaCadastroEmpresaServlet extends HttpServlet {
                     Boolean obrigatorio = Boolean.parseBoolean(agenteIntegracao);
                     request.setAttribute("obrigatorio", obrigatorio);
                 } else {
-                    agenteIntegracaoMsg = messages.getString(agenteIntegracaoMsg);
+                    agenteIntegracaoMsg = messages.getString("br.cefetrj.sisgee.valida_utils.msg_valida_booleano");
                     request.setAttribute("agenteIntegracaoMsg", agenteIntegracaoMsg);
                     isValid = false;
+                    System.out.println("isValid falso não é um boolean");
                 }
             } else {
-                agenteIntegracaoMsg = messages.getString(agenteIntegracaoMsg);
+                agenteIntegracaoMsg = messages.getString("br.cefetrj.sisgee.valida_utils.msg_valida_obrigatorio");
                 request.setAttribute("agenteIntegracaoMsg", agenteIntegracaoMsg);
                 isValid = false;
+                System.out.println("isValid falso Agente de integração vazio");
             }
 
             /**
@@ -175,17 +178,20 @@ public class ValidaCadastroEmpresaServlet extends HttpServlet {
                         nomeEmpresaMsg = messages.getString("br.cefetrj.sisgee.valida_cadastro_empresa_servlet.msg_empresa_duplicada");
                         request.setAttribute("nomeEmpresaMsg", nomeEmpresaMsg);
                         isValid = false;
+                        System.out.println("isValid falso nome já existe");
                     }
                 } else {
-                    nomeEmpresaMsg = messages.getString(nomeEmpresaMsg);
+                    nomeEmpresaMsg = messages.getString("br.cefetrj.sisgee.valida_utils.msg_valida_tamanho_txt");
                     nomeEmpresaMsg = ServletUtils.mensagemFormatada(nomeEmpresaMsg, locale, tamanho);
                     request.setAttribute("nomeEmpresaMsg", nomeEmpresaMsg);
                     isValid = false;
+                    System.out.println("isValid falso tamanho errado nome empresa");
                 }
             } else {
-                nomeEmpresaMsg = messages.getString(nomeEmpresaMsg);
+                nomeEmpresaMsg = messages.getString("br.cefetrj.sisgee.valida_utils.msg_valida_obrigatorio");
                 request.setAttribute("nomeEmpresaMsg", nomeEmpresaMsg);
                 isValid = false;
+                System.out.println("isValid falso razão social vazio");
             }
 
             /**
@@ -204,14 +210,21 @@ public class ValidaCadastroEmpresaServlet extends HttpServlet {
                         emailEmpresaMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
                         request.setAttribute("emailEmpresaMsg", emailEmpresaMsg);
                         isValid = false;
+                        System.out.println("isValid falso não é email");
                     }
 
                 } else {
                     emailEmpresaMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
                     request.setAttribute("emailEmpresaMsg", emailEmpresaMsg);
                     isValid = false;
+                    System.out.println("isValid falso tamanho errado do email");
                 }
 
+            } else {
+            	emailEmpresaMsg = messages.getString("br.cefetrj.sisgee.valida_utils.msg_valida_obrigatorio");
+            	request.setAttribute("emailEmpresaMsg", emailEmpresaMsg);
+            	isValid = false;
+            	System.out.println("isValid falso email obrigatório");
             }
 
             /**
@@ -247,17 +260,20 @@ public class ValidaCadastroEmpresaServlet extends HttpServlet {
                                 telefoneEmpresaMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
                                 request.setAttribute("telefoneEmpresaMsg", telefoneEmpresaMsg);
                                 isValid = false;
+                                System.out.println("isValid falso formato ddd errado");
                             }
                         } else {
                             telefoneEmpresaMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
                             request.setAttribute("telefoneEmpresaMsg", telefoneEmpresaMsg);
                             isValid = false;
+                            System.out.println("isValid falso não é telefone");
                         }
 
                     } else {
                         telefoneEmpresaMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
                         request.setAttribute("telefoneEmpresaMsg", telefoneEmpresaMsg);
                         isValid = false;
+                        System.out.println("isValid falso telefone não é apenas números");
 
                     }
 
@@ -265,8 +281,14 @@ public class ValidaCadastroEmpresaServlet extends HttpServlet {
                     telefoneEmpresaMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
                     request.setAttribute("telefoneEmpresaMsg", telefoneEmpresaMsg);
                     isValid = false;
+                    System.out.println("isValid falso não tá no tamanho certo telefone");
                 }
 
+            } else {
+            	telefoneEmpresaMsg = messages.getString("br.cefetrj.sisgee.valida_utils.msg_valida_obrigatorio");
+            	request.setAttribute("telefoneEmpresaMsg", telefoneEmpresaMsg);
+            	isValid = false;
+            	System.out.println("isValid falso telefone é obrigatório");
             }
 
             /**
@@ -284,18 +306,24 @@ public class ValidaCadastroEmpresaServlet extends HttpServlet {
                         request.setAttribute("contatoEmpresa", contatoEmpresa);
 
                     } else {
-                        contatoEmpresaMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
+                        contatoEmpresaMsg = messages.getString("br.cefetrj.sisgee.valida_utils.msg_valida_txt");
                         request.setAttribute("contatoEmpresaMsg", contatoEmpresaMsg);
                         isValid = false;
-
+                        System.out.println("isValid falso contato não é apenas letras");
                     }
 
                 } else {
-                    contatoEmpresaMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
+                    contatoEmpresaMsg = messages.getString("br.cefetrj.sisgee.valida_utils.msg_valida_tamanho_txt");
                     request.setAttribute("contatoEmpresaMsg", contatoEmpresaMsg);
                     isValid = false;
+                    System.out.println("isValid falso tamanho errado contato");
                 }
 
+            } else {
+            	contatoEmpresaMsg = messages.getString("br.cefetrj.sisgee.valida_utils.msg_valida_obrigatorio");
+            	request.setAttribute("contatoEmpresaMsg", contatoEmpresaMsg);
+            	isValid = false;
+            	System.out.println("isValid falso contato é obrigatório");
             }
 
             /**
@@ -318,28 +346,27 @@ public class ValidaCadastroEmpresaServlet extends HttpServlet {
 
                             request.setAttribute("dataAssinaturaConvenioEmpresa", dataAssinaturaEmpresa);
                         } catch (Exception e) {
-                            //TODO trocar saída de console por Log
-                            System.out.println("Data em formato incorreto, mesmo após validação na classe ValidaUtils");
                             isValid = false;
+                            System.out.println("isValid falso não conseguiu fazer o parse da data");
                         }
                     } else {
                         dataAssinaturaMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
                         request.setAttribute("dataAssinaturaEmpresaMsg", dataAssinaturaMsg);
                         isValid = false;
-                        //TODO Fazer log
+                        System.out.println("isValid falso não é tamanho certo de data");
                     }
                 } else {
                     dataAssinaturaMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
                     request.setAttribute("dataAssinaturaEmpresaMsg", dataAssinaturaMsg);
                     isValid = false;
-                    //TODO Fazer log
+                    System.out.println("isValid falso não é data");
                     System.out.println(dataAssinaturaMsg);
                 }
             } else {
-                dataAssinaturaMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
+                dataAssinaturaMsg = messages.getString("br.cefetrj.sisgee.valida_utils.msg_valida_obrigatorio");
                 request.setAttribute("dataAssinaturaEmpresaMsg", dataAssinaturaMsg);
                 isValid = false;
-                //TODO Fazer log
+                System.out.println("isValid falso data é obrigatório");
                 System.out.println(dataAssinaturaMsg);
             }
 
@@ -360,28 +387,33 @@ public class ValidaCadastroEmpresaServlet extends HttpServlet {
                                 numeroEmpresaMsg = messages.getString("br.cefetrj.sisgee.valida_cadastro_empresa_servlet.msg_numeroConvenio_invalido");
                                 request.setAttribute("numeroEmpresaMsg", numeroEmpresaMsg);
                                 isValid = false;
+                                System.out.println("isValid falso número convênio já existe");
                             }
                         } else {
-                            numeroEmpresaMsg = messages.getString(numeroEmpresaMsg);
+                            numeroEmpresaMsg = messages.getString("br.cefetrj.sisgee.valida_utils.msg_valida_positivo");
                             request.setAttribute("numeroEmpresaMsg", numeroEmpresaMsg);
                             isValid = false;
+                            System.out.println("isValid falso número convênio não é positivo");
                         }
                     } else {
-                        numeroEmpresaMsg = messages.getString(numeroEmpresaMsg);
+                        numeroEmpresaMsg = messages.getString("br.cefetrj.sisgee.valida_utils.msg_valida_tamanho_num");
                         numeroEmpresaMsg = ServletUtils.mensagemFormatada(numeroEmpresaMsg, locale, tamanho);
                         request.setAttribute("numeroEmpresaMsg", numeroEmpresaMsg);
                         isValid = false;
+                        System.out.println("isValid falso número convênio fora do tamanho exato");
                     }
                 } else {
-                    numeroEmpresaMsg = messages.getString(numeroEmpresaMsg);
+                    numeroEmpresaMsg = messages.getString("br.cefetrj.sisgee.valida_utils.msg_valida_numerico");
                     numeroEmpresaMsg = ServletUtils.mensagemFormatada(numeroEmpresaMsg, locale, tamanho);
                     request.setAttribute("numeroEmpresaMsg", numeroEmpresaMsg);
                     isValid = false;
+                    System.out.println("isValid falso não é apenas números ");
                 }
             } else {
-                numeroEmpresaMsg = messages.getString(numeroEmpresaMsg);
+                numeroEmpresaMsg = messages.getString("br.cefetrj.sisgee.valida_utils.msg_valida_obrigatorio");
                 request.setAttribute("numeroEmpresaMsg", numeroEmpresaMsg);
                 isValid = false;
+                System.out.println("isValid falso numero da empresa é obrigatório");
             }
 
             String anoEmpresaMsg = "";
@@ -396,26 +428,30 @@ public class ValidaCadastroEmpresaServlet extends HttpServlet {
                         if (anoEmpresaMsg.trim().isEmpty()) {
                             request.setAttribute("anoEmpresa", anoEmpresa);
                         } else {
-                            anoEmpresaMsg = messages.getString(anoEmpresaMsg);
+                            anoEmpresaMsg = messages.getString("br.cefetrj.sisgee.valida_utils.msg_valida_tamanho_num");
                             anoEmpresaMsg = ServletUtils.mensagemFormatada(anoEmpresaMsg, locale, tamanho);
                             request.setAttribute("anoEmpresaMsg", anoEmpresaMsg);
                             isValid = false;
+                            System.out.println("isValid falso não é tamanho exato");
                         }
                     } else {
-                        anoEmpresaMsg = messages.getString(anoEmpresaMsg);
+                        anoEmpresaMsg = messages.getString("br.cefetrj.sisgee.valida_utils.msg_valida_positivo");
                         request.setAttribute("anoEmpresaMsg", anoEmpresaMsg);
                         isValid = false;
+                        System.out.println("isValid falso ano não é positivo");
                     }
                 } else {
-                    anoEmpresaMsg = messages.getString(anoEmpresaMsg);
+                    anoEmpresaMsg = messages.getString("br.cefetrj.sisgee.valida_utils.msg_valida_numerico");
                     anoEmpresaMsg = ServletUtils.mensagemFormatada(anoEmpresaMsg, locale, tamanho);
                     request.setAttribute("anoEmpresaMsg", anoEmpresaMsg);
                     isValid = false;
+                    System.out.println("isValid falso ano não é apenas números");
                 }
             } else {
-                anoEmpresaMsg = messages.getString(anoEmpresaMsg);
+                anoEmpresaMsg = messages.getString("br.cefetrj.sisgee.valida_utils.msg_valida_obrigatorio");
                 request.setAttribute("anoEmpresaMsg", anoEmpresaMsg);
                 isValid = false;
+                System.out.println("isValid falso ano é obrigatório");
             }
 
         } else {
@@ -444,22 +480,26 @@ public class ValidaCadastroEmpresaServlet extends HttpServlet {
                             cpfPessoaMsg = messages.getString("br.cefetrj.sisgee.valida_cadastro_empresa_servlet.msg_pessoafisica_duplicada");
                             request.setAttribute("cpfPessoaMsg", cpfPessoaMsg);
                             isValid = false;
+                            System.out.println("isValid falso cpf já existe");
                         }
                     } else {
                         cpfPessoaMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
                         request.setAttribute("cpfPessoaMsg", cpfPessoaMsg);
                         isValid = false;
+                        System.out.println("isValid falso cpf não está no tamanho exato");
                     }
                 } else {
                     cpfPessoaMsg = messages.getString("br.cefetrj.sisgee.valida_utils.msg_valida_numerico");
                     request.setAttribute("cpfPessoaMsg", cpfPessoaMsg);
                     isValid = false;
+                    System.out.println("isValid falso não é apenas números");
                 }
             } else {
-                cpfPessoaMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
+                cpfPessoaMsg = messages.getString("br.cefetrj.sisgee.valida_utils.msg_valida_obrigatorio");
                 cpfPessoaMsg = ServletUtils.mensagemFormatada(cpfPessoaMsg, locale, tamanho);
                 request.setAttribute("cpfPessoaMsg", cpfPessoaMsg);
                 isValid = false;
+                System.out.println("isValid falso cpf é obrigatório");
             }
 
             /**
@@ -476,22 +516,24 @@ public class ValidaCadastroEmpresaServlet extends HttpServlet {
                     if (nomePessoaMsg.trim().isEmpty()) {
                         request.setAttribute("nomePessoa", nomePessoa);
                     } else {
-                        nomePessoaMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
+                        nomePessoaMsg = messages.getString("br.cefetrj.sisgee.valida_utils.msg_valida_txt");
                         request.setAttribute("nomePessoaMsg", nomePessoaMsg);
                         isValid = false;
+                        System.out.println("isValid falso nome pessoa não é só letras");
                     }
 
                 } else {
-                    nomePessoaMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
+                    nomePessoaMsg = messages.getString("br.cefetrj.sisgee.valida_utils.msg_valida_tamanho_txt");
                     request.setAttribute("nomePessoaMsg", nomePessoaMsg);
                     isValid = false;
+                    System.out.println("isValid falso nome pessoa fora do tamanho");
                 }
 
             } else {
-                nomePessoaMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
+                nomePessoaMsg = messages.getString("br.cefetrj.sisgee.valida_utils.msg_valida_obrigatorio");
                 request.setAttribute("nomePessoaMsg", nomePessoaMsg);
                 isValid = false;
-
+                System.out.println("isValid falso nome pessoa é obrigatório");
             }
 
             /**
@@ -511,14 +553,22 @@ public class ValidaCadastroEmpresaServlet extends HttpServlet {
                         emailPessoaMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
                         request.setAttribute("emailPessoaMsg", emailPessoaMsg);
                         isValid = false;
+                        System.out.println("isValid falso não é um email pessoa");
                     }
                 } else {
                     emailPessoaMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
                     request.setAttribute("emailPessoaMsg", emailPessoaMsg);
                     isValid = false;
+                    System.out.println("isValid falso tamanho errado email pessoa");
                 }
 
+            } else {
+            	emailPessoaMsg = messages.getString("br.cefetrj.sisgee.valida_utils.msg_valida_obrigatorio");
+            	request.setAttribute("emailPessoaMsg", emailPessoaMsg);
+            	isValid = false;
+            	System.out.println("isValid falso email pessoa obrigatório");
             }
+
 
             /**
              * Validação do telefone da Pessoa Cadastro Pessoa Fisica usando
@@ -540,18 +590,26 @@ public class ValidaCadastroEmpresaServlet extends HttpServlet {
                             telefonePessoaMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
                             request.setAttribute("telefonePessoaMsg", telefonePessoaMsg);
                             isValid = false;
+                            System.out.println("isValid falso não é um telefone pessoa válido");
                         }
                     } else {
                         telefonePessoaMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
                         request.setAttribute("telefonePessoaMsg", telefonePessoaMsg);
                         isValid = false;
+                        System.out.println("isValid falso não é apenas número telefone pessoa");
                     }
                 } else {
                     telefonePessoaMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
                     request.setAttribute("telefonePessoaMsg", telefonePessoaMsg);
                     isValid = false;
+                    System.out.println("isValid falso tamanho errado telefone pessoa");
                 }
 
+            } else {
+            	telefonePessoaMsg = messages.getString("br.cefetrj.sisgee.valida_utils.msg_valida_obrigatorio");
+            	request.setAttribute("telefonePessoaMsg", telefonePessoaMsg);
+            	isValid = false;
+            	System.out.println("isValid falso telefone pessoa é obrigatório");
             }
 
             /**
@@ -577,26 +635,27 @@ public class ValidaCadastroEmpresaServlet extends HttpServlet {
                             //TODO trocar saída de console por Log
                             System.out.println("Data em formato incorreto, mesmo após validação na classe ValidaUtils");
                             isValid = false;
+                            System.out.println("isValid falso não conseguiu fazer parse data pessoa");
                         }
                     } else {
                         dataAssinaturaMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
                         request.setAttribute("dataAssinaturaPessoaMsg", dataAssinaturaMsg);
                         isValid = false;
-                        //TODO Fazer log
+                        System.out.println("isValid falso não é o tamanho exato data assinatura pessoa");
                     }
 
                 } else {
                     dataAssinaturaMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
                     request.setAttribute("dataAssinaturaPessoaMsg", dataAssinaturaMsg);
                     isValid = false;
-                    //TODO Fazer log
+                    System.out.println("isValid falso não é uma data pessoa válida");
                     System.out.println(dataAssinaturaMsg);
                 }
             } else {
                 dataAssinaturaMsg = messages.getString("br.cefetrj.sisgee.form_termo_estagio_servlet.valor_invalido");
                 request.setAttribute("dataAssinaturaPessoaMsg", dataAssinaturaMsg);
                 isValid = false;
-                //TODO Fazer log
+                System.out.println("isValid falso data assinatura pessoa obrigatória");
                 System.out.println(dataAssinaturaMsg);
             }
 
@@ -617,28 +676,33 @@ public class ValidaCadastroEmpresaServlet extends HttpServlet {
                                 numeroPessoaMsg = messages.getString("br.cefetrj.sisgee.valida_cadastro_empresa_servlet.msg_numeroConvenio_invalido");
                                 request.setAttribute("numeroPessoaMsg", numeroPessoaMsg);
                                 isValid = false;
+                                System.out.println("isValid falso número pessoa já existe");
                             }
                         } else {
-                            numeroPessoaMsg = messages.getString(numeroPessoaMsg);
+                            numeroPessoaMsg = messages.getString("br.cefetrj.sisgee.valida_utils.msg_valida_positivo");
                             request.setAttribute("numeroPessoaMsg", numeroPessoaMsg);
                             isValid = false;
+                            System.out.println("isValid falso número pessoa não é positivo");
                         }
                     } else {
-                        numeroPessoaMsg = messages.getString(numeroPessoaMsg);
+                        numeroPessoaMsg = messages.getString("br.cefetrj.sisgee.valida_utils.msg_valida_tamanho_num");
                         numeroPessoaMsg = ServletUtils.mensagemFormatada(numeroPessoaMsg, locale, tamanho);
                         request.setAttribute("numeroPessoaMsg", numeroPessoaMsg);
                         isValid = false;
+                        System.out.println("isValid falso número pessoa tamanho errado");
                     }
                 } else {
-                    numeroPessoaMsg = messages.getString(numeroPessoaMsg);
+                    numeroPessoaMsg = messages.getString("br.cefetrj.sisgee.valida_utils.msg_valida_numerico");
                     numeroPessoaMsg = ServletUtils.mensagemFormatada(numeroPessoaMsg, locale, tamanho);
                     request.setAttribute("numeroPessoaMsg", numeroPessoaMsg);
                     isValid = false;
+                    System.out.println("isValid falso número pessoa não é apenas número");
                 }
             } else {
-                numeroPessoaMsg = messages.getString(numeroPessoaMsg);
+                numeroPessoaMsg = messages.getString("br.cefetrj.sisgee.valida_utils.msg_valida_obrigatorio");
                 request.setAttribute("numeroPessoaMsg", numeroPessoaMsg);
                 isValid = false;
+                System.out.println("isValid falso número pessoa é obrigatório");
             }
 
             String anoPessoaMsg = "";
@@ -657,22 +721,26 @@ public class ValidaCadastroEmpresaServlet extends HttpServlet {
                             anoPessoaMsg = ServletUtils.mensagemFormatada(anoPessoaMsg, locale, tamanho);
                             request.setAttribute("anoPessoaMsg", anoPessoaMsg);
                             isValid = false;
+                            System.out.println("isValid falso ano pessoa fora do tamanho exato");
                         }
                     } else {
                         anoPessoaMsg = messages.getString(anoPessoaMsg);
                         request.setAttribute("anoPessoaMsg", anoPessoaMsg);
                         isValid = false;
+                        System.out.println("isValid falso ano pessoa não é positivo ");
                     }
                 } else {
                     anoPessoaMsg = messages.getString(anoPessoaMsg);
                     anoPessoaMsg = ServletUtils.mensagemFormatada(anoPessoaMsg, locale, tamanho);
                     request.setAttribute("anoPessoaMsg", anoPessoaMsg);
                     isValid = false;
+                    System.out.println("isValid falso ano pessoa não é apenas número ");
                 }
             } else {
-                anoPessoaMsg = messages.getString(anoPessoaMsg);
+                anoPessoaMsg = messages.getString("br.cefetrj.sisgee.valida_utils.msg_valida_obrigatorio");
                 request.setAttribute("anoPessoaMsg", anoPessoaMsg);
                 isValid = false;
+                System.out.println("isValid falso ano pessoa é obrigatório");
             }
 
         }

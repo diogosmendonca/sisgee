@@ -14,9 +14,12 @@ public class EmpresaDAO extends GenericDAO<Empresa> {
 	}
 	
         /**
-         * Método que busca por cnpj
+         * Método que busca por cnpj.
+         * 
          * @param cnpj
-         * @return 
+         * 
+         * @return Empresa
+         * 
          */
 	public Empresa buscarByCnpj(String cnpj){
 		return (Empresa) manager.createQuery(
@@ -26,9 +29,12 @@ public class EmpresaDAO extends GenericDAO<Empresa> {
 	}
 	
         /**
-         * Método que busca por uma lista de nome
+         * Método que busca por uma lista de empresas de mesmo nome
+         * 
          * @param nomeX
-         * @return 
+         * 
+         * @return lista de empresas
+         * 
          */
 	public List<Empresa> buscarByNomeList(String nomeX){
 		return (List<Empresa>) manager.createQuery(
@@ -39,9 +45,12 @@ public class EmpresaDAO extends GenericDAO<Empresa> {
 	}
         
         /**
-         * Método que busca por nome da empresa
+         * Método que busca por nome da empresa.
+         * 
          * @param nomeX
-         * @return 
+         * 
+         * @return empresa
+         * 
          */
         public Empresa buscarByNome(String nomeX){
 		return (Empresa) manager.createQuery(

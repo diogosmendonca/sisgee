@@ -21,7 +21,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/*
+/**
+ * Servlet criado para pegar as informações do termo estágio e do aluno e enviar para o formulário a ser preenchido
  * @author Matheus Silva e Yasmin Cardoso
  */
 @WebServlet("/AlterarTermoEstagioServlet")

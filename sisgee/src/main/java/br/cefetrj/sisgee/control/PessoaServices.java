@@ -22,10 +22,11 @@ import java.util.List;
 public class PessoaServices {
 
     /**
-     * Método que busca pesso pelo cpf
+     * Método que busca pesso pelo cpf.
      *
      * @param cpf
-     * @return
+     * 
+     * @return pessoa buscada
      */
     public static Pessoa buscarPessoaByCpf(String cpf) {
         PessoaDAO pessoaDao = new PessoaDAO();
@@ -39,10 +40,11 @@ public class PessoaServices {
     }
 
     /**
-     * Método que busca pessoa pelo nome
+     * Método que busca uma lista de pessoas de mesmo nome.
      *
      * @param nome
-     * @return
+     * 
+     * @return lissta de pessoas
      */
     public static List<Pessoa> buscarPessoaByNomeList(String nome) {
         System.out.println("BUSCOU A PESSOA PELO NOME");
@@ -57,9 +59,11 @@ public class PessoaServices {
     }
 
     /**
-     * Método que inclui uma pessoa
+     * Salva um novo registro de pessoa no banco de dados.
      *
-     * @param pessoa
+     * @param Pessoa
+     * 
+     * @return
      */
     public static void incluirPessoa(Pessoa pessoa) {
         System.out.println("ENTROU NO INCLUIR PESSOA SERVICE");

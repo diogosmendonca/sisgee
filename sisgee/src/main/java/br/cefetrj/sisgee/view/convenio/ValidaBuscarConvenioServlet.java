@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Valida dados do ao buscar um convenio, numero ou nome
+ * Valida dados ao buscar um convenio por numero ou nome
  *
  * @author Lucas Lima
  */

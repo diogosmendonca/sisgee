@@ -26,7 +26,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import jdk.nashorn.internal.runtime.ParserException;
 
-/*
+/**
+ * Servlet que recupera as informações do termo aditivo e as retorna para o formulário de alteração de termo aditivo
  * @author Matheus Silva
  */
 @WebServlet("/FormAlterarTermoAditivo")

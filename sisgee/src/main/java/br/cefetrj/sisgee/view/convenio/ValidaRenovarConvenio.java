@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet para validar dados do renovar convenio
+ * Servlet para validar dados do convenio na renovação.
  * 
  * @author Lucas Lima
  */

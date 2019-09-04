@@ -25,7 +25,15 @@ public class EmpresaServices {
 	public static List<Empresa> listarEmpresas(){
 		GenericDAO<Empresa> empresaDao = PersistenceManager.createGenericDAO(Empresa.class);
 		return empresaDao.buscarTodos();
-	}	
+	}
+	
+	/**
+	 * Recupera e retorna uma empresa específica através do número do CNPJ da empresa.
+	 * 
+	 * @param cnpj da empresa
+	 * 
+	 * @return empresa buscada
+	 */
 	
 	public static Empresa buscarEmpresaByCnpj(String cnpj) {
 		EmpresaDAO empresaDao = new EmpresaDAO();
@@ -37,8 +45,16 @@ public class EmpresaServices {
 		}
 		
 	}
-        
-        public static Empresa buscarEmpresaByNome(String nome) {
+    
+	/**
+	 * Recupera e retorna uma empresa específica através do nome da empresa.
+	 * 
+	 * @param nome da empresa
+	 * 
+	 * @return empresa buscada
+	 */
+	
+    public static Empresa buscarEmpresaByNome(String nome) {
 		EmpresaDAO empresaDao = new EmpresaDAO();
 		try{
 			Empresa e = empresaDao.buscarByNome(nome);
@@ -49,7 +65,14 @@ public class EmpresaServices {
 		
 	}
         
-        
+    /**
+     * Recupera e retorna uma lista de empresas com o mesmo nome.
+     * 
+     * @param nome das empresas
+     * 
+     * @return lista de empresas buscadas
+     * 
+     */
 	
 	public static List<Empresa> buscarEmpresaByNomeList(String nome) {
 		EmpresaDAO empresaDao = new EmpresaDAO();
@@ -62,6 +85,13 @@ public class EmpresaServices {
 		
 	}
         
+	/**
+	 * Recupera e retorna uma empresa através do id da empresa
+	 * 
+	 * @param idempresa
+	 * 
+	 * @return empresa buscada 
+	 */
 	
 	public static Empresa buscarEmpresa(Integer idEmpresa) {
 		EmpresaDAO empresaDao = new EmpresaDAO();
@@ -73,6 +103,14 @@ public class EmpresaServices {
 		}
 		
 	}
+	
+	/**
+	 * Salva um novo registro de empresa no banco de dados.
+	 * 
+	 * @param Empresa
+	 * 
+	 * @return
+	 */
 	
 	public static void incluirEmpresa(Empresa empresa){
 		GenericDAO<Empresa> empresaDao = PersistenceManager.createGenericDAO(Empresa.class);	

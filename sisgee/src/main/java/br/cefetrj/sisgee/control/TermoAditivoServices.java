@@ -19,15 +19,22 @@ import br.cefetrj.sisgee.model.entity.TermoEstagio;
  */
 public class TermoAditivoServices {
 
+	/**
+	 * Recupera todos os termos aditivos do banco de dados.
+	 * 
+	 * @return lista de termos aditivos
+	 * 
+	 */
     public static List<TermoAditivo> listarTermoAditivo() {
         GenericDAO<TermoAditivo> termoAditivoDao = PersistenceManager.createGenericDAO(TermoAditivo.class);
         return termoAditivoDao.buscarTodos();
     }
 
     /**
-     * Método para persistir um termo aditivo no banco
+     * Método para persistir um termo aditivo no banco.
      *
      * @param termoAditivo Termo aditivo a ser persistido
+     * 
      */
     public static void incluirTermoAditivo(TermoAditivo termoAditivo) {
         GenericDAO<TermoAditivo> termoAditivoDao = PersistenceManager.createGenericDAO(TermoAditivo.class);
@@ -41,7 +48,13 @@ public class TermoAditivoServices {
             PersistenceManager.getTransaction().rollback();
         }
     }
-
+    
+    
+    /**
+     * Método que altera um dado de um termo aditivo.
+     * 
+     * @param termoAditivo
+     */
     public static void atualizarTermoAditivo(TermoAditivo termoAditivo) {
         GenericDAO<TermoAditivo> termoAditivoDao = PersistenceManager.createGenericDAO(TermoAditivo.class);
         PersistenceManager.getTransaction().begin();
@@ -55,10 +68,12 @@ public class TermoAditivoServices {
     }
 
     /**
-     * Método para buscar um termo aditivo por id
+     * Método para buscar um termo aditivo por id.
      *
      * @param idTermoAditivo Id do termo aditivo
+     * 
      * @return termo aditivo referente ao id passado
+     * 
      */
     public static TermoAditivo buscarTermoAditivo(Integer idTermoAditivo) {
         GenericDAO<TermoAditivo> termoAditivoDao = PersistenceManager.createGenericDAO(TermoAditivo.class);
@@ -66,9 +81,10 @@ public class TermoAditivoServices {
     }
 
     /**
-     * Método para excluir um termo aditivo no banco
+     * Método para excluir um termo aditivo no banco.
      *
      * @param termoAditivo Termo aditivo a ser persistido
+     * 
      */
     public static void excluirTermoAditivo(TermoAditivo termoAditivo) throws Exception {
         boolean ultimo = false;
@@ -103,13 +119,14 @@ public class TermoAditivoServices {
 
     /**
      *
-     * Metodo para receber uma matriz de com conteudo do banco
+     * Metodo para receber uma matriz de com conteudo do banco.
      *
      * @author Marcos Eduardo
      * @param obrigatorio boolean do form para filtrar resultado
      * @param inicio date do form para filtrar resultado
      * @param termino date do form para filtrar resultado
      * @return author matriz com conteúdo obtido do banco ou null
+     * 
      */
     public static List<Object[]> listarTermoAditivoFiltrado(Boolean obrigatorio, Date inicio, Date termino) {
         TermoAditivoDAO termoAditivoDAO = new TermoAditivoDAO();
@@ -128,6 +145,15 @@ public class TermoAditivoServices {
         }
     }
 
+    /**
+     * Método que recupera um Termo Estágio e o modifica caso haja um termo aditivo com as informações do termo aditivo.
+     * 
+     * @param termoAditivo
+     * 
+     * @return Termo Estágio
+     * 
+     */
+    
     public static TermoEstagio termoEstagioAtualizadoByTermoAditivo(TermoAditivo termoAditivo) {
         TermoEstagio termoEstagio = TermoEstagioServices.buscarTermoEstagio(termoAditivo.getTermoEstagio().getIdTermoEstagio());
 

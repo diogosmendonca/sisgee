@@ -23,9 +23,12 @@ public class PessoaDAO extends GenericDAO<Pessoa> {
     }
 
     /**
-     * Método que busca por lista de nome
+     * Método que busca por lista de pessoas com o mesmo nome.
+     * 
      * @param nomeX
-     * @return 
+     * 
+     * @return lista de pessoas
+     *  
      */
     public List<Pessoa> buscarByNomeList(String nomeX) {
         return (List<Pessoa>) manager.createQuery(
@@ -35,9 +38,12 @@ public class PessoaDAO extends GenericDAO<Pessoa> {
     }
 
     /**
-     * Método que busca por cpf 
+     * Método que busca uma pessoa por cpf. 
+     * 
      * @param cpf
-     * @return 
+     * 
+     * @return pessoa
+     * 
      */
     public Pessoa buscarByCpf(String cpf) {
         return (Pessoa) manager.createQuery(

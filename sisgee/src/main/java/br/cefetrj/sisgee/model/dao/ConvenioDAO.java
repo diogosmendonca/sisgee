@@ -17,11 +17,14 @@ public class ConvenioDAO extends GenericDAO<Convenio> {
     }
 
     /**
-     * Método que busca por numero da empresa
+     * Método que busca por numero da empresa.
      *
      * @param numero
+     * 
      * @param emp
-     * @return
+     * 
+     * @return convênio
+     * 
      */
     public Convenio buscarByNumeroEmpresa(String numero, Empresa emp) {
         manager.clear();
@@ -33,10 +36,12 @@ public class ConvenioDAO extends GenericDAO<Convenio> {
     }
 
     /**
-     * Método que busca por numero do convenio
+     * Método que busca por numero do convenio.
      *
      * @param numeroConvenio
-     * @return
+     * 
+     * @return convênio
+     * 
      */
     public Convenio buscarByNumero(String numeroConvenio) {
         manager.clear();
@@ -49,10 +54,12 @@ public class ConvenioDAO extends GenericDAO<Convenio> {
     }
 
     /**
-     * Método que busca por empresa
+     * Método que busca por empresa.
      *
      * @param emp
-     * @return
+     * 
+     * @return convênio
+     * 
      */
     public Convenio buscarByEmpresa(Empresa emp) {
         manager.clear();
@@ -63,10 +70,12 @@ public class ConvenioDAO extends GenericDAO<Convenio> {
     }
 
     /**
-     * Método que busca por pessoa
+     * Método que busca por pessoa.
      *
      * @param pess
-     * @return
+     * 
+     * @return convênio
+     * 
      */
     public Convenio buscarByPessoa(Pessoa pess) {
         manager.clear();

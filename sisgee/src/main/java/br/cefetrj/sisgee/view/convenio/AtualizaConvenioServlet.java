@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
-/**
+/** Servlet para atualizar um convênio após o fim do seu período de vigência.
  *
  * @author Matheus Silva
  */

@@ -14,8 +14,11 @@ public class AgenteIntegracaoDAO extends GenericDAO<AgenteIntegracao> {
 	
         /**
          * Método que busca por cnpj
+         * 
          * @param cnpj
-         * @return 
+         * 
+         * @return agente de integração
+         * 
          */
 	public AgenteIntegracao buscarByCnpj(String cnpj){
 		return (AgenteIntegracao) manager.createQuery(
@@ -25,9 +28,12 @@ public class AgenteIntegracaoDAO extends GenericDAO<AgenteIntegracao> {
 	}
 	
         /**
-         * Método que busca por nome
+         * Método que busca por nome.
+         * 
          * @param nome
-         * @return 
+         * 
+         * @return agente de integração 
+         * 
          */
 	public AgenteIntegracao buscarByNome(String nome){
 		return (AgenteIntegracao) manager.createQuery(

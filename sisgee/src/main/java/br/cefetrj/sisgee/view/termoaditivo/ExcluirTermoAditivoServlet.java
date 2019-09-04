@@ -24,6 +24,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 /**
+ * Servlet responsável por tratar exclusão de um termo aditivo
  *
  * @author FernandoGodoy
  */

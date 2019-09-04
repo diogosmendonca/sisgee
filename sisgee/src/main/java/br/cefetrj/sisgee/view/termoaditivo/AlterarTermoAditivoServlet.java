@@ -28,7 +28,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- *
+ *Servlet responsável por tratar alterações no termo aditivo.
  * @author mathe
  */
 @WebServlet("/AlterarTermoAditivo")

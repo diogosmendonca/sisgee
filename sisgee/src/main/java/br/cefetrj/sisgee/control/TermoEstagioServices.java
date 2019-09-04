@@ -26,12 +26,23 @@ public class TermoEstagioServices {
 	 * Recupera todos os Termos de Estágio e retorna em uma lista.
 	 * 
 	 * @return lista com todos os Termos de Estágio
+	 * 
 	 */
 	public static List<TermoEstagio> listarTermoEstagio(){
 		GenericDAO<TermoEstagio> termoEstagioDao = PersistenceManager.createGenericDAO(TermoEstagio.class);
 		return termoEstagioDao.buscarTodos();
 	}	
 	
+	
+	/**
+	 * 
+	 * Recupera um termo estágio através de seu id.
+	 * 
+	 * @param idTermoEstagio
+	 * 
+	 * @return Termo Estágio
+	 * 
+	 */
 	public static TermoEstagio buscarTermoEstagio(Integer idTermoEstagio) {
 		GenericDAO<TermoEstagio> termoEstagioDao = PersistenceManager.createGenericDAO(TermoEstagio.class);
 		return termoEstagioDao.buscar(idTermoEstagio);
@@ -45,6 +56,7 @@ public class TermoEstagioServices {
 	 * @param  inicio date do form para filtrar resultado
 	 * @param  termino date do form para filtrar resultado
 	 * @return author matriz com conteúdo obtido do banco ou null
+	 * 
 	 */
 
 	public static List<Object[]> listarTermoEstagioFiltrado(Boolean obrigatorio, Date inicio, Date termino){
@@ -64,6 +76,15 @@ public class TermoEstagioServices {
 		}
 	}
 	
+	/**
+	 * Salva um registro de um termo estágio no banco de dados.
+	 * 
+	 * @param termoEstagio
+	 * 
+	 * @param convenio
+	 * 
+	 * @return
+	 */
 	public static void incluirTermoEstagio(TermoEstagio termoEstagio, Convenio convenio){
 		
 		/**
@@ -110,9 +131,13 @@ public class TermoEstagioServices {
 	}
         
         /**
-	 * Método para excluir um termo de estagio no banco
+	 * Método para excluir um termo de estagio no banco.
+	 * 
 	 * @param termoEstagio Termo estagio a excluido
+	 * 
+	 * @return 
 	 */
+	
         public static void excluirTermoEstagio(TermoEstagio termoEstagio) throws Exception{
                 
                 GenericDAO<TermoEstagio> termoEstagioDao = PersistenceManager.createGenericDAO(TermoEstagio.class);
@@ -121,18 +146,27 @@ public class TermoEstagioServices {
                 throw new Exception();
             }
                 
-		PersistenceManager.getTransaction().begin();
-		try{
-			termoEstagioDao.excluir(termoEstagio);
-			PersistenceManager.getTransaction().commit();
-		}catch(Exception e){
-			//TODO remover saída do console
-			System.out.println(e);
-			PersistenceManager.getTransaction().rollback();
-		}
+			PersistenceManager.getTransaction().begin();
+			try{
+				termoEstagioDao.excluir(termoEstagio);
+				PersistenceManager.getTransaction().commit();
+			}catch(Exception e){
+				//TODO remover saída do console
+				System.out.println(e);
+				PersistenceManager.getTransaction().rollback();
+			}
         }
 	
-        
+    /**
+     * Metódo para alterar um termo estágio.
+     * 
+     * @param termoEstagio
+     * 
+     * @return 
+     * 
+     * @throws Exception
+     * 
+     */
         
 	public static void alterarTermoEstagio(TermoEstagio termoEstagio) throws Exception{
 		
@@ -154,19 +188,27 @@ public class TermoEstagioServices {
 		}
 	}
         
-        
-        public static void encerrarTermoEstagio(TermoEstagio termoEstagio){
+	/**
+	 * Método para persistir um fim de termo estágio no banco de dados.
+	 * 
+	 * @param termoEstagio
+	 * 
+	 * @return
+	 * 
+	 */
+    
+    public static void encerrarTermoEstagio(TermoEstagio termoEstagio){
             
-		GenericDAO<TermoEstagio> termoEstagioDao = PersistenceManager.createGenericDAO(TermoEstagio.class);
-             
+    	GenericDAO<TermoEstagio> termoEstagioDao = PersistenceManager.createGenericDAO(TermoEstagio.class);
+	             
 		try {
-                    PersistenceManager.getTransaction().begin();
-                    termoEstagioDao.alterar(termoEstagio);
-                    PersistenceManager.getTransaction().commit();
+			PersistenceManager.getTransaction().begin();
+	        termoEstagioDao.alterar(termoEstagio);
+	        PersistenceManager.getTransaction().commit();
 		} catch (Exception e) {			
-                    e.printStackTrace();
-                    PersistenceManager.getTransaction().rollback();
+			e.printStackTrace();
+	        PersistenceManager.getTransaction().rollback();
 		}
-        }
+    }
         
 }

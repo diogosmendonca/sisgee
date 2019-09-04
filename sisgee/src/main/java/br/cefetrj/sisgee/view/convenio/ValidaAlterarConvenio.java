@@ -28,6 +28,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
+ *Servlet para Validar alterações no convênio.
  *
  * @author Matheus Silva
  */

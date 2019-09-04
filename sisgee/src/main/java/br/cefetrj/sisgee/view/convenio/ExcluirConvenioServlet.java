@@ -31,8 +31,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 /**
+ *Servlet para tratar a exclusão de um convênio.
  *
  * @author FernandoGodoy
+ * 
  */
 @WebServlet("/ExcluirConvenioServlet")
 public class ExcluirConvenioServlet extends HttpServlet {

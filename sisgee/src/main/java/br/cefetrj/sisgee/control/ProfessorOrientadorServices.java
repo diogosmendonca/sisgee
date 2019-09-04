@@ -19,6 +19,7 @@ public class ProfessorOrientadorServices {
 	 * Recupera todos os professores e retorna em uma lista.
 	 * 
 	 * @return lista com todos os professores
+	 * 
 	 */
 	public static List<ProfessorOrientador> listarProfessorOrientador(){
 		GenericDAO<ProfessorOrientador> professorOrientadorDao = PersistenceManager.createGenericDAO(ProfessorOrientador.class);
@@ -26,9 +27,12 @@ public class ProfessorOrientadorServices {
 	}
 	
         /**
-         * Método para buscar um professor
+         * Método para buscar um professor.
+         * 
          * @param professorOrientador
+         * 
          * @return id do professor
+         * 
          */
 	public static ProfessorOrientador buscarProfessorOrientador(ProfessorOrientador professorOrientador) {
 		GenericDAO<ProfessorOrientador> professorOrientadorDao = PersistenceManager.createGenericDAO(ProfessorOrientador.class);
@@ -36,8 +40,12 @@ public class ProfessorOrientadorServices {
 	}
 	
         /**
-         * Método para incluir um professor
-         * @param professorOrientador 
+         * Método para incluir um professor.
+         * 
+         * @param professorOrientador
+         * 
+         *  return
+         *  
          */
 	public static void incluirProfessorOrientador(ProfessorOrientador professorOrientador){
 		GenericDAO<ProfessorOrientador> professorOrientadorDao = PersistenceManager.createGenericDAO(ProfessorOrientador.class);

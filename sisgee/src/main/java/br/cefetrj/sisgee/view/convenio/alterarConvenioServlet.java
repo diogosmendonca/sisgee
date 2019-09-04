@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 /**
- * Servlet para alterar dados do novo convenio ao renovar
+ * Servlet para alterar dados do convenio.
  *
  * @author Lucas Lima
  */

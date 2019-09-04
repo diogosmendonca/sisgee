@@ -22,6 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 /**
+ * Servlet que persiste as alterações feitas no termo estágio
  * @author Matheus Silva e Yasmin Cardoso
  */
 @WebServlet("/AtualizarTermoEstagioServlet")

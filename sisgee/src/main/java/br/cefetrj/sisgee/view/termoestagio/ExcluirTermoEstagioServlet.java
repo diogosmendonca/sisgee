@@ -24,7 +24,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 /**
- *
+ *Servlet criado para excluir um termo estágio
  * @author FernandoGodoy
  */
 @WebServlet("/ExcluirTermoEstagioServlet")

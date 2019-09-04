@@ -23,9 +23,12 @@ public class GenericDAO<T> {
 	}
 	
         /**
-         * Método que busca e retorna uma lista
-         * @return 
+         * Método que busca e retorna uma lista de objetos da mesma classe.
+         * 
+         * @return lista de objetos
+         * 
          */
+	
 	public List<T> buscarTodos(){
 		@SuppressWarnings("unchecked")
 		List<T> lista = manager.createQuery("from " + t.getName()).getResultList();
@@ -34,35 +37,52 @@ public class GenericDAO<T> {
 	}
 	
         /**
-         * Método padrão de busca
+         * Método padrão de busca por id
+         * 
          * @param id
-         * @return 
+         * 
+         * @return objeto
+         * 
          */
+	
 	public T buscar(Integer id){
             T t1 = manager.find(t, id);
             return t1;
 	}
 	
         /**
-         * Método padrão de inclusão
+         * Método padrão de persistência de um novo objeto no banco de dados.
+         * 
          * @param entidade 
+         * 
+         * @return 
+         * 
          */
+	
 	public void incluir(T entidade){
 		manager.persist(entidade);
 	}
 	
         /**
-         * Método padrão de exclusão
+         * Método padrão de persistência da exclusão de um objeto no banco de dados.
+         * 
          * @param entidade 
+         * 
+         * @return
          */
+	
 	public void excluir(T entidade){
 		manager.remove(entidade);
 	}
 	
         /**
-         * Método padrão de alteração
-         * @param entidade 
+         * Método padrão de persistência de uma alteração em um objeto no banco de dados.
+         * 
+         * @param entidade
+         * 
+         * @return
          */
+	
 	public void alterar(T entidade){
 		manager.merge(entidade);
 	}

@@ -14,8 +14,10 @@ public class AlunoDAO extends GenericDAO<Aluno> {
 	
         /**
          * Método que busca por matricula
+         * 
          * @param matricula
-         * @return 
+         * 
+         * @return Aluno
          */
 	public Aluno buscarByMatricula(String matricula){
                 manager.clear();

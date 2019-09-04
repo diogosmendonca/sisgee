@@ -25,7 +25,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-/*
+/**
+ * Servlet que recebe os dados do aluno e o tipo de aditivo que será adicionado e passa as informações para o formulário de termo aditivo a ser preenchido.
  * @author Vinicius Paradellas
  * @since 1.1
  *

@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
+ * Servlet que sugere um número de convênio baseado no maior número que existe salvo no momento no banco de dados.
  * @author Matheus Silva
  */
 @WebServlet("/SugestaoNumeroAnoConvenioServlet")
