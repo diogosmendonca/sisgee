@@ -43,8 +43,7 @@ public class TermoAditivoServices {
             termoAditivoDao.incluir(termoAditivo);
             PersistenceManager.getTransaction().commit();
         } catch (Exception e) {
-            //TODO remover saída do console
-            System.out.println(e);
+        	e.printStackTrace();
             PersistenceManager.getTransaction().rollback();
         }
     }
@@ -62,7 +61,7 @@ public class TermoAditivoServices {
             termoAditivoDao.alterar(termoAditivo);
             PersistenceManager.getTransaction().commit();
         } catch (Exception e) {
-            System.out.println(e);
+        	e.printStackTrace();
             PersistenceManager.getTransaction().rollback();
         }
     }
@@ -111,8 +110,7 @@ public class TermoAditivoServices {
             termoAditivoDao.excluir(termoAditivo);
             PersistenceManager.getTransaction().commit();
         } catch (Exception e) {
-            //TODO remover saída do console
-            System.out.println(e);
+        	e.printStackTrace();
             PersistenceManager.getTransaction().rollback();
         }
     }
@@ -141,6 +139,7 @@ public class TermoAditivoServices {
             }
             return author;
         } catch (Exception e) {
+        	e.printStackTrace();
             return null;
         }
     }

@@ -34,6 +34,7 @@ public class PessoaServices {
             Pessoa e = pessoaDao.buscarByCpf(cpf);
             return e;
         } catch (Exception e) {
+        	e.printStackTrace();
             return null;
         }
 
@@ -53,6 +54,7 @@ public class PessoaServices {
             List<Pessoa> e = pessoaDao.buscarByNomeList(nome);
             return e;
         } catch (Exception e) {
+        	e.printStackTrace();
             return null;
         }
 
@@ -73,6 +75,7 @@ public class PessoaServices {
             pessoaDao.incluir(pessoa);
             PersistenceManager.getTransaction().commit();
         } catch (Exception e) {
+        	e.printStackTrace();
             PersistenceManager.getTransaction().rollback();
         }
     }

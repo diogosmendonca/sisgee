@@ -47,6 +47,7 @@ public class AlunoServices {
 			alunoDao.incluir(aluno);
 			PersistenceManager.getTransaction().commit();
 		}catch(Exception e){
+			e.printStackTrace();
 			PersistenceManager.getTransaction().rollback();
 		}
 	}
@@ -62,6 +63,7 @@ public class AlunoServices {
 			Aluno a = alunoDao.buscarByMatricula(matricula);
 			return a;
 		}catch(Exception e){
+			e.printStackTrace();
 			return null;
 		}
 	}

@@ -41,6 +41,7 @@ public class EmpresaServices {
 			Empresa e = empresaDao.buscarByCnpj(cnpj);
 			return e;
 		}catch(Exception e){
+			e.printStackTrace();
 			return null;
 		}
 		
@@ -60,6 +61,7 @@ public class EmpresaServices {
 			Empresa e = empresaDao.buscarByNome(nome);
 			return e;
 		}catch(Exception e){
+			e.printStackTrace();
 			return null;
 		}
 		
@@ -80,6 +82,7 @@ public class EmpresaServices {
 			List<Empresa> e = empresaDao.buscarByNomeList(nome);
 			return e;
 		}catch(Exception e){
+			e.printStackTrace();
 			return null;
 		}
 		
@@ -99,6 +102,7 @@ public class EmpresaServices {
 			Empresa e = empresaDao.buscar(idEmpresa);
 			return e;
 		}catch(Exception e){
+			e.printStackTrace();
 			return null;
 		}
 		
@@ -119,6 +123,7 @@ public class EmpresaServices {
 			empresaDao.incluir(empresa);
 			PersistenceManager.getTransaction().commit();
 		}catch(Exception e){
+			e.printStackTrace();
 			PersistenceManager.getTransaction().rollback();
 		}
 	}

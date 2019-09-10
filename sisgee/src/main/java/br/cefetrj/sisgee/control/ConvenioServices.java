@@ -94,7 +94,8 @@ public class ConvenioServices {
             convenioDao.incluir(convenio);
             PersistenceManager.getTransaction().commit();
         } catch (Exception e) {
-            PersistenceManager.getTransaction().rollback();
+        	e.printStackTrace();
+        	PersistenceManager.getTransaction().rollback();
         }
     }
 
@@ -111,6 +112,7 @@ public class ConvenioServices {
             Convenio c = convenioDao.buscarByNumeroEmpresa(numero, emp);
             return c;
         } catch (Exception e) {
+        	e.printStackTrace();
             return null;
         }
     }
@@ -127,6 +129,7 @@ public class ConvenioServices {
             Convenio a = convenioDao.buscarByNumero(numero);
             return a;
         } catch (Exception e) {
+        	e.printStackTrace();
             return null;
         }
     }
@@ -143,6 +146,7 @@ public class ConvenioServices {
             Convenio a = convenioDao.buscarByEmpresa(empresa);
             return a;
         } catch (Exception e) {
+        	e.printStackTrace();
             return null;
         }
     }
@@ -159,6 +163,7 @@ public class ConvenioServices {
             Convenio a = convenioDao.buscarByPessoa(pessoa);
             return a;
         } catch (Exception e) {
+        	e.printStackTrace();
             return null;
         }
     }
@@ -223,6 +228,7 @@ public class ConvenioServices {
             }
             PersistenceManager.getTransaction().commit();
         } catch (Exception e) {
+        	e.printStackTrace();
             PersistenceManager.getTransaction().rollback();
         }
     }
