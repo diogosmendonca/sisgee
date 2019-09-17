@@ -2,6 +2,7 @@ package br.cefetrj.sisgee.control;
 
 import java.util.List;
 
+import br.cefetrj.sisgee.control.json.SIEServices;
 import br.cefetrj.sisgee.model.dao.AlunoDAO;
 import br.cefetrj.sisgee.model.dao.GenericDAO;
 import br.cefetrj.sisgee.model.dao.PersistenceManager;
@@ -47,26 +48,23 @@ public class AlunoServices {
 			alunoDao.incluir(aluno);
 			PersistenceManager.getTransaction().commit();
 		}catch(Exception e){
-			e.printStackTrace();
 			PersistenceManager.getTransaction().rollback();
 		}
 	}
 	
         /**
-         * Método que busca aluno pela matrícula
+         * Método que busca aluno pela matrícula no banco, caso não encontre tenta a busca no SIE via web service.
          * @param matricula
          * @return 
          */
 	public static Aluno buscarAlunoByMatricula(String matricula) {
-		AlunoDAO alunoDao = new AlunoDAO();
-		try{
-			Aluno a = alunoDao.buscarByMatricula(matricula);
-			return a;
-		}catch(Exception e){
-			e.printStackTrace();
-			return null;
+		
+		AlunoDAO alunoDao = new AlunoDAO();		
+		Aluno aluno = alunoDao.buscarByMatricula(matricula);
+		if(aluno == null) {
+			aluno = SIEServices.buscarAlunoFromSIE(matricula);			
 		}
+		return aluno;
+		
 	}
-	
-
 }
