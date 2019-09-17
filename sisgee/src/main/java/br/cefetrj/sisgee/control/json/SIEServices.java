@@ -2,18 +2,22 @@ package br.cefetrj.sisgee.control.json;
 
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.log4j.Logger;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 
 import br.cefetrj.sisgee.control.AlunoServices;
 import br.cefetrj.sisgee.control.PessoaServices;
+import br.cefetrj.sisgee.model.dao.CampusDAO;
 import br.cefetrj.sisgee.model.dao.CursoDAO;
 import br.cefetrj.sisgee.model.dao.PessoaDAO;
 import br.cefetrj.sisgee.model.entity.Aluno;
+import br.cefetrj.sisgee.model.entity.Campus;
 import br.cefetrj.sisgee.model.entity.Curso;
 import br.cefetrj.sisgee.model.entity.Pessoa;
 import br.cefetrj.sisgee.model.entity.ProfessorOrientador;
@@ -21,6 +25,7 @@ import br.cefetrj.sisgee.model.utils.AlunoSIE;
 
 public class SIEServices {
 
+	// TODO mudar para a URL do SIE
 	private static final String URLBASE = "http://my-json-server.typicode.com/paducantuaria/sisgeeJson/";
 
 	/**
@@ -31,6 +36,7 @@ public class SIEServices {
 	 */
 	public static Aluno buscarAlunoFromSIE(String matricula) {
 
+		// TODO Ajustar essa URL para a do aluno com matrícula
 		String urlAluno = URLBASE + "aluno/?matricula=" + matricula;
 
 		JSONObject jsonObject = getJsonAluno(urlAluno);
@@ -55,23 +61,47 @@ public class SIEServices {
 		}
 	}
 
-	//TODO Ajustar esse método de acordo com a definição do professor
-	//O que fazer com essa lista
+	/**
+	 * Busca na API do SIE e pega todos os professores
+	 * @return
+	 */
 	public static List<ProfessorOrientador> getListaProfessorFromSIE() {
 
 		String urlProfessor = URLBASE + "professor";
+		JSONArray jsonArray;
 		try {
 
 			String urlParse = IOUtils.toString(new URL(urlProfessor), StandardCharsets.UTF_8);
-			JSONArray jsonArray = (JSONArray) JSONValue.parseWithException(urlParse);
-			JSONObject jsonObject = (JSONObject) jsonArray.get(0);
-			System.out.println(jsonObject);
-
+			jsonArray = (JSONArray) JSONValue.parseWithException(urlParse);
+			return converterJsonProfSIEParaListaProfessores(jsonArray);
 		} catch (Exception e) {
 			e.printStackTrace();
+			return null;
+		}		
+	}
+
+	/**
+	 * Método que converte a lista de professores recebida do SIE para uma lista de
+	 * professores do domínio Sisgee
+	 * 
+	 * @param jsonArray
+	 * @return A lista de professores convertida ou nulo caso a lista esteja vazia
+	 */
+	private static List<ProfessorOrientador> converterJsonProfSIEParaListaProfessores(JSONArray jsonArray) {
+
+		List<ProfessorOrientador> listaOrientadores = new ArrayList<>();
+
+		for (int i = 0; i < jsonArray.size(); i++) {
+
+			JSONObject jsonObject = (JSONObject) jsonArray.get(i);
+
+			String siape = jsonObject.get("siape").toString();
+			String nome = jsonObject.get("nome").toString();
+
+			listaOrientadores.add(new ProfessorOrientador(siape.trim(), nome.trim()));
 		}
 
-		return null;
+		return listaOrientadores.isEmpty() ? null : listaOrientadores;
 	}
 
 	/**
@@ -85,13 +115,29 @@ public class SIEServices {
 
 		Aluno aluno = new Aluno();
 		Curso curso = new CursoDAO().buscarByCodigo(alunoSie.getSiglaCurso());
-		if (curso != null) {
-			aluno.setCurso(curso);
-		} else {
-			// Retorna null caso não exista o curso no banco
-			//TODO ver lógica caso não exista o curso (cadastra o curso ou outra opção)
-			return null;
+		if (curso == null) {
+			// TODO Ajustar a busca com a String "Campus" após o ajuste das bases (Sisgee
+			// com SIE)
+			Campus campus = new CampusDAO().buscarByNome("Campus " + alunoSie.getCampus());
+			if (campus != null) {
+				curso = new Curso();
+				curso.setCampus(campus);
+				curso.setCodigoCurso(alunoSie.getSiglaCurso());
+				curso.setNomeCurso(alunoSie.getCurso());
+				new CursoDAO().incluir(curso);
+				curso = new CursoDAO().buscar(curso.getIdCurso());
+
+			} else {
+				// TODO Alterar comportamento quando as bases estiverem ajustadas (Sisgee com
+				// SIE)
+				// nesse caso, os nomes dos campi estarão em acordo entre os bancos e um nome
+				// diferente significa um novo campus
+				// por enquanto manteremos o retorno null
+				Logger.getLogger(SIEServices.class).error("Nome do Campus inválido");
+				return null;
+			}
 		}
+		aluno.setCurso(curso);
 
 		Pessoa pessoa = new PessoaDAO().buscarByCpf(alunoSie.getCpf());
 		if (pessoa == null) {
@@ -111,13 +157,14 @@ public class SIEServices {
 	 * Método que converte um JSONObject em um AlunoSIE
 	 * 
 	 * @param jsonObject
-	 * @return
+	 * @return AlunoSIE convertido ou null caso a conversão não seja possível
 	 */
 	private static AlunoSIE converterJsonEmAlunoSIE(JSONObject jsonObject) {
 		// Recebendo os dados de aluno provenientes do json
 		AlunoSIE alunoSie = new AlunoSIE();
 
 		try {
+
 			String matriculaSie = (String) jsonObject.get("matricula");
 			String nome = (String) jsonObject.get("nome");
 			String cpf = (String) jsonObject.get("cpf");

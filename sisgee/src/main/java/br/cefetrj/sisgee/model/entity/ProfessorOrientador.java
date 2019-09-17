@@ -15,6 +15,9 @@ public class ProfessorOrientador {
 	@GeneratedValue
 	private Integer idProfessorOrientador;
 	
+	@Column(nullable = false)
+	private String siape;
+	
 	@Column(length = 80, nullable = false)
 	private String nomeProfessorOrientador;
 
@@ -25,6 +28,11 @@ public class ProfessorOrientador {
 	
 	public ProfessorOrientador(Integer idProfessorOrientador) {
 		this.idProfessorOrientador = idProfessorOrientador;
+	}
+	
+	public ProfessorOrientador(String siape, String nomeProfessorOrientador) {
+		this.siape = siape;
+		this.nomeProfessorOrientador = nomeProfessorOrientador;
 	}
 	
 	public Integer getIdProfessorOrientador() {
