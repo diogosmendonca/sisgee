@@ -12,6 +12,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 
 import br.cefetrj.sisgee.control.AlunoServices;
+import br.cefetrj.sisgee.control.CursoServices;
 import br.cefetrj.sisgee.control.PessoaServices;
 import br.cefetrj.sisgee.model.dao.CampusDAO;
 import br.cefetrj.sisgee.model.dao.CursoDAO;
@@ -124,7 +125,7 @@ public class SIEServices {
 				curso.setCampus(campus);
 				curso.setCodigoCurso(alunoSie.getSiglaCurso());
 				curso.setNomeCurso(alunoSie.getCurso());
-				new CursoDAO().incluir(curso);
+				CursoServices.incluirCurso(curso);
 				curso = new CursoDAO().buscar(curso.getIdCurso());
 
 			} else {
