@@ -1,0 +1,13 @@
+<%@include file="import_head.jspf"%>
+
+<footer class="footer">
+	<div class="alert alert-info" role="alert">
+		<div class="container">
+			<span class="text-muted">
+			<fmt:message key = "br.cefetrj.sisgee.resources.form.desenvolvimentoTrabalho"/><br>
+			<fmt:message key = "br.cefetrj.sisgee.resources.form.diogoMendonca"/><br>
+                        <fmt:message key = "br.cefetrj.sisgee.resources.form.integrantesTrabalho"/><br>
+                        </span>
+		</div>
+	</div>
+</footer>

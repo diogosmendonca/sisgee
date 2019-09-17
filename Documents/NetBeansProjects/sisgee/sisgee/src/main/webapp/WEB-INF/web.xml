@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:jsp="http://java.sun.com/xml/ns/javaee/jsp" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+    <display-name>Archetype Created Web Application</display-name>
+    <servlet>
+        <servlet-name>BuscarConvenioServlet</servlet-name>
+        <servlet-class>br.cefetrj.sisgee.view.convenio.BuscarConvenioServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RenovarConvenioServlet</servlet-name>
+        <servlet-class>br.cefetrj.sisgee.view.convenio.RenovarConvenioServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>alterarConvenioServlet</servlet-name>
+        <servlet-class>br.cefetrj.sisgee.view.convenio.alterarConvenioServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ValidaRenovarConvenio</servlet-name>
+        <servlet-class>br.cefetrj.sisgee.view.convenio.ValidaRenovarConvenio</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ValidaBuscarConvenioServlet</servlet-name>
+        <servlet-class>br.cefetrj.sisgee.view.convenio.ValidaBuscarConvenioServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>VisualizarTermoEAditivo</servlet-name>
+        <servlet-class>br.cefetrj.sisgee.view.termoaditivo.VisualizarTermoEAditivo</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>BuscarConvenioServlet</servlet-name>
+        <url-pattern>/BuscarConvenioServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RenovarConvenioServlet</servlet-name>
+        <url-pattern>/RenovarConvenioServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>alterarConvenioServlet</servlet-name>
+        <url-pattern>/alterarConvenioServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ValidaRenovarConvenio</servlet-name>
+        <url-pattern>/ValidaRenovarConvenio</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ValidaBuscarConvenioServlet</servlet-name>
+        <url-pattern>/ValidaBuscarConvenioServlet</url-pattern>
+    </servlet-mapping>
+    
+    <jsp-config>
+        <jsp-property-group>
+            <url-pattern>*.jsp</url-pattern>
+            <el-ignored>false</el-ignored>
+        </jsp-property-group>
+    </jsp-config>
+</web-app>

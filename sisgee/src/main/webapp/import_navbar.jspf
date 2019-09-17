@@ -1,0 +1,83 @@
+<%@include file="import_head.jspf"%>
+
+<nav class="navbar  navbar-expand-lg navbar-light ml-5 mr-5 bg-white " style="padding: 0px; margin: 0px; text-align: center; font-family: 'Tajawal', Helvetica, Arial, sans-serif; " >
+    <div class="container-fluid">
+        <a class="navbar-brand mt-3" href="index.jsp"><img
+                src="imgs/SISGEE.png"
+                width="100" alt="Sisgee"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse"
+                data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse font-weight-bold"  id="navbarSupportedContent" >
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active ml-3"><a class="nav-link " href="index.jsp" style="color: #000000;">
+                        <fmt:message key="br.cefetrj.sisgee.menu.mn_home"/>					
+                    </a></li>
+
+                <li class="nav-item dropdown ml-3" >
+                    <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: #000000;">
+                        <fmt:message key = "br.cefetrj.sisgee.resources.form.convenio"/>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="SugestaoNumeroAnoConvenioServlet">
+                            <fmt:message key = "br.cefetrj.sisgee.resources.form.cadastrarConvenio"/>
+                        </a>
+                        <a class="dropdown-item" href="form_renovar_convenio.jsp">
+                            <fmt:message key = "br.cefetrj.sisgee.resources.form.renovarConvenio"/>
+                        </a>
+                    </div>
+                </li>
+
+                <li class="nav-item dropdown ml-3">
+                    <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: #000000;">
+                        <fmt:message key = "br.cefetrj.sisgee.resources.form.termoEstagio"/> 
+                    </a>					
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="FormTermoEstagioServlet"> 
+                            <fmt:message key = "br.cefetrj.sisgee.resources.form.registroTermo"/>
+                        </a> 
+                        <a class="dropdown-item" href="form_termo_aditivo.jsp">
+                            <fmt:message key = "br.cefetrj.sisgee.resources.form.registroAditivo"/>
+                        </a> 
+                        
+                    </div>
+                </li>
+
+
+
+                <li class="nav-item dropdown ml-3">
+                    <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: #000000;">
+                        <fmt:message key = "br.cefetrj.sisgee.resources.form.relatorios"/>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="convenios_vencer.jsp">
+                            <fmt:message key = "br.cefetrj.sisgee.resources.form.convenioAvencer"/>
+                        </a>
+                        <a class="dropdown-item" href="relatorio_consolidado.jsp">
+                            <fmt:message key = "br.cefetrj.sisgee.resources.form.relatorioConsolidado"/>
+                        </a>
+
+                    </div>
+                </li>
+            </ul>
+                               
+            <!--  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">  -->
+            <c:choose>
+                <c:when test="${ lang eq 'en_US' }">
+                    <a href="?lang=pt_BR" class="mr-3"><fmt:message key = "br.cefetrj.sisgee.resources.form.portugues"/></a>
+                </c:when>
+                <c:otherwise>
+                    <a href="?lang=en_US" class="mr-3"><fmt:message key = "br.cefetrj.sisgee.resources.form.ingles"/></a>
+                </c:otherwise>
+            </c:choose>
+            <!--  </button>  -->
+        </div>
+    </div>
+</nav>

@@ -1,0 +1,36 @@
+<meta charset="utf-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<c:set var="lang" scope="session"
+       value="${not empty param.lang ? param.lang : not empty lang ? lang : pageContext.request.locale}" />
+
+<fmt:setLocale value="${ lang }" />
+<fmt:setBundle basename="Messages" />
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css" >
+<link rel="stylesheet" href="node_modules/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css" >
+<link href="https://fonts.googleapis.com/css?family=Tajawal" rel="stylesheet">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+<link rel="stylesheet" href="node_modules/jquery-editable-select/dist/jquery-editable-select.min.css" >
+<style type="text/css">
+    div.container {
+        margin-bottom: 2em;
+    }
+    form {
+        margin-top: 50px;
+    }
+    fieldset.form-group {
+        border:1px solid #999999;
+    }
+    fieldset legend.col-form-legend {
+        font-weight: bold;
+    }
+    div.form-row {
+        padding: 0px 15px;
+    }
+</style>

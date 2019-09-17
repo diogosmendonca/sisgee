@@ -1,0 +1,25 @@
+{
+  "name": "sisgee",
+  "version": "1.0.0",
+  "description": "Sistema de estágio e emprego",
+  "main": "index.jsp",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/diogosmendonca/sisgee.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/diogosmendonca/sisgee/issues"
+  },
+  "homepage": "https://github.com/diogosmendonca/sisgee#readme",
+  "dependencies": {
+    "bootstrap": "4.0.0-beta.2",
+    "bootstrap-datepicker": "^1.7.1",
+    "jquery-mask-plugin": "^1.14.13",
+    "popper.js": "^1.12.3"
+  }
+}

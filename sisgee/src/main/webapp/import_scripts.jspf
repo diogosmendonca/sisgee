@@ -1,0 +1,308 @@
+<script type="text/javascript">
+            
+	    $('#dataInicioTermoEstagio, #dataFimTermoEstagio, #dataRescisao, #dataRegistroConvenioEmpresa, #dataRegistroConvenioPessoa').datepicker({
+	    	<c:if test="${ lang eq 'pt_BR' }">
+	    	language: 'pt-BR'
+	        </c:if>
+	    });
+	    
+	    //$('.isAI, .notAI').hide();
+	    
+	    $('.isAgenteChk').change(function(){
+	    	$('.AI').hide();
+	    	$(".AI input").val("");
+	    	$("#idEmpresa").val("");
+	    	$("#idAgenteIntegracao").val("");
+	    	$(this).val() == 'sim' ? $('.isAI').show("slow") : $('.notAI').show("slow");;
+	    });
+            
+            $('.ehAgenteCheck').change(function(){
+	    	$('.AI').hide();
+	    	$(this).val() == 'sim' ? $('.isAI').show("slow") : $('.notAI').show("slow");;
+	    });
+            
+           
+	    
+	    $('.cnpjEmpresa').on('keypress', function(e){
+	        if (e.keyCode == 13) {
+	            e.preventDefault();
+	            if($(this).hasClass("cnpjEmpresaIsAI")){
+	            	$("#btnBuscarEmpresaIsAI").click();
+	            }
+	            else{
+	            	$("#btnBuscarEmpresaNotAI").click();
+	            }
+	        }
+	    });
+	    
+	    $("#btnBuscarEmpresaNotAI, #btnBuscarEmpresaIsAI").click(function(){
+	    	
+    		if($(this).attr("id") == "btnBuscarEmpresaIsAI"){
+    		    $elementCnpj = $('.cnpjEmpresaIsAI');
+    		    $elementNome = $('.nomeEmpresaIsAI');
+    		}
+    		else{
+    		    $elementCnpj = $('.cnpjEmpresaNotAI');
+    		    $elementNome = $('.nomeEmpresaNotAI');
+                    
+    		}
+	    	
+	    	if($.trim($elementCnpj.val()) == ""){
+	    		$(".nomeEmpresa, #idEmpresa").val("");
+	    		$("#myModalLabel").html("<fmt:message key="br.cefetrj.sisgee.import_busca_empresa_script.campo_vazio"/>");
+	        	$(".modal-body").html("<fmt:message key="br.cefetrj.sisgee.import_busca_aluno_script.cnpj_vazio"/>");      	
+	        	$('#myModal').modal('show');
+    			return;
+	    	}
+	    	
+	    	var result = null;
+	        $.ajax({
+	            type: 'GET',
+	            url: 'BuscaEmpresaServlet', //Servlet
+	            async: false, // habilita a função ajax() repassar os dados para a função pai
+	            data: $elementCnpj.serialize(),
+	            dataType: "json",
+	            success: function(json){
+	                result = json;
+	            }
+	        });
+	        
+	        if(result.idEmpresa != ""){
+	        	$("#idEmpresa").val(result.idEmpresa);
+	        	$elementNome.val(result.nomeEmpresa);
+	        }
+	        else{
+	        	$(".nomeEmpresa, #idEmpresa").val("");
+	        	$("#myModalLabel").html("Empresa não encontrada!");
+	        	$(".modal-body").html("O CNPJ não corresponde a uma empresa cadastrada.");	        	
+	        	$('#myModal').modal('show');	        	
+	        }
+	        
+	    });
+	    
+	    $('#matricula').on('keypress', function(e){
+	        if (e.keyCode == 13) {
+	            e.preventDefault();
+	            $("#btnBuscarMatricula").click();
+	        }
+	    });	    
+	    
+	    $('#btnBuscarMatricula').click(function(){
+	    	var precisaVerificarTermoEmAberto = document.getElementById("precisaVerificarTermoEmAberto");
+	    	if($.trim($('#matricula').val()) == ""){
+                    $(".dadosAluno input:not([id=matricula])").val("");
+                    $("#myModalLabel").html("<fmt:message key="br.cefetrj.sisgee.import_busca_aluno_script.campo_vazio"/>");
+                    $(".modal-body").html("<fmt:message key="br.cefetrj.sisgee.import_busca_aluno_script.matricula_vazia"/>");      	
+                    $('#myModal').modal('show');
+                    return;
+	    	}
+	    	
+	    	var result = null;
+                
+	        $.ajax({
+	            type: 'GET',
+	            url: 'BuscaAlunoServlet', //Servlet
+	            async: true, // habilita a função ajax() repassar os dados para a função pai
+                    /**
+                     * matricula é o campo de onde vc vai mandar a requisicao para a url
+                     */
+	            data: { matricula: $('#matricula').serialize(), termoAditivo: $('#termoAditivo').serialize() },
+	            dataType: "json",
+	            success: function(json){
+	                result = json;
+                        if(precisaVerificarTermoEmAberto == null && result.alunoMsg4 != ""){
+                            $(".dadosAluno input:not([id=matricula])").val("");
+                            $("#myModalLabel").html(result.alunoMsg5);
+                            $(".modal-body").html(result.alunoMsg4);
+                            $('#myModal').modal('show');
+                        }else if(result.idAluno != ""){
+
+                                /**
+                                 * val é para input
+                                 * preencher uma tabela com tamanho de linha aleatorio
+                                 * faz um id no template da linha, getelementbyid.clone
+                                 * template.childnodes[1].innerhtml=""
+                                 * 
+                                 */
+
+                                $("#idAluno").val(result.idAluno);
+                                $("#nome").val(result.nome);
+                                $("#nomeCurso").val(result.nomeCurso);
+                                $("#nomeCampus").val(result.nomeCampus);
+                                $("#tipoAluno").val(result.tipoAluno);
+                        }
+                        else{
+                            
+                            /**
+                             * html para escrever em html
+                             */
+                            $(".dadosAluno input:not([id=matricula])").val("");
+                            if(result.alunoMsg1 != ""){
+                                $("#myModalLabel").html(result.alunoMsg2);
+                                $(".modal-body").html(result.alunoMsg1);                                
+                            }else{
+                                $("#myModalLabel").html(result.alunoMsg2);
+                                $(".modal-body").html(result.alunoMsg3);
+                            }
+                            $('#myModal').modal('show');	        	
+                        }
+                        if(typeof buscarAlunoCallback != 'undefined'){
+                            buscarAlunoCallback(result);
+                        }
+	            }
+	        });
+	        
+	        
+	        
+	    });
+	    
+	    $(".addEmpresa, .addAgenteIntegracao").click(function(){
+	    	window.open("form_empresa.jsp", "_blank", "width=800,height=600");
+	    });
+            
+	    <!-- INICIO BOTÃO PARA BUSCA DE CONVENIO -->
+	    $('#btnBuscarConvenio').click(function(){
+	    	
+                $elementConvenio = $('#numeroConvenio');
+
+	    	if($.trim($elementConvenio.val()) == ""){
+                    $("#numeroConvenio").val("");
+                    $("#myModalLabel").html("<fmt:message key="br.cefetrj.sisgee.import_busca_convenio_script.campo_vazio"/>");
+                    $(".modal-body").html("<fmt:message key="br.cefetrj.sisgee.import_busca_convenio_script.convenio_vazio"/>");      	
+                    $('#myModal').modal('show');
+                    return;             
+	    	}
+	    	
+	    	var result = null;
+                
+	        $.ajax({
+	            type: 'GET',
+	            url: 'BuscaConvenioBotaoServlet', //Servlet
+	            async: false, // habilita a função ajax() repassar os dados para a função pai
+	            data: $elementConvenio.serialize(),
+	            dataType: "json",
+	            success: function(json){
+	                result = json;
+                        if(result.razaoSocial != ""){
+                            $("#idConvenio").val(result.idConvenio);
+                            $("#numeroConvenio").val(result.numeroConvenio);
+                            $("#razaoSocial").val(result.razaoSocial);
+                            $("#tipoConvenio").val(result.tipoConvenio);
+                            $("#isAgenteIntegracao").val(result.isAgenteIntegracao);
+                            $("#cnpjEcpf").val(result.cnpjEcpf);
+                            $("#nomeEmpresaPessoa").val(result.nomeEmpresaPessoa);  
+                            $("#nomeConvenio").val(result.nomeEmpresaPessoa);
+                        }
+                        else{
+                            $("#idConvenio").val("");
+                            $(".numeroConvenio").val("");
+                            $(".razaoSocial").val("");
+                            $("#tipoConvenio").val("");
+                            $("#isAgenteIntegracao").val("");
+                            $("#nomeAgenciada").val("");
+                            $(".cnpjEcpf").val("");
+                            $(".nomeEmpresaPessoa").val("");  
+                            $(".nomeConvenio").val("");
+                            
+                            $("#myModalLabel").html(result.convenioMsg1);
+                            $(".modal-body").html(result.convenioMsg2);	        	
+                            $('#myModal').modal('show');	        	
+                        }
+	            }
+	        });
+	        
+	        
+	        
+	    });
+            <!-- TÉRMINO BOTÃO PARA BUSCA DE CONVENIO -->
+            
+            <!-- INICIO BOTÃO PARA BUSCA DE CONVENIO POR NOME-->
+	    $('#btnBuscarNomeConvenio').click(function(){
+	    	
+                $elementConvenio = $('#nomeConvenio');
+
+	    	if($.trim($elementConvenio.val()) == ""){
+                    $("#nomeConvenio").val("");
+                    $("#myModalLabel").html("<fmt:message key="br.cefetrj.sisgee.import_busca_convenio_script.campo_vazio"/>");
+                    $(".modal-body").html("<fmt:message key="br.cefetrj.sisgee.import_busca_convenio_script.convenio_vazio"/>");      	
+                    $('#myModal').modal('show');
+                    return;             
+	    	}
+	    	
+	    	var result = null;
+                
+	        $.ajax({
+	            type: 'GET',
+	            url: 'BuscaConvenioBotaoServlet', //Servlet
+	            async: false, // habilita a função ajax() repassar os dados para a função pai
+	            data: $elementConvenio.serialize(),
+	            dataType: "json",
+	            success: function(json){
+	                result = json;
+                        if(result.razaoSocial != ""){
+                            $("#idConvenio").val(result.idConvenio);
+                            $("#numeroConvenio").val(result.numeroConvenio);
+                            $("#razaoSocial").val(result.razaoSocial);
+                            $("#tipoConvenio").val(result.tipoConvenio);
+                            $("#isAgenteIntegracao").val(result.isAgenteIntegracao);
+                            $("#cnpjEcpf").val(result.cnpjEcpf);
+                            $("#nomeEmpresaPessoa").val(result.nomeEmpresaPessoa);  
+                            $("#nomeConvenio").val(result.nomeEmpresaPessoa);
+                        }
+                        else{
+                            $("#idConvenio").val("");
+                            $(".numeroConvenio").val("");
+                            $(".razaoSocial").val("");
+                            $("#tipoConvenio").val("");
+                            $("#isAgenteIntegracao").val("");
+                            $("#nomeAgenciada").val("");
+                            $(".cnpjEcpf").val("");
+                            $(".nomeEmpresaPessoa").val("");  
+                            $(".nomeConvenio").val("");
+                            
+                            $("#myModalLabel").html(result.convenioMsg1);
+                            $(".modal-body").html(result.convenioMsg2);	        	
+                            $('#myModal').modal('show');	        	
+                        }
+	            }
+	        });
+	        
+	        
+	        
+	    });
+            <!-- TÉRMINO BOTÃO PARA BUSCA DE CONVENIO POR NOME-->
+            
+	    function atualizaAgenteIntegracao(){
+	    	var result = null;
+	        $.ajax({
+	            type: 'GET',
+	            url: 'BuscaListAgenteIntegracaoServlet', //Servlet
+	            async: false, // habilita a função ajax() repassar os dados para a função pai
+	            //data: $('#matricula').serialize(),
+	            dataType: "json",
+	            success: function(json){
+	                result = json;
+	            }
+	        });
+	        
+	        if(result != ""){
+	        	$("#idAgenteIntegracao option").remove();
+	        	$("#idAgenteIntegracao").append("<option value=''>---</option>");
+	        	
+	        	var lstAI = result.lstAgenteIntegracao;
+	        	var element;
+	        	
+	        	for(i=0; i<lstAI.length; i++){
+	        		element = "";
+	        		element += "<option value='";
+	        		element += lstAI[i].idAgenteIntegracao;
+	        		element += "'>";
+	        		element += lstAI[i].nomeAgenteIntegracao;
+	        		element += "</option>";
+	        		$("#idAgenteIntegracao").append(element);
+	        	}
+	        }
+	    }
+	    
+	    
+    </script>
