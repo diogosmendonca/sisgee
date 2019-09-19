@@ -18,6 +18,7 @@ public class CursoServices {
          * @param curso 
          */
 	public static void incluirCurso(Curso curso){		
+
 		PersistenceManager.getTransaction().begin();
 		try{
 			new CursoDAO().incluir(curso);
