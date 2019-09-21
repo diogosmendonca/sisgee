@@ -24,7 +24,9 @@ public class ProfessorOrientador {
 	@OneToMany(mappedBy = "professorOrientador")
 	private List<TermoEstagio> termoEstagios;
 
-	public ProfessorOrientador() {}
+	public ProfessorOrientador() {
+		
+	}
 	
 	public ProfessorOrientador(Integer idProfessorOrientador) {
 		this.idProfessorOrientador = idProfessorOrientador;
