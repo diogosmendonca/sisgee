@@ -1,7 +1,10 @@
 package br.cefetrj.sisgee.model.dao;
 
-import br.cefetrj.sisgee.model.entity.Empresa;
 import java.util.List;
+
+import javax.persistence.TypedQuery;
+
+import br.cefetrj.sisgee.model.entity.Empresa;
 
 /**
  * Implementacao do padrao DAO para pesquisa especifica de Empresa
@@ -37,12 +40,16 @@ public class EmpresaDAO extends GenericDAO<Empresa> {
          * 
          */
 	public List<Empresa> buscarByNomeList(String nomeX){
-		return (List<Empresa>) manager.createQuery(
-		    "SELECT e FROM Empresa e WHERE LOWER (e.razaoSocial) LIKE LOWER (:nomeX)")
-                    
-		    .setParameter("nomeX", "%"+nomeX+"%")
-		    .getResultList();
+
+		TypedQuery<Empresa> query = manager.createQuery(
+				 "SELECT e FROM Empresa e WHERE LOWER (e.razaoSocial) LIKE LOWER (:nomeX)", Empresa.class);
+                
+			    query.setParameter("nomeX", "%"+nomeX+"%");
+               
+                List<Empresa> empresas = query.getResultList();
+                return empresas.isEmpty() ?  null : empresas;
 	}
+	
         
         /**
          * Método que busca por nome da empresa.

@@ -112,7 +112,6 @@ public class ConvenioServices {
             Convenio c = convenioDao.buscarByNumeroEmpresa(numero, emp);
             return c;
         } catch (Exception e) {
-        	e.printStackTrace();
             return null;
         }
     }
