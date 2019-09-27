@@ -63,14 +63,23 @@ public class ValidaCadastroEmpresaServlet extends HttpServlet {
 
         //Dados Pessoa Jurídica
         String cnpjEmpresa = request.getParameter("cnpjEmpresa");
+        System.out.println(cnpjEmpresa);
         String nomeEmpresa = request.getParameter("nomeEmpresa");
+        System.out.println(nomeEmpresa);
         String agenteIntegracao = request.getParameter("agenteIntegracao");
+        System.out.println(agenteIntegracao);
         String numeroEmpresa = request.getParameter("numeroEmpresa");
+        System.out.println(numeroEmpresa);
         String anoEmpresa = request.getParameter("anoEmpresa");
+        System.out.println(anoEmpresa);
         String dataAssinaturaConvenioEmpresa = request.getParameter("dataRegistroConvenioEmpresa");
+        System.out.println(dataAssinaturaConvenioEmpresa);
         String emailEmpresa = request.getParameter("emailEmpresa");
+        System.out.println(emailEmpresa);
         String telefoneEmpresa = request.getParameter("telefoneEmpresa");
+        System.out.println(telefoneEmpresa);
         String contatoEmpresa = request.getParameter("contatoEmpresa");
+        System.out.println(contatoEmpresa);
 
         //Dados Pessoa física
         String cpfPessoa = request.getParameter("cpfPessoa");
