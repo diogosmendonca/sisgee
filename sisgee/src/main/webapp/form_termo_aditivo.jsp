@@ -45,8 +45,10 @@
                     <div class="container">					
 
                         <button id="btnListarAditivo" type="submit" class="btn btn-primary" ><fmt:message key = "br.cefetrj.sisgee.resources.form.listarAditivos"/></button>
-                        <button type="button" id="btnEncerrarTermo" class="btn btn-primary" data-toggle="modal" data-target="#myModal"><fmt:message key = "br.cefetrj.sisgee.resources.form.rescisao"/></button>
-                        <button type="button" class="btn btn-secondary" onclick="javascript:location.href = 'index.jsp'" ><fmt:message key = "br.cefetrj.sisgee.resources.form.cancelar"/></button>
+                        <c:if test="${existeTermoAtivo}">
+                        	<button type="button" id="btnEncerrarTermo" class="btn btn-primary" data-toggle="modal" data-target="#myModal"><fmt:message key = "br.cefetrj.sisgee.resources.form.rescisao"/></button>
+                        </c:if>
+                         <button type="button" class="btn btn-secondary" onclick="javascript:location.href = 'index.jsp'" ><fmt:message key = "br.cefetrj.sisgee.resources.form.cancelar"/></button>
                     </div>				
                     <input type="hidden" name="termoAditivo" id="termoAditivo" value="${ param.termoAditivo }">
                 </fieldset>
