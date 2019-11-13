@@ -5,6 +5,7 @@ import java.util.List;
 import br.cefetrj.sisgee.model.dao.ConvenioDAO;
 import br.cefetrj.sisgee.model.dao.GenericDAO;
 import br.cefetrj.sisgee.model.dao.PersistenceManager;
+import br.cefetrj.sisgee.model.dao.TermoEstagioDAO;
 import br.cefetrj.sisgee.model.entity.Convenio;
 import br.cefetrj.sisgee.model.entity.Empresa;
 import br.cefetrj.sisgee.model.entity.Pessoa;
@@ -33,6 +34,25 @@ public class ConvenioServices {
         return convenioDao.buscarTodos();
     }
     
+    /**
+     * Retorna uma lista de convenios registrados entre as duas datas
+     * @param registroInicio
+     * @param registroFim
+     * @return
+     */
+    public static List<Object[]> listarConveniosFiltrado(Date registroInicio, Date registroFim){
+		ConvenioDAO ConvenioDAO = new ConvenioDAO();
+		
+		try{
+			List<Object[]> author = null;
+			author = ConvenioDAO.conveniosFiltrado( registroInicio, registroFim);
+			return author;
+		}catch(Exception e){
+			return null;
+		}
+	}
+    
+	
     /**
      * Método para listar convênios a vencer
      * @return lista de convênios a vencer

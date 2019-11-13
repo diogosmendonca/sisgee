@@ -3,7 +3,14 @@ package br.cefetrj.sisgee.model.dao;
 import br.cefetrj.sisgee.model.entity.Convenio;
 import br.cefetrj.sisgee.model.entity.Empresa;
 import br.cefetrj.sisgee.model.entity.Pessoa;
+
+import java.util.Date;
 import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
 
 /**
  * Implementacao do padrao DAO para pesquisa especifica de Convenio
@@ -14,6 +21,32 @@ public class ConvenioDAO extends GenericDAO<Convenio> {
 	public ConvenioDAO() {
 		super(Convenio.class, PersistenceManager.getEntityManager());
 	}
+	/**
+	 * Método para retornar uma lista de convênios criados entre esse período
+	 * @param registroInicio
+	 * @param registroFim
+	 * @return list
+	 */
+	public List<Object[]> conveniosFiltrado(Date registroInicio, Date registroFim){
+		EntityManagerFactory factory =
+				Persistence.createEntityManagerFactory("sisgeePU");
+		EntityManager manager = factory.createEntityManager();
+			
+			Query query = manager
+				.createNativeQuery(
+						"SELECT c FROM Convenio c WHERE c.dataregistro BETWEEN :registroInicio AND :registroFim");
+		
+		query.setParameter("registroInicio", registroInicio);
+		query.setParameter("registroFim", registroFim);
+				
+		@SuppressWarnings("unchecked")
+		List<Object[]> authors = query.getResultList();
+		 
+		manager.close();
+		factory.close();
+		 return  authors;
+	}
+	
 	
         /**
          * MÃ©todo que busca por numero da empresa
